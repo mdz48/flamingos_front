@@ -1,0 +1,15 @@
+.navbar {
+  @apply flex justify-between items-center p-4 bg-red-600;
+}
+
+.logo {
+  @apply w-16 h-16;
+}
+
+.nav-links {
+  @apply flex space-x-4;
+}
+
+.nav-link {
+  @apply text-white hover:underline;
+}

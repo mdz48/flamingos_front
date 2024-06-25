@@ -1,11 +1,14 @@
-// import React from 'react'
+import React from 'react';
+import Cards from '../molecules/Cards';
+import { data } from '../../data/data';
+import './Herosection.css';
 
-import Cards from "../molecules/Cards";
-
-export default function Herosection() {
+function Herosection() {
   return (
-    <div className='flex justify-center'>
-        <Cards/>
+    <div className="herosection">
+      <Cards cards={data.cards} />
     </div>
-  )
+  );
 }
+
+export default Herosection;

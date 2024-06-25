@@ -1,0 +1,4 @@
+.button {
+    @apply text-orange-500 hover:underline;
+  }
+  

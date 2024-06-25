@@ -1,8 +1,10 @@
-import React from 'react'
+import React from 'react';
+import './Picture.css';
 
-
-export default function Picture(props) {
+function Picture({ img }) {
   return (
-    <img src={props.img} alt="" />
-  )
+    <img src={img} alt="" className="picture" />
+  );
 }
+
+export default Picture;

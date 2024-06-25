@@ -1,13 +1,13 @@
-// import React from 'react'
+import React from 'react';
+import Navbar from '../molecules/Navbar';
+import './Section.css';
 
-import Navbar from "../molecules/Navbar";
-
-export default function Section() {
+function Section() {
   return (
-    <>
-    <header>
-      <Navbar/>
+    <header className="section-header">
+      <Navbar />
     </header>
-    </>
-  )
+  );
 }
+
+export default Section;

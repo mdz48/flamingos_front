@@ -1,17 +1,25 @@
-// import React from 'react'
-import { links } from "../../data/data"
+import React from 'react';
+import { data } from '../../data/data';
+import './Navbar.css';
 
-export default function Navbar() {
-  return (
-    <>
-    <div className='flex bg-green-300'>
-        <img src="vite.svg" alt="Page Logo" />
-        <ul className='flex '>
-        {
-          links.map((link, i) => <li key={i}><a href={link.link}>{link.site}</a></li>)
-        }
-        </ul>
-    </div>
-    </>
-  )
+function Navbar() {
+    const { links } = data; // Extraer links del objeto data
+
+    return (
+        <div className="navbar">
+            <img src="vite.svg" alt="Page Logo" className="logo" />
+            <ul className="nav-links">
+                {links.map((link, i) => (
+                    <li key={i}>
+                        <a href={link.link} className="nav-link">{link.site}</a>
+                    </li>
+                ))}
+                <li>
+                    <a href="/login" className="nav-link">Iniciar Sesión</a>
+                </li>
+            </ul>
+        </div>
+    );
 }
+
+export default Navbar;

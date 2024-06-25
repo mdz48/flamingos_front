@@ -1,12 +1,15 @@
-import React from 'react'
-import Paragraph from '../atoms/Paragraph'
+import React from 'react';
+import Paragraph from '../atoms/Paragraph';
+import  './InfoSection.css';
 
-export default function InfoSection() {
+function InfoSection({ info }) {
   return (
-    <div>
-        <Paragraph text={"Info 1"}/>
-        <Paragraph text={"Info 2"} />
-        <Paragraph text={"Info 3"} /> 
+    <div className="info-section">
+      {info.map((text, index) => (
+        <Paragraph key={index} text={text} />
+      ))}
     </div>
-  )
+  );
 }
+
+export default InfoSection;
