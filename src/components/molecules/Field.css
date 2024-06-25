@@ -1,12 +1,11 @@
 .field {
-    @apply mb-4;
-  }
-  
-  .field-label {
-    @apply block text-sm font-bold mb-2;
-  }
-  
-  .field-input {
-    @apply w-full p-2 border border-gray-300 rounded;
-  }
-  
+  @apply flex flex-col w-full mb-4;
+}
+
+.field-label {
+  @apply mb-2 font-semibold;
+}
+
+.field-input {
+  @apply p-2 border border-gray-300 rounded;
+}

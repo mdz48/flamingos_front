@@ -18,11 +18,11 @@ export const data = {
   links: [
       {
           site: "Facebook",
-          link: "https://www.facebook.com/"
+          link: "https://www.facebook.com/SalonFlamingosTuxtla"
       },
       {
           site: "Instagram",
-          link: "https://www.instagram.com/"
+          link: "https://www.instagram.com/explore/locations/880256700/salon-flamingos/?img_index=2"
       }
   ]
 };

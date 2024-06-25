@@ -1,9 +1,9 @@
 .navbar {
-  @apply flex justify-between items-center p-4 bg-red-600;
+  @apply flex justify-between items-center p-4 bg-red-600; /* Color ladrillo */
 }
 
 .logo {
-  @apply w-16 h-16;
+  @apply w-12 h-12;
 }
 
 .nav-links {
@@ -11,5 +11,5 @@
 }
 
 .nav-link {
-  @apply text-white hover:underline;
+  @apply text-white flex items-center space-x-2 hover:underline;
 }
