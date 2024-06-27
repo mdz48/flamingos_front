@@ -26,6 +26,38 @@ export const data = {
       }
     ]
   };
+  export const headers = ['Moviliario', 'Cantidad', 'Estado', 'Id'];
+export const rows = [
+    [
+      { content: 'sillas', className: 'text-center' },
+      { content: 25, className: 'text-center' },
+      { content: 'rotas', className: 'text-center' },
+      { content: '123', className: 'text-center' },
+    ],
+    [
+      { content: 'mesas', className: 'text-center' },
+      { content: 28, className: 'text-center' },
+      { content: 'buen estado', className: 'text-center' },
+      { content: '345', className: 'text-center' },
+    ],
+  ];
+  export const insumos = ['Nombre', 'Cantidad', 'Precio c/u', 'Id', 'Descripcion'];
+  export const content = [
+      [
+        { content: 'spageti', className: 'text-center' },
+        { content: 25, className: 'text-center' },
+        { content: '50', className: 'text-center' },
+        { content: '123', className: 'text-center' },
+        { content: 'pasta hecha a mano', className: 'text-center' },
+      ],
+      [
+        { content: 'pechugas', className: 'text-center' },
+        { content: 28, className: 'text-center' },
+        { content: '60', className: 'text-center' },
+        { content: '345', className: 'text-center' },
+        { content: 'pechuga rellena de queso', className: 'text-center' },
+      ],
+    ];
   
   // src/data/data.js
 export const sliderImages = [

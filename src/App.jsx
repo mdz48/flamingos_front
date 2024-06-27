@@ -6,6 +6,8 @@ import Home from './pages/Home';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
 import RecoverPassword from './pages/RecoverPassword';
+import InventarioMobiliario from './pages/InventarioMobiliario';
+import InventarioInsumos from './pages/InventarioInsumos';
 
 function App() {
     return (
@@ -17,6 +19,8 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/login" element={<Login />} />
               <Route path="/recover-password" element={<RecoverPassword />} />
+              <Route path='/InventarioMobiliario' element={<InventarioMobiliario />}/>
+              <Route path='/InventarioInsumos' element={<InventarioInsumos />}/>
             </Routes>
           </main>
         </Router>
