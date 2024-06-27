@@ -1,10 +1,9 @@
 import React from 'react';
 import Paragraph from '../atoms/Paragraph';
-import  './InfoSection.css';
 
 function InfoSection({ info }) {
   return (
-    <div className="info-section">
+    <div className="space-y-4 p-4 bg-white">
       {info.map((text, index) => (
         <Paragraph key={index} text={text} />
       ))}

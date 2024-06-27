@@ -1,10 +1,9 @@
 import React from 'react';
 import Navbar from '../molecules/Navbar';
-import './Section.css';
 
 function Section() {
   return (
-    <header className="section-header">
+    <header className="bg-white shadow-md">
       <Navbar />
     </header>
   );

@@ -7,19 +7,19 @@ import Login from './pages/Login';
 import RecoverPassword from './pages/RecoverPassword';
 
 function App() {
-    return (
-        <Router>
-            <Section />
-            <main className="container mx-auto">
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/contact" element={<Contact />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/recover-password" element={<RecoverPassword />} />
-                </Routes>
-            </main>
-        </Router>
-    );
+  return (
+    <Router>
+      <Section />
+      <main className="container mx-auto">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/recover-password" element={<RecoverPassword />} />
+        </Routes>
+      </main>
+    </Router>
+  );
 }
 
 export default App;

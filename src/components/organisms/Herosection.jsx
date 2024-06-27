@@ -1,11 +1,10 @@
 import React from 'react';
 import Cards from '../molecules/Cards';
 import { data } from '../../data/data';
-import './Herosection.css';
 
 function Herosection() {
   return (
-    <div className="herosection">
+    <div className="flex justify-center py-8 bg-gray-100">
       <Cards cards={data.cards} />
     </div>
   );
