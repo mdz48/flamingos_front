@@ -12,12 +12,13 @@ function Login() {
     e.preventDefault();
     if (!email.trim() || !password.trim()) {
       Swal.fire({
-        icon: 'info',
-        title: 'Please',
-        text: 'Fill out all fields!',
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+        footer: '<a href="#">Why do I have this issue?</a>'
       });
     } else {
-      // Your login logic here
+      
       Swal.fire({
         title: 'Good!',
         text: 'Login successful!',
@@ -29,7 +30,7 @@ function Login() {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <h2 className="text-3xl font-bold mb-6 text-center text-gray-700">Iniciar Sesión</h2>
+        <h2 className="text-3xl font-bold mb-6 text-center text-gray-700">Iniciar Sesión </h2>
         <Field text="Email" type="email" placeholder="Enter your email" val={email} fnVal={setEmail} />
         <Field text="Password" type="password" placeholder="Enter your password" val={password} fnVal={setPassword} />
         <div className="flex justify-center mt-4">

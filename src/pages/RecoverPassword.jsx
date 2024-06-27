@@ -11,11 +11,11 @@ function RecoverPassword() {
     if (!email.trim()) {
       Swal.fire({
         icon: 'info',
-        title: 'Please',
-        text: 'Fill out the email field!',
+        title: 'Ups',
+        text: 'Por favor rellene el campo!',
       });
     } else {
-      // Your password recovery logic here
+      
       Swal.fire({
         title: 'Good!',
         text: 'Recovery email sent!',

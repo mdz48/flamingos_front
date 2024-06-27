@@ -27,3 +27,17 @@ export const data = {
     ]
   };
   
+  // src/data/data.js
+export const sliderImages = [
+  'path_to_image1.jpg',
+  'path_to_image2.jpg',
+  'path_to_image3.jpg',
+  'path_to_image4.jpg',
+];
+
+export const cardsData = [
+  { image: 'path_to_card_image1.jpg', text: 'Card 1 content goes here.' },
+  { image: 'path_to_card_image2.jpg', text: 'Card 2 content goes here.' },
+  { image: 'path_to_card_image3.jpg', text: 'Card 3 content goes here.' },
+  // Add more card data as needed
+];
