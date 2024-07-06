@@ -41,6 +41,9 @@ export const rows = [
       { content: '345', className: 'text-center' },
     ],
   ];
+  export const addRow = (row) => {
+    rows.push(row);
+};
   export const insumos = ['Nombre', 'Cantidad', 'Precio c/u', 'Id', 'Descripcion'];
   export const content = [
       [

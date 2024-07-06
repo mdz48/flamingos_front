@@ -1,13 +1,27 @@
+import React, { useState, useEffect } from 'react';
 import Table from "../components/organisms/Table";
 import MenuContainer from "../components/organisms/MenuContainer";
-import { insumos, content} from "../data/data";
 import HorizontalMenu from "../components/molecules/HorizontalMenu";
-
+import Section from '../components/organisms/Form';
 
 function InventarioInsumos() {
-  
+  const [insumos, setInsumos] = useState([]);
+  const [content, setContent] = useState([]);
+
   const verticalMenuItems = ['Salones', 'Mobiliario', 'Insumos', 'Renta de Mobiliario'];
   const horizontalMenuItems = ['Agregar', 'Editar', 'Borrar'];
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/supplies`)
+      .then(response => response.json())
+      .then(data => {
+        setInsumos(data.headers);
+        setContent(data.rows);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
 
   return (
     <div className="p-8">
@@ -24,10 +38,12 @@ function InventarioInsumos() {
             <Table headers={insumos} rows={content} className="mt-8 shadow-md" />
           </div>
         </div>
+          <div>
+            <Section></Section>
+          </div>
       </div>
     </div>
   );
- 
- 
 }
-export default InventarioInsumos
+
+export default InventarioInsumos;
