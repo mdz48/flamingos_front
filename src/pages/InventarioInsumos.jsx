@@ -10,17 +10,35 @@ function InventarioInsumos() {
 
   const verticalMenuItems = ['Salones', 'Mobiliario', 'Insumos', 'Renta de Mobiliario'];
   const horizontalMenuItems = ['Agregar', 'Editar', 'Borrar'];
+  const tableHeaders = ['ID', 'Nombre', 'Costo', 'Creado el', 'Creado por', 'Actualizado el', 'Actualizado por', 'Eliminado'];
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/supplies`)
-      .then(response => response.json())
-      .then(data => {
-        setInsumos(data.headers);
-        setContent(data.rows);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
+    fetch(`${import.meta.env.VITE_URL}/supplies`, {
+      method: 'GET',
+      headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+      },
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            alert('No se pudo hacer conexión');
+            return [];
+        }
+    })
+    .then(data => {
+        if (data.length > 0) {
+            const headers = Object.keys(data[0]); //Mapeado de TODOS los atributos EN INGLES //
+            const rows = data.map(item => Object.values(item)); // Contenido en sí
+            setInsumos(tableHeaders);
+            setContent(rows);
+        }
+    })
+    .catch(error => {
+        console.log(error);
+    });
   }, []);
 
   return (
@@ -38,9 +56,9 @@ function InventarioInsumos() {
             <Table headers={insumos} rows={content} className="mt-8 shadow-md" />
           </div>
         </div>
-          <div>
-            <Section></Section>
-          </div>
+        <div>
+          <Section />
+        </div>
       </div>
     </div>
   );

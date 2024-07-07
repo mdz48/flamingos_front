@@ -7,18 +7,18 @@ export default function Form() {
     const handleClick = (e) => {
         e.preventDefault();
         fetch(`${import.meta.env.VITE_URL}/supplies`, {
-            method: 'POST',
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'
             },
-            body: JSON.stringify({
-                "name": usernameRef.current.value,
-                "cost": passwordRef.current.value,
-                "updated_by" : "Max",
-                "created_by" : "Max",
-                "deleted" : 0
-            }),
+            // body: JSON.stringify({
+            //     "name": usernameRef.current.value,
+            //     "cost": passwordRef.current.value,
+            //     "updated_by" : "Leo",
+            //     "created_by" : "E'pendejo",
+            //     "deleted" : 0
+            // }),
         })
         .then(response => {
             if (response.ok) {
