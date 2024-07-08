@@ -1,33 +1,33 @@
 import React from 'react';
+import Navbar from '../components/molecules/Navbar';
 import Heading from '../components/atoms/Heading';
 import Herosection from '../components/organisms/Herosection';
 import InfoSection from '../components/organisms/InfoSection';
-import Slider from '../components/molecules/Slider';
 import Cards from '../components/molecules/Cards';
+import Slider from '../components/molecules/Slider';
+import Footer from '../components/molecules/Footer';
 
 function Home() {
   const info = ["Info 1", "Info 2", "Info 3"];
   const cardsData = [
-    { image: 'path_to_image1.jpg', text: 'Card 1 content goes here.' },
-    { image: 'path_to_image2.jpg', text: 'Card 2 content goes here.' },
-    { image: 'path_to_image3.jpg', text: 'Card 3 content goes here.' },
-    // Add more card data as needed
+    { image: 'path/to/card1.jpg', text: 'Card 1' },
+    { image: 'path/to/card2.jpg', text: 'Card 2' },
+    { image: 'path/to/card3.jpg', text: 'Card 3' },
   ];
 
   return (
     <div className="space-y-8">
+      <Navbar />
       <Slider />
       <Herosection />
       <div className="p-4">
         <Heading>Un espacio único para reuniones y celebraciones</Heading>
       </div>
-      <InfoSection info={info} />
-      <div className="container mx-auto mt-8">
-        <h2 className="text-2xl font-bold mb-4">Our Services</h2>
-        <div className="flex flex-wrap justify-center gap-4">
-          <Cards cards={cardsData} />
-        </div>
+      <div className="p-4">
+        <Cards cards={cardsData} />
       </div>
+      <InfoSection info={info} />
+      <Footer />
     </div>
   );
 }

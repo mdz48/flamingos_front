@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Section from './components/organisms/Section';
-import Navbar from './components/molecules/Navbar';
 import Home from './pages/Home';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
@@ -12,7 +11,7 @@ import InventarioInsumos from './pages/InventarioInsumos';
 function App() {
     return (
         <Router>
-          <Navbar />
+          
           <main className="container mx-auto">
             <Routes>
               <Route path="/" element={<Home />} />

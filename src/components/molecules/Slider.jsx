@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
 const images = [
-  'card1.jpg',
+  'Slider2.jpg',
+  'Slider.jpg',
+  'alberca.jpg',
   'card2.jpg',
   'card1.jpg',
-  'card2.jpg',
 ];
 
 function Slider() {
@@ -13,7 +14,7 @@ function Slider() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 4000); // Change image every 3 seconds
+    }, 6000); // Change image every 4 seconds
     return () => clearInterval(interval);
   }, []);
 

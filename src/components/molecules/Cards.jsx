@@ -4,13 +4,9 @@ import Paragraph from '../atoms/Paragraph';
 
 function Card({ img, text }) {
   return (
-    <div className="flex flex-col items-center space-y-4">
-      <div>
-        <Picture img={img} />
-      </div>
-      <div>
-        <Paragraph text={text} />
-      </div>
+    <div className="flex flex-col items-center space-y-2 w-full sm:w-1/2 lg:w-1/4 p-2">
+      <Picture img={img} />
+      <Paragraph text={text} />
     </div>
   );
 }
