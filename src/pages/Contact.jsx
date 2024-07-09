@@ -1,6 +1,6 @@
 import React from 'react';
-import Navbar from '../components/molecules/Navbar';
 import Footer from '../components/molecules/Footer';
+import Navbar from '../components/organisms/Navbar.jsx';
 
 function Contact() {
   return (

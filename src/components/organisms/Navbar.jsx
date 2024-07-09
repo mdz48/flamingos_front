@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { data } from '../../data/data';
+import { data } from '../../data/data.js';
 import { Link } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
 

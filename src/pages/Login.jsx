@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Navbar from '../components/molecules/Navbar';
+import Navbar from '../components/organisms/Navbar.jsx';
 import Field from '../components/molecules/Field';
 import Button from '../components/atoms/Button';
 import Footer from '../components/molecules/Footer';

@@ -19,7 +19,7 @@ function Slider() {
   }, []);
 
   return (
-    <div className="relative w-full h-64 overflow-hidden">
+    <div className="relative w-full h-96 overflow-hidden">
       {images.map((image, index) => (
         <div
           key={index}

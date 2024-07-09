@@ -7,16 +7,19 @@ export const data = {
     cards: [
       {
         image: 'card1.jpg',
-        text: 'Compite con los mejores. Porsche 911 Coupe Carrera.',
+        head: "Celebra tu boda deseada con nosotros!",
+        text: 'Sumérgete en un entorno mágico y romántico. Ofrecemos paquetes personalizados que transformarán tu día especial en una experiencia inolvidable. ¡Haz realidad la boda de tus sueños con nosotros!',
       },
       {
         image: 'card2.jpg',
-        text: 'Un paseo para exitosos... este es uno de los 50 autos exclusivos.',
+        head: "Cumpleaños",
+        text: '¡Haz que tu cumpleaños sea memorable! Disfruta de una fiesta llena de sorpresas y momentos inolvidables en un ambiente encantador. ¡Celebra con estilo y alegría!',
       },
-    {
-      image: 'Slider2.jpg',
-      text: ' en Maffersdorf,',
-    }
+      {
+        image: 'Slider2.jpg',
+        head: 'Reuniones',
+        text: 'Organiza tus reuniones en un lugar único y especial. Ofrecemos el escenario perfecto para cualquier tipo de evento, desde reuniones íntimas hasta grandes celebraciones. ¡Crea recuerdos inolvidables con nosotros!'
+      }
     ],
     links: [
       {
@@ -27,6 +30,16 @@ export const data = {
         site: "Instagram",
         link: "https://www.instagram.com/"
       }
+    ],
+    salones : [
+        {
+            title: 'Flamingo',
+            text: "Este salon es flamingo [IMAGEN DE PRUEBA] descripcion del salon//"
+        },
+        {
+            title: 'Chula Vista ',
+            text: 'Este salon es chula vista [IMAGEN DE PRUEBA['
+        }
     ]
   };
   export const headers = ['Moviliario', 'Cantidad', 'Estado', 'Id'];
@@ -45,6 +58,10 @@ export const rows = [
     ],
   ];
   export const insumos = ['Nombre', 'Cantidad', 'Precio c/u', 'Id', 'Descripcion'];
+  export const infoData = [
+    'En Flamingos, te ofrecemos estupendos destinos, instalaciones accesibles y el mejor servicio para que tus eventos sean inolvidables.',
+    'Ya sea que estés organizando reuniones sociales como bautizos, cumpleaños o bodas, o bien conferencias, congresos y juntas de trabajo, nuestros amplios y flexibles salones están a tu disposición.',
+    ];
   export const content = [
       [
         { content: 'spageti', className: 'text-center' },
@@ -61,18 +78,3 @@ export const rows = [
         { content: 'pechuga rellena de queso', className: 'text-center' },
       ],
     ];
-  
-  
-/*export const sliderImages = [
-  'path_to_image1.jpg',
-  'path_to_image2.jpg',
-  'path_to_image3.jpg',
-  'path_to_image4.jpg',
-];
-
-export const cardsData = [
-  { image: 'path_to_card_image1.jpg', text: 'Card 1 content goes here.' },
-  { image: 'path_to_card_image2.jpg', text: 'Card 2 content goes here.' },
-  { image: 'path_to_card_image3.jpg', text: 'Card 3 content goes here.' },
-  // Add more card data as needed
-];*/
