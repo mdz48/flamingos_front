@@ -13,6 +13,36 @@ export const data = {
         URL: "/login"
        },
     ],
+    navuser: [
+      {
+       site: "Home",
+       URL: "/"
+      },
+      {
+        site: "Insumos",
+        URL: "/InventarioInsumos"
+       },
+       {
+        site: "Mobiliario",
+        URL: "/InventarioMobiliario"
+       },
+       {
+        site: "Mobiliario Rentado",
+        URL: "/RentedMobiliary"
+       },
+       {
+        site: "Clientes",
+        URL: "/Client"
+       },
+       {
+        site: "Salon",
+        URL: "/Salon",
+       },
+       {
+        site: "Empleados",
+        URL: "/Users",
+       }
+    ],
     cards: [
       {
         image: 'card1.jpg',

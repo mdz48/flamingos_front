@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Table from "../components/organisms/Table";
 import MenuContainer from "../components/organisms/MenuContainer";
 import FormRentMobiliary from '../components/organisms/Forms/rentedmobiliary/FormRentMobiliary';
+import Navbar from '../components/organisms/Navbar';
+import { data } from '../data/data';
 
 
 function RentedMobiliary() {
@@ -48,6 +50,8 @@ function RentedMobiliary() {
   }
 
   return (
+    <>
+    <Navbar links={data.navuser} />
     <div className="p-8">
     <div className="flex">
       <div className="w-1/3">
@@ -67,6 +71,7 @@ function RentedMobiliary() {
       </div>
     </div>
   </div>
+    </>
   );
 }
 

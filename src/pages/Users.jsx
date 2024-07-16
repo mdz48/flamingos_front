@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Table from "../components/organisms/Table";
 import MenuContainer from "../components/organisms/MenuContainer";
 import FormUsers from '../components/organisms/Forms/user/FormUsuarios';
+import Navbar from '../components/organisms/Navbar';
+import { data } from '../data/data';
 
 
 function Users() {
@@ -48,25 +50,28 @@ function Users() {
   }
 
   return (
-    <div className="p-8">
-    <div className="flex">
-      <div className="w-1/3">
-        <MenuContainer items={verticalMenuItems} onMenuClick={handleMenuClick} />
-        {showSection && (
-          <div>
-            <FormUsers />
-          </div>
-        )}
-      </div>
-      <div className="w-2/3 p-8">
-        <div>
-          <h1 className="text-2xl font-bold mb-4">Bienvenido a la Administración de Recursos</h1>
-          <Table headers={insumos} rows={content} className="mt-8 shadow-md" />
+    <>
+      <Navbar links={data.navuser} />
+      <div className="p-8">
+      <div className="flex">
+        <div className="w-1/3">
+          <MenuContainer items={verticalMenuItems} onMenuClick={handleMenuClick} />
+          {showSection && (
+            <div>
+              <FormUsers />
+            </div>
+          )}
         </div>
-       
+        <div className="w-2/3 p-8">
+          <div>
+            <h1 className="text-2xl font-bold mb-4">Bienvenido a la Administración de Recursos</h1>
+            <Table headers={insumos} rows={content} className="mt-8 shadow-md" />
+          </div>
+        
+        </div>
       </div>
     </div>
-  </div>
+    </>
   );
 }
 

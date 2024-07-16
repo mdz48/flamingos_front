@@ -5,6 +5,8 @@ import FormClient from '../components/organisms/Forms/client/FormClient';
 import SearchForm from '../components/molecules/SearchForm';
 import FormEditClient from '../components/organisms/Forms/client/FormEditClient';
 import FormDeleteClient from '../components/organisms/Forms/client/FormDeleteClient';
+import Navbar from '../components/organisms/Navbar';
+import { data } from '../data/data';
 
 function Client() {
   const [insumos, setInsumos] = useState([]);
@@ -82,8 +84,9 @@ function Client() {
   };
 
   return (
-    <div className="p-8">
-      <div className="flex">
+    <>
+    <Navbar links ={data.navuser}/>
+      <div className="flex p-8">
         <div className="w-1/3">
           <MenuContainer items={verticalMenuItems} onMenuClick={handleMenuClick} />
           {showSection && (
@@ -111,7 +114,7 @@ function Client() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

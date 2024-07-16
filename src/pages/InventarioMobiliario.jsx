@@ -3,6 +3,8 @@ import Table from "../components/organisms/Table";
 import MenuContainer from "../components/organisms/MenuContainer";
 import Section from '../components/organisms/Forms/Form';
 import FormMobiliary from '../components/organisms/Forms/mobiliary/FormMobiliary';
+import Navbar from '../components/organisms/Navbar';
+import { data } from '../data/data';
 
 
 function InventarioMobiliario() {
@@ -49,8 +51,9 @@ function InventarioMobiliario() {
   }
 
   return (
-    <div className="p-8">
-    <div className="flex">
+    <>
+    <Navbar links={data.navuser} />
+    <div className="flex p-8">
       <div className="w-1/3">
         <MenuContainer items={verticalMenuItems} onMenuClick={handleMenuClick} />
         {showSection && (
@@ -67,7 +70,7 @@ function InventarioMobiliario() {
        
       </div>
     </div>
-  </div>
+    </>
   );
 }
 

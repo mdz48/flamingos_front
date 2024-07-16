@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import Field from '../components/molecules/Field';
 import Button from '../components/atoms/Button';
+import { data } from '../data/data';
+import Navbar from '../components/organisms/Navbar';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -27,6 +29,8 @@ function Login() {
   };
 
   return (
+    <>
+    <Navbar links={data.navhome} />
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-3xl font-bold mb-6 text-center text-gray-700">Iniciar Sesión</h2>
@@ -40,6 +44,7 @@ function Login() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 
