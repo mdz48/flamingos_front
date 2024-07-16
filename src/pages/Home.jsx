@@ -1,19 +1,34 @@
 import React from 'react';
+import Navbar from '../components/organisms/Navbar.jsx';
 import Heading from '../components/atoms/Heading';
-import Herosection from '../components/organisms/Herosection';
-import InfoSection from '../components/organisms/InfoSection';
+import CardsSection from '../components/organisms/Landing/CardsSection.jsx';
+import Footer from '../components/molecules/Footer';
+import HeroSection from "../components/organisms/Landing/HeroSection.jsx";
+import InfoSection from "../components/organisms/Landing/InfoSection.jsx";
+import SalonesSection from '../components/organisms/Landing/SalonesSection.jsx';
+import { data } from '../data/data.js';
 
 function Home() {
-  const info = ["Info 1", "Info 2", "Info 3"];
-  return (
-    <div className="space-y-8">
-      <Herosection />
-      <div className="p-4">
-        <Heading>Un espacio único para reuniones y celebraciones</Heading>
-      </div>
-      <InfoSection info={info} />
-    </div>
-  );
+    const info = ["Info 1", "Info 2", "Info 3"];
+    const cardsData = [
+        { image: 'path/to/card1.jpg', text: 'Card 1' },
+        { image: 'path/to/card2.jpg', text: 'Card 2' },
+        { image: 'path/to/card3.jpg', text: 'Card 3' },
+    ];
+
+
+
+
+    return (
+        <>
+            <Navbar links={data.navhome}/>
+            <HeroSection />
+            <InfoSection/>
+            <CardsSection />
+            <SalonesSection />
+            <Footer />
+        </>
+    );
 }
 
 export default Home;

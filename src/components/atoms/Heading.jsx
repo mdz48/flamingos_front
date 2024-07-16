@@ -1,8 +1,10 @@
 import React from 'react';
 
-function Heading({ children }) {
+function Heading({ text, className = '' }) {
   return (
-    <h1 className="text-4xl font-bold">{children}</h1>
+    <h2 className={`text-2xl font-bold text-center text-gray-800 mb-4 ${className}`}>
+      {text}
+    </h2>
   );
 }
 

@@ -16,8 +16,6 @@ import Users from './pages/Users';
 function App() {
     return (
         <Router>
-          <Navbar />
-          <main className="container mx-auto">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/contact" element={<Contact />} />
@@ -30,7 +28,6 @@ function App() {
               <Route path='/Salon' element={<Salon/>}/>
               <Route path='/Users' element={<Users/>}/>
             </Routes>
-          </main>
         </Router>
       );
     }
@@ -60,4 +57,5 @@ function App() {
   );
 }
 
+export default App;*/
 export default App;*/
