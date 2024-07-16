@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import { data } from '../../data/data.js';
+import  { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
 
-function Navbar() {
-  const { links } = data;
+function Navbar () {
+  // const { links } = data;
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -17,6 +16,15 @@ function Navbar() {
           </button>
         </div>
         <ul className={`lg:flex space-x-4 ${menuOpen ? 'block' : 'hidden'} lg:block`}>
+          {/* {
+            props.links.map((link, index) => (
+                <li key={index}>
+                  <Link to={link.URL} className={"text-white"}>
+                    {link.site}
+                  </Link>
+                </li>
+                ))
+          } */}
           <li>
             <Link to="/" className="text-white hover:underline">Inicio</Link>
           </li>

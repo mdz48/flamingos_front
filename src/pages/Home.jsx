@@ -6,6 +6,7 @@ import Footer from '../components/molecules/Footer';
 import HeroSection from "../components/organisms/Landing/HeroSection.jsx";
 import InfoSection from "../components/organisms/Landing/InfoSection.jsx";
 import SalonesSection from '../components/organisms/Landing/SalonesSection.jsx';
+import { data } from '../data/data.js';
 
 function Home() {
     const info = ["Info 1", "Info 2", "Info 3"];
@@ -19,14 +20,16 @@ function Home() {
 
 
     return (
-        <div>
-            <Navbar/>
+        <>
+            <Navbar links={data.navhome}/>
             <HeroSection />
             <InfoSection/>
             <CardsSection />
-            <SalonesSection/>
+            <section className='w-[80%] border border-blue-500 mx-auto '>
+            <SalonesSection />
+            </section>
             <Footer />
-        </div>
+        </>
     );
 }
 

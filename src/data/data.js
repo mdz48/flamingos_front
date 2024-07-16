@@ -1,8 +1,17 @@
 export const data = {
-    heroSection: [
+    navhome: [
       {
-       
-      }
+       site: "Home",
+       URL: "/"
+      },
+      {
+        site: "Contacto",
+        URL: "/contact"
+       },
+       {
+        site: "Login",
+        URL: "/login"
+       },
     ],
     cards: [
       {
