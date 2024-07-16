@@ -1,7 +1,7 @@
 import React from 'react';
 import MenuItem from '../atoms/MenuItem';
 
-const HorizontalMenu = ({ items }) => {
+function HorizontalMenu ({ items })  {
   return (
     <ul className="flex">
       {items.map((item, index) => (

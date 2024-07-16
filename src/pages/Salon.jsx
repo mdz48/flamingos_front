@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import Table from "../components/organisms/Table";
 import MenuContainer from "../components/organisms/MenuContainer";
-import Section from '../components/organisms/Forms/Form';
-import { data } from '../data/data';
+import FormSalon from '../components/organisms/Forms/salon/FormSalon';
 import Navbar from '../components/organisms/Navbar';
+import { data } from '../data/data';
 
 
-function InventarioInsumos() {
+function Salon() {
   const [insumos, setInsumos] = useState([]);
   const [content, setContent] = useState([]);
   const [showSection, setShowSection] = useState(false);
 
   const verticalMenuItems = ['Agregar', 'Editar', 'Borrar', ];
-  const tableHeaders = ['ID', 'Nombre', 'Costo', 'Descripcion'];
+  const tableHeaders = ['ID', 'Nombre', 'capacidad', 'Descripcion'];
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_URL}/supplies/summaries`, {
+    fetch(`${import.meta.env.VITE_URL}/saalon/summaries`, {
       method: 'GET',
       headers: {
           'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ function InventarioInsumos() {
         <MenuContainer items={verticalMenuItems} onMenuClick={handleMenuClick} />
         {showSection && (
           <div>
-            <Section />
+            <FormSalon />
           </div>
         )}
       </div>
@@ -72,4 +72,4 @@ function InventarioInsumos() {
   );
 }
 
-export default InventarioInsumos;
+export default Salon;

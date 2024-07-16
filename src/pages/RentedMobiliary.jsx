@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import Table from "../components/organisms/Table";
 import MenuContainer from "../components/organisms/MenuContainer";
-import Section from '../components/organisms/Forms/Form';
-import { data } from '../data/data';
+import FormRentMobiliary from '../components/organisms/Forms/rentedmobiliary/FormRentMobiliary';
 import Navbar from '../components/organisms/Navbar';
+import { data } from '../data/data';
 
 
-function InventarioInsumos() {
+function RentedMobiliary() {
   const [insumos, setInsumos] = useState([]);
   const [content, setContent] = useState([]);
   const [showSection, setShowSection] = useState(false);
 
   const verticalMenuItems = ['Agregar', 'Editar', 'Borrar', ];
-  const tableHeaders = ['ID', 'Nombre', 'Costo', 'Descripcion'];
+  const tableHeaders = ['ID', 'Nombre', 'costo', 'descirpcion', 'proveedor', 'fecha de entrada', 'fecha de salida'];
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_URL}/supplies/summaries`, {
+    fetch(`${import.meta.env.VITE_URL}/rented_mobiliary/summaries`, {
       method: 'GET',
       headers: {
           'Content-Type': 'application/json',
@@ -51,13 +51,14 @@ function InventarioInsumos() {
 
   return (
     <>
-    <Navbar links={data.navuser}/>
-    <div className="flex p-8">
+    <Navbar links={data.navuser} />
+    <div className="p-8">
+    <div className="flex">
       <div className="w-1/3">
         <MenuContainer items={verticalMenuItems} onMenuClick={handleMenuClick} />
         {showSection && (
           <div>
-            <Section />
+            <FormRentMobiliary />
           </div>
         )}
       </div>
@@ -66,10 +67,12 @@ function InventarioInsumos() {
           <h1 className="text-2xl font-bold mb-4">Bienvenido a la Administración de Recursos</h1>
           <Table headers={insumos} rows={content} className="mt-8 shadow-md" />
         </div>
+       
       </div>
     </div>
+  </div>
     </>
   );
 }
 
-export default InventarioInsumos;
+export default RentedMobiliary;

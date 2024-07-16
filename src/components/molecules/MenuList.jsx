@@ -1,11 +1,13 @@
 import React from 'react';
-import MenuItem from '../atoms/MenuItem';
+import Button from '../atoms/Button';
 
-const MenuList = ({ items }) => {
+function MenuList({ items }) {
   return (
     <ul className="flex flex-col">
       {items.map((item, index) => (
-        <MenuItem key={index} label={item} />
+        <li key={index}>
+          <Button text={item} className="w-full text-left" onClick={() => {}} />
+        </li>
       ))}
     </ul>
   );

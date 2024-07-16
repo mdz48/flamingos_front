@@ -41,8 +41,7 @@ function QuoteForm() {
       confirmButtonText: 'Aceptar'
     });
 
-    //
-    
+    // Aquí puedes agregar lógica adicional para manejar el envío del formulario, como hacer una solicitud a un servidor.
   };
 
   return (
@@ -51,11 +50,33 @@ function QuoteForm() {
         <h2 className="text-3xl font-bold mb-6 text-center text-gray-700">CONTACTANOS PARA COTIZAR TÚ EVENTO</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-gray-700 text-sm font-bold mb-2">Tipo de paquetes</label>
+            <label className="block text-gray-700 text-sm font-bold mb-2">Nombre completo</label>
+            <input
+              type="text"
+              name="fullName"
+              placeholder="Nombre completo"
+              value={formData.fullName}
+              onChange={handleChange}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+          <div>
+            <label className="block text-gray-700 text-sm font-bold mb-2">Correo electrónico <span className="text-red-500">*</span></label>
+            <input
+              type="email"
+              name="email"
+              placeholder="Correo electrónico"
+              value={formData.email}
+              onChange={handleChange}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+          <div>
+            <label className="block text-gray-700 text-sm font-bold mb-2">Tipo de evento</label>
             <input
               type="text"
               name="companyName"
-              placeholder="Paquetes"
+              placeholder="Tipo de evento"
               value={formData.companyName}
               onChange={handleChange}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -72,7 +93,28 @@ function QuoteForm() {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
-
+          <div>
+            <label className="block text-gray-700 text-sm font-bold mb-2">Fecha requerida</label>
+            <input
+              type="date"
+              name="requiredDate"
+              placeholder="Fecha requerida"
+              value={formData.requiredDate}
+              onChange={handleChange}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+          <div>
+            <label className="block text-gray-700 text-sm font-bold mb-2">¿Número de asistentes?</label>
+            <input
+              type="number"
+              name="attendeesNumber"
+              placeholder="¿Número de asistentes?"
+              value={formData.attendeesNumber}
+              onChange={handleChange}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
         </div>
         <div className="flex justify-center mt-6">
           <button

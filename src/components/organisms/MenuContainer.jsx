@@ -1,18 +1,15 @@
 import React from 'react';
-import MenuList from '../molecules/MenuList';
+import Button from '../atoms/Button';
 
-const MenuContainer = ({ items }) => {
+function MenuContainer({ items, onMenuClick }) {
   return (
-    <div className="space-y-4">
-    {items.map((item, index) => (
-      <button 
-        key={index} 
-        className="w-full  bg-red-600 text-white px-6 py-3 rounded-lg text-xl hover:bg-orange-600 transition-colors duration-200"
-      >
-        {item}
-      </button>
-    ))}
-  </div>
+    <ul className="flex flex-col gap-1">
+      {items.map((item, index) => (
+        <li key={index}>
+          <Button text={item} className="w-full text-left" onClick={() => onMenuClick(item)} />
+        </li>
+      ))}
+    </ul>
   );
 };
 
