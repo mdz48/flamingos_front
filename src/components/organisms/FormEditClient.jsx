@@ -1,19 +1,19 @@
 import { useRef } from 'react';
 
-export default function Form({ onClose }) {
+export default function FormEditClient({ onClose }) {
     const usernameRef = useRef('');
-    const costRef = useRef('');
-    const descriptionRef = useRef('');
-    
+    const lastnameRef = useRef('');
+    const cellphoneRef = useRef('');
+
     const handleClick = (e) => {
         e.preventDefault();
-        fetch(`${import.meta.env.VITE_URL}/supplies`, {
-            method: 'GET',
+        fetch(`${import.meta.env.VITE_URL}/client`, {
+            method: 'PUT', // Cambiado de 'GET' a 'PUT'
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'
             },
-            // body: JSON.stringify({
+             // body: JSON.stringify({
             //     "name": usernameRef.current.value,
             //     "cost": passwordRef.current.value,
             //     "updated_by" : "Leo",
@@ -30,7 +30,7 @@ export default function Form({ onClose }) {
         })
         .then(data => {
             console.log(data);
-            // localStorage.setItem('token', data.token)
+            // Manejar la respuesta si es necesario
         })
         .catch(error => {
             console.log(error);
@@ -43,14 +43,14 @@ export default function Form({ onClose }) {
                 <label htmlFor="username">Name
                     <input type="text" ref={usernameRef} className='border-2' />
                 </label>
-                <label htmlFor="password">Costo
-                    <input type="text" ref={costRef} className='border-2' />
+                <label htmlFor="lastname">Last Name
+                    <input type="text" ref={lastnameRef} className='border-2' />
                 </label>
-                <label htmlFor="description">Descripcion
-                    <input type="text" ref={descriptionRef} className='border-2' />
+                <label htmlFor="cellphone">Telefono
+                    <input type="number" ref={cellphoneRef} className='border-2' />
                 </label>
                 <div className='flex items-center justify-between mt-4'>
-                    <button onClick={handleClick} className={`bg-orange-700 text-white font-bold py-2 px-4 rounded hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50`}>Save</button>
+                    <button onClick={handleClick} className={`bg-orange-700 text-white font-bold py-2 px-4 rounded hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50`}>Edit</button>
                     <button onClick={onClose} className='bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50'>Cerrar</button>
                 </div>
             </form>

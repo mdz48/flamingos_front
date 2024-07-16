@@ -1,9 +1,8 @@
 import React from "react";
 
-function Label(props) {
+function Label() {
     return (
         <label className="font-semibold text-lg">
-            {props.text}
         </label>
     );
 }

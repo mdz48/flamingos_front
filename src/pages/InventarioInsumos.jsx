@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import Table from "../components/organisms/Table";
 import MenuContainer from "../components/organisms/MenuContainer";
-import HorizontalMenu from "../components/molecules/HorizontalMenu";
 import Section from '../components/organisms/Form';
+import FormClient from '../components/organisms/FormClient';
+
 
 function InventarioInsumos() {
   const [insumos, setInsumos] = useState([]);
   const [content, setContent] = useState([]);
+  const [showSection, setShowSection] = useState(false);
 
-  const verticalMenuItems = ['Salones', 'Mobiliario', 'Insumos', 'Renta de Mobiliario'];
-  const horizontalMenuItems = ['Agregar', 'Editar', 'Borrar'];
-  const tableHeaders = ['ID', 'Nombre', 'Costo', 'Creado el', 'Creado por', 'Actualizado el', 'Actualizado por', 'Eliminado'];
+  const verticalMenuItems = ['Agregar', 'Editar', 'Borrar', ];
+  const tableHeaders = ['ID', 'Nombre', 'Costo', 'Descripcion'];
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_URL}/supplies`, {
+    fetch(`${import.meta.env.VITE_URL}/supplies/summaries`, {
       method: 'GET',
       headers: {
           'Content-Type': 'application/json',
@@ -41,26 +42,32 @@ function InventarioInsumos() {
     });
   }, []);
 
+  const handleMenuClick = (item) => {
+    if (item === 'Agregar') {
+      setShowSection(true);
+    }
+  }
+
   return (
     <div className="p-8">
-      <div className="flex">
-        <div className="w-1/3">
-          <MenuContainer items={verticalMenuItems} />
-        </div>
-        <div className="w-2/3 p-8">
-          <div className="mb-4">
-            <HorizontalMenu items={horizontalMenuItems} />
-          </div>
+    <div className="flex">
+      <div className="w-1/3">
+        <MenuContainer items={verticalMenuItems} onMenuClick={handleMenuClick} />
+        {showSection && (
           <div>
-            <h1 className="text-2xl font-bold mb-4">Bienvenido a la Administración de Recursos</h1>
-            <Table headers={insumos} rows={content} className="mt-8 shadow-md" />
+            <Section />
           </div>
-        </div>
+        )}
+      </div>
+      <div className="w-2/3 p-8">
         <div>
-          <Section />
+          <h1 className="text-2xl font-bold mb-4">Bienvenido a la Administración de Recursos</h1>
+          <Table headers={insumos} rows={content} className="mt-8 shadow-md" />
         </div>
+       
       </div>
     </div>
+  </div>
   );
 }
 

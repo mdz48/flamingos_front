@@ -8,6 +8,10 @@ import Login from './pages/Login';
 import RecoverPassword from './pages/RecoverPassword';
 import InventarioMobiliario from './pages/InventarioMobiliario';
 import InventarioInsumos from './pages/InventarioInsumos';
+import Client from './pages/Client';
+import RentedMobiliary from './pages/RentedMobiliary';
+import Salon from './pages/Salon';
+import Users from './pages/Users';
 
 function App() {
     return (
@@ -21,6 +25,10 @@ function App() {
               <Route path="/recover-password" element={<RecoverPassword />} />
               <Route path='/InventarioMobiliario' element={<InventarioMobiliario />}/>
               <Route path='/InventarioInsumos' element={<InventarioInsumos />}/>
+              <Route path='/Client' element={<Client />}/>
+              <Route path='/RentedMobiliary' element={<RentedMobiliary/>}/>
+              <Route path='/Salon' element={<Salon/>}/>
+              <Route path='/Users' element={<Users/>}/>
             </Routes>
           </main>
         </Router>

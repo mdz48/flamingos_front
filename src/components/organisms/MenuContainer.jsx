@@ -1,11 +1,15 @@
 import React from 'react';
-import MenuList from '../molecules/MenuList';
+import Button from '../atoms/Button';
 
-const MenuContainer = ({ items }) => {
+function MenuContainer({ items, onMenuClick }) {
   return (
-    <div className="space-y-4">
-      <MenuList items={items} />
-    </div>
+    <ul className="flex flex-col gap-1">
+      {items.map((item, index) => (
+        <li key={index}>
+          <Button text={item} className="w-full text-left" onClick={() => onMenuClick(item)} />
+        </li>
+      ))}
+    </ul>
   );
 };
 

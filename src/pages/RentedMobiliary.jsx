@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import Table from "../components/organisms/Table";
 import MenuContainer from "../components/organisms/MenuContainer";
-import Section from '../components/organisms/Form';
-import FormMobiliary from '../components/organisms/FormMobiliary';
+import FormRentMobiliary from '../components/organisms/FormRentMobiliary';
 
 
-function InventarioMobiliario() {
+function RentedMobiliary() {
   const [insumos, setInsumos] = useState([]);
   const [content, setContent] = useState([]);
   const [showSection, setShowSection] = useState(false);
 
   const verticalMenuItems = ['Agregar', 'Editar', 'Borrar', ];
-  const tableHeaders = ['ID', 'Nombre', 'Cantidad', 'Estado', 'Disponibles'];
+  const tableHeaders = ['ID', 'Nombre', 'costo', 'descirpcion', 'proveedor', 'fecha de entrada', 'fecha de salida'];
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_URL}/mobiliary/summaries`, {
+    fetch(`${import.meta.env.VITE_URL}/rented_mobiliary/summaries`, {
       method: 'GET',
       headers: {
           'Content-Type': 'application/json',
@@ -55,7 +54,7 @@ function InventarioMobiliario() {
         <MenuContainer items={verticalMenuItems} onMenuClick={handleMenuClick} />
         {showSection && (
           <div>
-            <FormMobiliary />
+            <FormRentMobiliary />
           </div>
         )}
       </div>
@@ -71,4 +70,4 @@ function InventarioMobiliario() {
   );
 }
 
-export default InventarioMobiliario;
+export default RentedMobiliary;

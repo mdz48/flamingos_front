@@ -1,15 +1,15 @@
-import React from "react";
+import React from 'react';
 
-function Input(props) {
-    return (
-        <input
-            type={props.type}
-            placeholder={props.placeholder}
-            onChange={props.onChange}
-            value={props.value}
-            className="w-full h-10 border border-gray-400 rounded-lg text-lg text-blue-800 px-2"
-        />
-    );
-}
+const Input = ({ type, placeholder, value, onChange }) => {
+  return (
+    <input
+      type={type}
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+      className="border p-2 rounded-md"
+    />
+  );
+};
 
 export default Input;
