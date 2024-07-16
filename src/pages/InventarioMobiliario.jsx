@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Table from "../components/organisms/Table";
 import MenuContainer from "../components/organisms/MenuContainer";
-import Section from '../components/organisms/Form';
-import FormMobiliary from '../components/organisms/FormMobiliary';
+import Section from '../components/organisms/Forms/Form';
+import FormMobiliary from '../components/organisms/Forms/mobiliary/FormMobiliary';
 
 
 function InventarioMobiliario() {

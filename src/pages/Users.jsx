@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Table from "../components/organisms/Table";
 import MenuContainer from "../components/organisms/MenuContainer";
-import FormUsers from '../components/organisms/FormUsuarios';
+import FormUsers from '../components/organisms/Forms/user/FormUsuarios';
 
 
 function Users() {

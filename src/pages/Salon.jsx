@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Table from "../components/organisms/Table";
 import MenuContainer from "../components/organisms/MenuContainer";
-import FormSalon from '../components/organisms/FormSalon';
+import FormSalon from '../components/organisms/Forms/salon/FormSalon';
 
 
 function Salon() {

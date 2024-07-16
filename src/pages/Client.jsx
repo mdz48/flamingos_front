@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Table from "../components/organisms/Table";
 import MenuContainer from "../components/organisms/MenuContainer";
-import FormClient from '../components/organisms/FormClient';
+import FormClient from '../components/organisms/Forms/client/FormClient';
 import SearchForm from '../components/molecules/SearchForm';
-import FormEditClient from '../components/organisms/FormEditClient';
-import FormDeleteClient from '../components/organisms/FormDeleteClient';
+import FormEditClient from '../components/organisms/Forms/client/FormEditClient';
+import FormDeleteClient from '../components/organisms/Forms/client/FormDeleteClient';
 
 function Client() {
   const [insumos, setInsumos] = useState([]);

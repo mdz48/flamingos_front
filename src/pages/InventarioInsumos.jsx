@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Table from "../components/organisms/Table";
 import MenuContainer from "../components/organisms/MenuContainer";
-import Section from '../components/organisms/Form';
-import FormClient from '../components/organisms/FormClient';
+import Section from '../components/organisms/Forms/Form';
+import FormClient from '../components/organisms/Forms/client/FormClient';
 
 
 function InventarioInsumos() {
