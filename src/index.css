@@ -10,3 +10,22 @@
 body{
   margin: 0;
 }
+
+
+/* Estilos generales para el cuerpo de la página */
+body {
+  font-family: 'Arial', sans-serif; /* Cambiar la fuente según tus preferencias */
+  background-color: #f3f4f6; /* Color de fondo para toda la página */
+  color: #333; /* Color de texto general */
+}
+
+/* Estilos para los enlaces */
+a {
+  color: #007bff; /* Color azul para los enlaces */
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline; /* Subrayado al pasar el mouse sobre los enlaces */
+}
+

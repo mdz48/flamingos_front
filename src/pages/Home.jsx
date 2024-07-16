@@ -1,12 +1,34 @@
-import Herosection from "../components/organisms/Herosection";
-import Section from "../components/organisms/Section";
+import React from 'react';
+import Navbar from '../components/organisms/Navbar.jsx';
+import Heading from '../components/atoms/Heading';
+import CardsSection from '../components/organisms/Landing/CardsSection.jsx';
+import Footer from '../components/molecules/Footer';
+import HeroSection from "../components/organisms/Landing/HeroSection.jsx";
+import InfoSection from "../components/organisms/Landing/InfoSection.jsx";
+import SalonesSection from '../components/organisms/Landing/SalonesSection.jsx';
+import { data } from '../data/data.js';
+
+function Home() {
+    const info = ["Info 1", "Info 2", "Info 3"];
+    const cardsData = [
+        { image: 'path/to/card1.jpg', text: 'Card 1' },
+        { image: 'path/to/card2.jpg', text: 'Card 2' },
+        { image: 'path/to/card3.jpg', text: 'Card 3' },
+    ];
 
 
-export default function Home() {
-  return (
-    <>
-    <Section/>
-    <Herosection/>
-    </>
-  )
+
+
+    return (
+        <>
+            <Navbar links={data.navhome}/>
+            <HeroSection />
+            <InfoSection/>
+            <CardsSection />
+            <SalonesSection />
+            <Footer />
+        </>
+    );
 }
+
+export default Home;

@@ -1,8 +1,10 @@
-import React from 'react'
+// Picture.jsx
+import React from 'react';
 
-
-export default function Picture(props) {
+function Picture({ img }) {
   return (
-    <img src={props.img} alt="" />
-  )
+    <img src={img} alt="" className="w-full h-[50%] object-cover rounded-t-lg" />
+  );
 }
+
+export default Picture;

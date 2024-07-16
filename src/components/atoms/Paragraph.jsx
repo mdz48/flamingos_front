@@ -1,7 +1,12 @@
-import React from 'react'
+// Paragraph.jsx
+import React from 'react';
 
-export default function Paragraph(props) {
+function Paragraph({ text, className = "" }) {
   return (
-    <p>{props.text}</p>
-  )
+    <p className={`text-gray-700 text-lg leading-relaxed mb-4 ${className}`}>
+      {text}
+    </p>
+  );
 }
+
+export default Paragraph;
