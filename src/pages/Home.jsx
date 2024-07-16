@@ -25,9 +25,7 @@ function Home() {
             <HeroSection />
             <InfoSection/>
             <CardsSection />
-            <section className='w-[80%] border border-blue-500 mx-auto '>
             <SalonesSection />
-            </section>
             <Footer />
         </>
     );

@@ -20,7 +20,7 @@ export const data = {
         text: 'Sumérgete en un entorno mágico y romántico. Ofrecemos paquetes personalizados que transformarán tu día especial en una experiencia inolvidable. ¡Haz realidad la boda de tus sueños con nosotros!',
       },
       {
-        image: 'card2.jpg',
+        image: 'public/Information/chula_vista_birthday_image.jpg',
         head: "Cumpleaños",
         text: '¡Haz que tu cumpleaños sea memorable! Disfruta de una fiesta llena de sorpresas y momentos inolvidables en un ambiente encantador. ¡Celebra con estilo y alegría!',
       },
@@ -33,26 +33,36 @@ export const data = {
     links: [
       {
         site: "Facebook",
-        link: "https://www.facebook.com/"
+        link: "https://www.facebook.com/SalonFlamingosTuxtla"
       },
       {
         site: "Instagram",
-        link: "https://www.instagram.com/"
+        link: "https://www.instagram.com/salonflamingos/"
       }
     ],
     salones : [
         {
             title: 'Flamingo',
-            text: "Este salon es flamingo [IMAGEN DE PRUEBA] descripcion del salon//"
+            services: `
+              Evento por 6 horas con banquete a dos tiempos que incluye entrada, plato fuerte, botanas, refrescos de Coca Cola y hielos, mobiliario, sillas tiffany, mantelería, loza y cristalería. Personal: encargado de salón, capitán de meseros, meseros y ayudante de cocina. Precio desde $259 por persona. Servicios adicionales: decoración floral y de globos, música DJ y pista.
+            `,
+            contact: 'Informes al 961 451 2438 ',
+            ubication : 'Nos ubicamos a 5 minutos de Plaza Poliforum; Calle Halcón #371 Col. Los Pájaros',
+            image: '/Information/flamingos_salon_presentation_image.jpg'
         },
         {
             title: 'Chula Vista ',
-            text: 'Este salon es chula vista [IMAGEN DE PRUEBA['
+            services: `
+              Evento por 6 horas con banquete a dos tiempos que incluye entrada, plato fuerte, botanas, refrescos de Coca Cola y hielos, mobiliario, sillas tiffany, mantelería, loza y cristalería. Personal: encargado de salón, capitán de meseros, meseros y ayudante de cocina. Precio desde $259 por persona. Servicios adicionales: decoración floral y de globos, música DJ y pista.
+            `,
+            contact: 'Informes al 961 217 6999 ',
+            ubication : 'Nos ubicamos a 5 minutos de Plaza Poliforum; Calle Halcón #371 Col. Los Pájaros',
+            image: '/Information/chulavista_love_image.jpg'
         }
     ]
   };
   export const headers = ['Moviliario', 'Cantidad', 'Estado', 'Id'];
-export const rows = [
+  export const rows = [
     [
       { content: 'sillas', className: 'text-center' },
       { content: 25, className: 'text-center' },

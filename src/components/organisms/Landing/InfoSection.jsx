@@ -5,7 +5,7 @@ import {infoData} from "../../../data/data.js";
 
 function InfoSection() {
   return (
-      <div className="space-y-4 p-4 container mx-auto">
+      <div className="space-y-4 p-4 container mx-auto md:w-[80%]">
         <Heading text={'Eventos en flamingos'} className="text-2xl font-bold text-center text-gray-800 mb-4" />
         <div className="space-y-2">
           {infoData.map((text, index) => (

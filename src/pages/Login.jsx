@@ -4,6 +4,7 @@ import Navbar from '../components/organisms/Navbar.jsx';
 import Field from '../components/molecules/Field';
 import Button from '../components/atoms/Button';
 import Footer from '../components/molecules/Footer';
+import { data } from '../data/data.js';
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -16,7 +17,7 @@ function Login() {
 
   return (
     <div>
-      <Navbar />
+      <Navbar links={data.navhome}/>
       <div className="flex justify-center items-center min-h-screen bg-gray-100">
         <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
           <h2 className="text-2xl font-bold mb-6 text-center">Iniciar Sesión</h2>
