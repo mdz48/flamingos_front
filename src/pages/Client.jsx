@@ -70,13 +70,12 @@ function Client() {
           )}
           {showSearch && (
             <div>
-              <SearchForm onSearch={() => setShowSearch(false)} />
-              <FormEditClient />
+              <FormEditClient onClose={() => setShowSearch(false)} />
             </div>
           )}
           {showDelete && (
             <div>
-              <FormDeleteClient onClose={() => setShowSection(false)} />
+              <FormDeleteClient onClose={() => setShowDelete(false)} />
             </div>
           )}
         </div>

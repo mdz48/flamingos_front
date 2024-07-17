@@ -7,7 +7,7 @@ export default function FormDeleteClient({ onClose }) {
     const queryClient = useQueryClient();
 
     const mutation = useMutation({
-        mutationFn: (clientId) => {
+        mutationFn: (clientId) => { 
             return fetch(`${import.meta.env.VITE_URL}/client/${clientId}`, {
                 method: 'DELETE',
                 headers: {
@@ -17,7 +17,7 @@ export default function FormDeleteClient({ onClose }) {
             });
         },
         onSuccess: () => {
-            queryClient.invalidateQueries('clients');
+            queryClient.invalidateQueries('client');
             onClose();
         },
         onError: (error) => {
@@ -37,7 +37,6 @@ export default function FormDeleteClient({ onClose }) {
             <form className='flex flex-col'>
                 <label htmlFor='clientId'>Client ID</label>
                 <input type='text' ref={idRef} className='border-2 mb-4' />
-
                 <div className='flex items-center justify-between'>
                     <Button onClick={handleClick} text='Delete' />
                     <Button onClick={onClose} text='Cerrar'/>

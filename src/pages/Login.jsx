@@ -1,46 +1,105 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
-import Field from '../components/molecules/Field';
 import Button from '../components/atoms/Button';
-import { data } from '../data/data';
-import Navbar from '../components/organisms/Navbar';
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const user_idRef = useRef(null);
+  const passwordRef = useRef(null);
+  const navigate = useNavigate();
+
+  const mutation = useMutation({
+    mutationFn: async (loginData) => {
+      const response = await fetch(`${import.meta.env.VITE_URL}/user/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify(loginData),
+      });
+      if (!response.ok) {
+        throw new Error('Login failed');
+      }
+      return response.json();
+    },
+    onSuccess: (data) => {
+      localStorage.setItem('token', data.token);
+      Swal.fire({
+        title: '¡Excelente!',
+        text: '¡Inicio de sesión exitoso!',
+        icon: 'success',
+      });
+      navigate('/client');
+    },
+    onError: (error) => {
+      console.error('Error during login:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: '¡Inicio de sesión fallido!',
+      });
+    },
+  });
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (!email.trim() || !password.trim()) {
+    const user_id = user_idRef.current.value;
+    const password = passwordRef.current.value;
+
+    if (!user_id.trim() || !password.trim()) {
       Swal.fire({
         icon: 'info',
-        title: 'Please',
-        text: 'Fill out all fields!',
+        title: 'Por favor',
+        text: '¡Rellena todos los campos!',
       });
-    } else {
-      // Your login logic here
-      Swal.fire({
-        title: 'Good!',
-        text: 'Login successful!',
-        icon: 'success',
-      });
+      return;
     }
+
+    const loginData = { user_id, password };
+    mutation.mutate(loginData);
   };
 
   return (
     <>
-    <Navbar links={data.navhome} />
+
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-3xl font-bold mb-6 text-center text-gray-700">Iniciar Sesión</h2>
-        <Field text="Email" type="email" placeholder="Enter your email" val={email} fnVal={setEmail} />
-        <Field text="Password" type="password" placeholder="Enter your password" val={password} fnVal={setPassword} />
-        <div className="flex justify-center mt-4">
-          <Button onClick={handleLogin} text="Iniciar Sesión" />
-        </div>
+        <form className="flex flex-col" onSubmit={handleLogin}>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="user_id">
+              Identificación
+            </label>
+            <input
+              ref={user_idRef}
+              type="text"
+              id="user_id"
+              placeholder="Ingresa tu ID"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+              Contraseña
+            </label>
+            <input
+              ref={passwordRef}
+              type="password"
+              id="password"
+              placeholder="Ingresa tu contraseña"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+          <div className="flex justify-center mt-4">
+            <Button onClick={handleLogin}  text="Iniciar Sesión" />
+          </div>
+        </form>
         <div className="text-center mt-4">
-          <Link to="/recover-password" className="text-blue-500 hover:underline">Recuperar Contraseña</Link>
+          <Link to="/recover-password" className="text-blue-500 hover:underline">
+            Recuperar Contraseña
+          </Link>
         </div>
       </div>
     </div>
