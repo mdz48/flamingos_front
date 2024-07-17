@@ -1,52 +1,46 @@
 import { useRef } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import Button from '../../../atoms/Button';
 
 export default function FormDeleteClient({ onClose }) {
     const idRef = useRef('');
+    const queryClient = useQueryClient();
+
+    const mutation = useMutation({
+        mutationFn: (clientId) => {
+            return fetch(`${import.meta.env.VITE_URL}/client/${clientId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                },
+            });
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries('clients');
+            onClose();
+        },
+        onError: (error) => {
+            console.error('Error deleting client:', error);
+            alert('No se pudo hacer conexión');
+        },
+    });
 
     const handleClick = (e) => {
         e.preventDefault();
-        fetch(`${import.meta.env.VITE_URL}/client`, {
-            method: 'PUT', 
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
-            },
-            body: JSON.stringify({
-                
-                deleted: true
-            }),
-        })
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                alert('No se pudo hacer conexión');
-            }
-        })
-        .then(data => {
-            console.log(data);
-            // Manejar la respuesta si es necesario
-        })
-        .catch(error => {
-            console.log(error);
-        });
+        const clientId = idRef.current.value;
+        mutation.mutate(clientId);
     };
 
     return (
         <div className='p-4 border border-gray-300 rounded shadow-md'>
             <form className='flex flex-col'>
-                <label htmlFor="username">Name
-                    <input type="text" ref={usernameRef} className='border-2' />
-                </label>
-                <label htmlFor="lastname">Last Name
-                    <input type="text" ref={lastnameRef} className='border-2' />
-                </label>
-                <label htmlFor="cellphone">Telefono
-                    <input type="number" ref={cellphoneRef} className='border-2' />
-                </label>
-                <div className='flex items-center justify-between mt-4'>
-                    <button onClick={handleClick} className={`bg-orange-700 text-white font-bold py-2 px-4 rounded hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50`}>Delete</button>
-                    <button onClick={onClose} className='bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50'>Cerrar</button>
+                <label htmlFor='clientId'>Client ID</label>
+                <input type='text' ref={idRef} className='border-2 mb-4' />
+
+                <div className='flex items-center justify-between'>
+                    <Button onClick={handleClick} text='Delete' />
+                    <Button onClick={onClose} text='Cerrar'/>
                 </div>
             </form>
         </div>

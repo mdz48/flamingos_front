@@ -76,8 +76,7 @@ function Client() {
           )}
           {showDelete && (
             <div>
-              <FormDeleteClient onDelete={() => setShowDelete(false)} />
-              <FormDeleteClient />
+              <FormDeleteClient onClose={() => setShowSection(false)} />
             </div>
           )}
         </div>
