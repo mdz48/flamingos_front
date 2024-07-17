@@ -6,7 +6,7 @@ function MenuContainer({ items, onMenuClick }) {
     <ul className="flex flex-col gap-1">
       {items.map((item, index) => (
         <li key={index}>
-          <Button text={item} className="w-full text-left" onClick={() => onMenuClick(item)} />
+          <Button text={item} className="w-full" onClick={() => onMenuClick(item)} />
         </li>
       ))}
     </ul>

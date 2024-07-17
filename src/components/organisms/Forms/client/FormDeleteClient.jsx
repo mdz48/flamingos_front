@@ -1,22 +1,19 @@
 import { useRef } from 'react';
 
 export default function FormDeleteClient({ onClose }) {
-    const usernameRef = useRef('');
-    const lastnameRef = useRef('');
-    const cellphoneRef = useRef('');
+    const idRef = useRef('');
 
     const handleClick = (e) => {
         e.preventDefault();
         fetch(`${import.meta.env.VITE_URL}/client`, {
-            method: 'DELETE', // Cambiado de 'GET' a 'DELETE'
+            method: 'PUT', 
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'
             },
             body: JSON.stringify({
-                "name": usernameRef.current.value,
-                "lastname": lastnameRef.current.value,
-                "cellphone": cellphoneRef.current.value
+                
+                deleted: true
             }),
         })
         .then(response => {

@@ -20,11 +20,11 @@ export const data = {
       },
       {
         site: "Insumos",
-        URL: "/InventarioInsumos"
+        URL: "/Insumos"
        },
        {
         site: "Mobiliario",
-        URL: "/InventarioMobiliario"
+        URL: "/Mobiliario"
        },
        {
         site: "Mobiliario Rentado",
@@ -50,7 +50,7 @@ export const data = {
         text: 'Sumérgete en un entorno mágico y romántico. Ofrecemos paquetes personalizados que transformarán tu día especial en una experiencia inolvidable. ¡Haz realidad la boda de tus sueños con nosotros!',
       },
       {
-        image: 'public/Information/chula_vista_birthday_image.jpg',
+        image: '/Information/chula_vista_birthday_image.jpg',
         head: "Cumpleaños",
         text: '¡Haz que tu cumpleaños sea memorable! Disfruta de una fiesta llena de sorpresas y momentos inolvidables en un ambiente encantador. ¡Celebra con estilo y alegría!',
       },

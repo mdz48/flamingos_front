@@ -3,7 +3,7 @@ import TableRow from '../molecules/TableRow';
 
 const Table = ({ headers, rows, className }) => {
   return (
-    <table className={`min-w-small bg-white ${className}`}>
+    <table className={`min-w-small max-h-3/4 bg-white shadow-md ${className}`}>
       <thead>
         <tr>
           {headers.map((header, index) => (
