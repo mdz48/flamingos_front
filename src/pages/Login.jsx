@@ -1,8 +1,10 @@
 import React, { useRef } from 'react';
+import Navbar from '../components/organisms/Navbar';
 import { Link, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 import Button from '../components/atoms/Button';
+import { data } from '../data/data';
 
 function Login() {
   const user_idRef = useRef(null);
@@ -63,7 +65,7 @@ function Login() {
 
   return (
     <>
-
+    <Navbar links={data.navhome} />
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-3xl font-bold mb-6 text-center text-gray-700">Iniciar Sesión</h2>
@@ -96,11 +98,6 @@ function Login() {
             <Button onClick={handleLogin}  text="Iniciar Sesión" />
           </div>
         </form>
-        <div className="text-center mt-4">
-          <Link to="/recover-password" className="text-blue-500 hover:underline">
-            Recuperar Contraseña
-          </Link>
-        </div>
       </div>
     </div>
     </>

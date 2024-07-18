@@ -21,7 +21,6 @@ export default function FormClient({ onClose }) {
         },
         onSuccess: () => {
             queryClient.invalidateQueries(['client']);
-            onClose();
         },
         onError: (error) => {
             console.error('Error posting data:', error);
@@ -44,30 +43,27 @@ export default function FormClient({ onClose }) {
     return (
         <div className='p-4 border border-gray-300 rounded shadow-md'>
             <form className='flex flex-col'>
-                <label htmlFor='username' className='mb-1'>
-                    Nombre
+                <label htmlFor='username' className='mb-1'>Nombre</label>
                     <input
                         type='text'
                         ref={firstnameRef}
                         className='border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50'
-                    />
-                </label>
-                <label htmlFor='lastname' className='mb-1'>
-                    Apellido
+                    /> 
+                <label htmlFor='lastname' className='mb-1'> Apellido </label> 
                     <input
                         type='text'
                         ref={lastnameRef}
                         className='border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50'
                     />
-                </label>
+                
                 <label htmlFor='telefono' className='mb-1'>
-                    Teléfono
+                    Teléfono</label>
                     <input
                         type='number'
                         ref={cellphoneRef}
                         className='border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50'
                     />
-                </label>
+                
                 <div className='flex items-center justify-between mt-4'>
                     <Button onClick={handleClick} text='Guardar' />
                     <Button onClick={onClose} text='Cerrar' />

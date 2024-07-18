@@ -2,72 +2,57 @@ import React, { useState, useEffect } from 'react';
 import Table from "../components/organisms/Table";
 import MenuContainer from "../components/organisms/MenuContainer";
 import FormSalon from '../components/organisms/Forms/salon/FormSalon';
+import FormEditSalon from '../components/organisms/Forms/salon/FormEditSalon';
+import FormDeleteSalon from '../components/organisms/Forms/salon/FormDeleteSalon';
 import Navbar from '../components/organisms/Navbar';
 import { data } from '../data/data';
-
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 function Salon() {
-  const [insumos, setInsumos] = useState([]);
-  const [content, setContent] = useState([]);
   const [showSection, setShowSection] = useState(false);
+  const [formType, setFormType] = useState(null);
+  const verticalMenuItems = ['Agregar', 'Editar', 'Borrar'];
+  const tableHeaders = ['ID', 'Nombre', 'Capacidad', 'Descripción'];
+  const queryClient = useQueryClient();
 
-  const verticalMenuItems = ['Agregar', 'Editar', 'Borrar', ];
-  const tableHeaders = ['ID', 'Nombre', 'capacidad', 'Descripcion'];
-
-  useEffect(() => {
-    fetch(`${import.meta.env.VITE_URL}/saalon/summaries`, {
-      method: 'GET',
-      headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
-      },
-    })
-    .then(response => {
-        if (response.ok) {
-            return response.json();
-        } else {
-            alert('No se pudo hacer conexión');
-            return [];
-        }
-    })
-    .then(data => {
-        if (data.length > 0) {
-            const headers = Object.keys(data[0]); //Mapeado de TODOS los atributos EN INGLES //
-            const rows = data.map(item => Object.values(item)); // Contenido en sí
-            setInsumos(tableHeaders);
-            setContent(rows);
-        }
-    })
-    .catch(error => {
-        console.log(error);
-    });
-  }, []);
+  const { data: salonData, error, isLoading } = useQuery({
+    queryKey: ['salon'],
+    queryFn: async () => {
+      const response = await fetch(`${import.meta.env.VITE_URL}/salon/summaries`);
+      if (!response.ok) throw new Error('Network response was not ok');
+      return response.json();
+    }
+  });
 
   const handleMenuClick = (item) => {
-    if (item === 'Agregar') {
-      setShowSection(true);
-    }
-  }
+    setFormType(item);
+    setShowSection(true);
+  };
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading data</div>;
+
+  const rows = salonData.map(item => Object.values(item));
 
   return (
     <>
-    <Navbar links={data.navuser}/>
-    <div className="flex p-8">
-      <div className="w-1/3">
-        <MenuContainer items={verticalMenuItems} onMenuClick={handleMenuClick} />
-        {showSection && (
-          <div>
-            <FormSalon />
-          </div>
-        )}
-      </div>
-      <div className="w-2/3 p-8">
-        <div>
-          <h1 className="text-2xl font-bold mb-4">Bienvenido a la Administración de Recursos</h1>
-          <Table headers={insumos} rows={content} className="mt-8 shadow-md" />
+      <Navbar links={data.navuser} />
+      <h1 className="text-2xl font-bold mb-4 p-8 text-center">Bienvenido a la Administración de Recursos</h1>
+      <div className="md:grid md:grid-cols-3 w-[80%] mx-auto">
+        <div className="w-auto md:col-span-1">
+          <MenuContainer items={verticalMenuItems} onMenuClick={handleMenuClick} />
+          {showSection && (
+            <div>
+              {formType === 'Agregar' && <FormSalon onClose={() => setShowSection(false)} />}
+              {formType === 'Editar' && <FormEditSalon onClose={() => setShowSection(false)} />}
+              {formType === 'Borrar' && <FormDeleteSalon onClose={() => setShowSection(false)} />}
+            </div>
+          )}
+        </div>
+        <div className="md:col-span-2 w-full md:w-auto mx-auto overflow-x-auto h-[50vh]">
+          <Table headers={tableHeaders} rows={rows} className="shadow-md" />
         </div>
       </div>
-    </div>
     </>
   );
 }

@@ -2,12 +2,16 @@ import React, { useState, useEffect } from 'react';
 import Table from "../components/organisms/Table";
 import MenuContainer from "../components/organisms/MenuContainer";
 import FormMobiliary from '../components/organisms/Forms/mobiliary/FormMobiliary';
+import FormEditMobiliary from '../components/organisms/Forms/mobiliary/FormEditMobiliary';
+import FormDeleteRentedMobiliary from '../components/organisms/Forms/rentedmobiliary/FormDeleteRentedMobiliary';
 import Navbar from '../components/organisms/Navbar';
 import { data } from '../data/data';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import FormDeleteMobiliary from '../components/organisms/Forms/mobiliary/FormDeleteMobiliary';
 
 function Mobiliario() {
   const [showSection, setShowSection] = useState(false);
+  const [formType, setFormType] = useState(null);
   const verticalMenuItems = ['Agregar', 'Editar', 'Borrar'];
   const tableHeaders = ['ID', 'Nombre', 'Cantidad', 'Estado', 'Disponibles'];
   const queryClient = useQueryClient();
@@ -22,9 +26,8 @@ function Mobiliario() {
   });
 
   const handleMenuClick = (item) => {
-    if (item === 'Agregar') {
-      setShowSection(true);
-    }
+    setFormType(item);
+    setShowSection(true);
   };
 
   if (isLoading) return <div>Loading...</div>;
@@ -41,12 +44,14 @@ function Mobiliario() {
           <MenuContainer items={verticalMenuItems} onMenuClick={handleMenuClick} />
           {showSection && (
             <div>
-              <FormMobiliary onClose={() => setShowSection(false)} />
+              {formType === 'Agregar' && <FormMobiliary onClose={() => setShowSection(false)} />}
+              {formType === 'Editar' && <FormEditMobiliary onClose={() => setShowSection(false)} />}
+              {formType === 'Borrar' && <FormDeleteMobiliary onClose={() => setShowSection(false)} />}
             </div>
           )}
         </div>
-        <div className="md:col-span-2 w-full md:w-auto mx-auto overflow-x-auto max-h-[85%]">
-          <Table headers={tableHeaders} rows={rows} className="mt-8 shadow-md" />
+        <div className="md:col-span-2 w-full md:w-auto mx-auto overflow-x-auto h-[50vh]">
+          <Table headers={tableHeaders} rows={rows} className=" shadow-md" />
         </div>
       </div>   
     </>
