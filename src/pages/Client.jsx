@@ -70,18 +70,16 @@ function Client() {
           )}
           {showSearch && (
             <div>
-              <SearchForm onSearch={() => setShowSearch(false)} />
-              <FormEditClient />
+              <FormEditClient onClose={() => setShowSearch(false)} />
             </div>
           )}
           {showDelete && (
             <div>
-              <FormDeleteClient onDelete={() => setShowDelete(false)} />
-              <FormDeleteClient />
+              <FormDeleteClient onClose={() => setShowDelete(false)} />
             </div>
           )}
         </div>
-          <div className="md:col-span-2 w-full md:w-auto mx-auto overflow-x-auto max-h-[80%]">
+          <div className="md:col-span-2 w-auto mx-auto overflow-x-auto h-[50vh]">
             <Table headers={tableHeaders} rows={content}/>
           </div>
       </div>

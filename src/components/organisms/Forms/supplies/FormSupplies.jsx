@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Button from "../../../atoms/Button";
 
-export default function Form({ onClose }) {
+export default function AnotherForm({ onClose }) {
   const nameRef = useRef("");
   const costRef = useRef("");
   const descriptionRef = useRef("");
@@ -32,20 +32,20 @@ export default function Form({ onClose }) {
   const handleClick = (e) => {
     e.preventDefault();
     const newData = {
-      "name": nameRef.current.value,
-      "cost": costRef.current.value,
-      "description": descriptionRef.current.value,
-      "updated_by": "Mdz",
-      "created_by": "Mdz",
+      name: nameRef.current.value,
+      cost: costRef.current.value,
+      description: descriptionRef.current.value,
+      updated_by: "Mdz",
+      created_by: "Mdz",
     };
     mutation.mutate(newData);
   };
 
   return (
     <div className="p-4 border border-gray-300 rounded shadow-md">
-      <form className="grid grid-cols-2 gap-4">
+      <form className="flex flex-col">
         <div>
-          <label htmlFor="username" className="block mb-1">
+          <label htmlFor="name" className="block mb-1">
             Nombre
           </label>
           <input
@@ -75,8 +75,8 @@ export default function Form({ onClose }) {
           />
         </div>
         <div className="col-span-2 flex items-center justify-between mt-4">
-            <Button onClick={handleClick} text={`Save`}/>
-            <Button onClick={onClose} text={`Cerrar`}/>
+          <Button onClick={handleClick} text="Guardar" />
+          <Button onClick={onClose} text="Cerrar" />
         </div>
       </form>
     </div>

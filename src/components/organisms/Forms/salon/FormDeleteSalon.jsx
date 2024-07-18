@@ -2,13 +2,13 @@ import { useRef } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Button from '../../../atoms/Button';
 
-export default function FormDeleteClient({ onClose }) {
+export default function FormDeleteSalon({ onClose }) {
     const idRef = useRef('');
     const queryClient = useQueryClient();
 
     const mutation = useMutation({
-        mutationFn: (clientId) => { 
-            return fetch(`${import.meta.env.VITE_URL}/client/${clientId}`, {
+        mutationFn: (salonId) => {
+            return fetch(`${import.meta.env.VITE_URL}/salon/${salonId}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -17,28 +17,28 @@ export default function FormDeleteClient({ onClose }) {
             });
         },
         onSuccess: () => {
-            queryClient.invalidateQueries('client');
+            queryClient.invalidateQueries('salon');
             onClose();
         },
         onError: (error) => {
-            console.error('Error deleting client:', error);
+            console.error('Error deleting salon:', error);
             alert('No se pudo hacer conexión');
         },
     });
 
     const handleClick = (e) => {
         e.preventDefault();
-        const clientId = idRef.current.value;
-        mutation.mutate(clientId);
+        const salonId = idRef.current.value;
+        mutation.mutate(salonId);
     };
 
     return (
         <div className='p-4 border border-gray-300 rounded shadow-md'>
             <form className='flex flex-col'>
-                <label htmlFor='clientId'>Client ID</label>
-                <input type='text' ref={idRef} className='border-2 mb-4' />
-                <div className='flex items-center justify-between'>
-                    <Button onClick={handleClick} text='Delete' />
+                <label htmlFor='salonId'>ID del Salón</label>
+                <input type='text' ref={idRef} className='border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50' />
+                <div className='flex items-center justify-between mt-4'>
+                    <Button onClick={handleClick} text='Eliminar' />
                     <Button onClick={onClose} text='Cerrar'/>
                 </div>
             </form>

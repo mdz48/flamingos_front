@@ -35,7 +35,7 @@ export const data = {
         URL: "/Client"
        },
        {
-        site: "Salon",
+        site: "Salones",
         URL: "/Salon",
        },
        {
