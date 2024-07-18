@@ -1,7 +1,6 @@
 import { useRef } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Button from '../../../atoms/Button';
-import Input from '../../../atoms/Input';
 
 export default function FormMobiliary({ onClose }) {
     const nameRef = useRef('');
