@@ -16,15 +16,13 @@ function Home() {
         { image: 'path/to/card3.jpg', text: 'Card 3' },
     ];
 
-
-
-
     return (
         <>
             <Navbar links={data.navhome}/>
             <HeroSection />
-            <InfoSection/>
+            <InfoSection />
             <CardsSection />
+            <Heading text="Nuestros Paquetes" />
             <SalonesSection />
             <Footer />
         </>

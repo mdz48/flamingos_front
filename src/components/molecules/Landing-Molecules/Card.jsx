@@ -1,4 +1,3 @@
-// components/molecules/Card.jsx
 import React from 'react';
 import Picture from '../../atoms/Picture.jsx';
 import Paragraph from '../../atoms/Paragraph.jsx';
