@@ -1,21 +1,51 @@
 export const data = {
   navhome: [
     {
-     site: "Home",
-     URL: "/"
+      site: "Home",
+      URL: "/"
     },
     {
       site: "Contacto",
       URL: "/contact"
-     },
-     {
+    },
+    {
       site: "Cotizar",
       URL: "/cotizacion"
-     },
-     {
-     site:"Login",
-     URL:"/login"
-     },
+    },
+    {
+      site: "Login",
+      URL: "/login"
+    },
+  ],
+  navuser: [
+    {
+      site: "Inicio",
+      URL: "/home-empleados"
+    },
+    {
+      site: "Mobiliario",
+      URL: "/mobiliario"
+    },
+    {
+      site: "Insumos",
+      URL: "/insumos"
+    },
+    {
+      site: "Usuarios",
+      URL: "/users"
+    },
+    {
+      site: "Rented Mobiliary",
+      URL: "/rented-mobiliary"
+    },
+    {
+      site: "Salon",
+      URL: "/salon"
+    },
+    {
+      site: "Clientes",
+      URL: "/client"
+    },
   ],
   cards: [
     {
@@ -150,7 +180,7 @@ export const data = {
   preciosPaquetes: {
     flamingos: 259,
     premium: 369,
-    personalizado: 0 // Asume que personalizado tiene un precio dinámico
+    personalizado: 0 
   },
 };
 
