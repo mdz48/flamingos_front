@@ -28,6 +28,7 @@ function Login() {
     },
     onSuccess: (data) => {
       localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user))
       Swal.fire({
         title: '¡Excelente!',
         text: '¡Inicio de sesión exitoso!',

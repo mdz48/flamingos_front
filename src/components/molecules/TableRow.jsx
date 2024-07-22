@@ -5,7 +5,7 @@ const TableRow = ({ data, className }) => {
   return (
     <tr className={className}>
       {data.map((cell, index) => (
-        <TableCell key={index} className="px-4 py-2 border-b border-gray-200">
+        <TableCell key={index} className="px-4 py-2  border-gray-200">
           {cell}
         </TableCell>
       ))}

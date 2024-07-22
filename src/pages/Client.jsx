@@ -13,8 +13,9 @@ function Client() {
   const [showSection, setShowSection] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
+  const [role, setRole] = useState(null);
   const verticalMenuItems = ['Agregar', 'Editar', 'Borrar'];
-  const tableHeaders = ['ID', 'Nombre', 'apellido', 'Telefono'];
+  const tableHeaders = ['ID', 'Nombre', 'Apellido', 'Telefono'];
 
   const { data: clientsData, error, isLoading } = useQuery({
     queryKey: ['clients'],
@@ -30,6 +31,17 @@ function Client() {
       return response.json();
     }
   });
+
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    if (user) {
+      const parsedUser = JSON.parse(user);
+      console.log('User:', parsedUser);
+      setRole(parsedUser.role);
+    } else {
+      console.log('No user found in localStorage');
+    }
+  }, []);
 
   useEffect(() => {
     if (clientsData) {
@@ -60,28 +72,30 @@ function Client() {
     <>
       <Navbar links={data.navuser} />
       <h1 className="text-2xl font-bold mb-4 p-8 text-center">Bienvenido a la Administración de Recursos</h1>
-      <div className="md:grid md:grid-cols-3 w-[80%] mx-auto">
-        <div className="w-auto md:col-span-1">
-          <MenuContainer items={verticalMenuItems} onMenuClick={handleMenuClick} />
-          {showSection && (
-            <div>
-              <FormClient onClose={() => setShowSection(false)}/>
-            </div>
-          )}
-          {showSearch && (
-            <div>
-              <FormEditClient onClose={() => setShowSearch(false)} />
-            </div>
-          )}
-          {showDelete && (
-            <div>
-              <FormDeleteClient onClose={() => setShowDelete(false)} />
-            </div>
-          )}
-        </div>
-          <div className="md:col-span-2 w-auto mx-auto overflow-x-auto h-[50vh]">
-            <Table headers={tableHeaders} rows={content}/>
+      <div className="flex flex-col md:grid md:grid-cols-3 w-[80%] mx-auto">
+        {role === 1 && (
+          <div className="w-auto md:col-span-1 mb-4 md:mb-0">
+            <MenuContainer items={verticalMenuItems} onMenuClick={handleMenuClick} />
+            {showSection && (
+              <div>
+                <FormClient onClose={() => setShowSection(false)} />
+              </div>
+            )}
+            {showSearch && (
+              <div>
+                <FormEditClient onClose={() => setShowSearch(false)} />
+              </div>
+            )}
+            {showDelete && (
+              <div>
+                <FormDeleteClient onClose={() => setShowDelete(false)} />
+              </div>
+            )}
           </div>
+        )}
+        <div className={`md:col-span-2 w-full mx-auto overflow-x-auto h-[50vh] ${role !== 1 ? 'md:col-span-3' : ''}`}>
+          <Table headers={tableHeaders} rows={content} />
+        </div>
       </div>
     </>
   );

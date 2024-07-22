@@ -75,7 +75,7 @@ function App() {
           <Route path='/mobiliario' element={<Mobiliario />} />
           <Route path='/insumos' element={<Insumos />} />
           <Route path='/client' element={<Client />} />
-          <Route path='/rented-mobiliary' element={<RentedMobiliary />} />
+          <Route path='/rentedmobiliary' element={<RentedMobiliary />} />
           <Route path='/salon' element={<Salon />} />
           <Route path='/users' element={<Users />} />
           <Route path='/cotizacion' element={<Cotizacion />} />

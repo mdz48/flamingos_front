@@ -47,6 +47,36 @@ export const data = {
       URL: "/client"
     },
   ],
+  navuser: [
+    {
+     site: "Home",
+     URL: "/"
+    },
+    {
+      site: "Insumos",
+      URL: "/Insumos"
+     },
+     {
+      site: "Mobiliario",
+      URL: "/Mobiliario"
+     },
+     {
+      site: "Mobiliario Rentado",
+      URL: "/RentedMobiliary"
+     },
+     {
+      site: "Clientes",
+      URL: "/Client"
+     },
+     {
+      site: "Salones",
+      URL: "/Salon",
+     },
+     {
+      site: "Empleados",
+      URL: "/Users",
+     }
+  ],
   cards: [
     {
       image: 'card1.jpg',
