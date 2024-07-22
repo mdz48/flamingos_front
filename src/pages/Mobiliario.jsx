@@ -13,7 +13,7 @@ function Mobiliario() {
   const [showSection, setShowSection] = useState(false);
   const [formType, setFormType] = useState(null);
   const verticalMenuItems = ['Agregar', 'Editar', 'Borrar'];
-  const tableHeaders = ['ID', 'Nombre', 'Cantidad', 'Estado', 'Disponibles'];
+  const tableHeaders = ['ID', 'ID del Salon','Nombre', 'Cantidad', 'Estado', 'Descripción'];
   const queryClient = useQueryClient();
 
   const { data: mobiliarioData, error, isLoading } = useQuery({
