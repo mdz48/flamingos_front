@@ -4,8 +4,9 @@ import Button from '../../../atoms/Button';
 
 export default function EditFormMobiliary({ onClose }) {
     const idRef = useRef('');
+    const idsalonRef = useRef('');
     const nameRef = useRef('');
-    const quantityRef = useRef('');
+    const stockRef = useRef('');
     const stateRef = useRef('');
     const availableRef = useRef('');
     const queryClient = useQueryClient();
@@ -49,12 +50,14 @@ export default function EditFormMobiliary({ onClose }) {
             <form className='flex flex-col'>
                 <label htmlFor='id' className='mb-1'> ID del Mobiliario </label>
                 <input type='text' ref={idRef} className='border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50'/>
+                <input type="text" ref={idsalonRef}className="border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"/>
+                <label htmlFor="stock">Cantidad</label>
                 <label htmlFor='name' className='mb-1'> Nombre </label>
                 <input type='text' ref={nameRef} className='border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50'/>
-                <label htmlFor="quantity" className="mb-1">Cantidad</label>
+                <label htmlFor="stock" className="mb-1">Cantidad</label>
                 <input
                 type="text"
-                ref={quantityRef}
+                ref={stockRef}
                 className="border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
                 />
 

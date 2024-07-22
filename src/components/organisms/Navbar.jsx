@@ -8,7 +8,7 @@ function Navbar (props) {
   return (
     <nav className="bg-orange-700 p-4">
       <div className="container mx-auto flex justify-between items-center">
-        <img src="Logo.png" alt="Page Logo" className="w-21 h-20" />
+        <Link to={props.img}><img src="Logo.png" alt="Page Logo" className="w-21 h-20" /></Link>
         <div className="lg:hidden">
           <button onClick={() => setMenuOpen(!menuOpen)} className="text-white">
             {menuOpen ? <FaTimes /> : <FaBars />}

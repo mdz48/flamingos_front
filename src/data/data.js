@@ -36,7 +36,7 @@ export const data = {
     },
     {
       site: "Rented Mobiliary",
-      URL: "/rented-mobiliary"
+      URL: "/rentedmobiliary"
     },
     {
       site: "Salon",
@@ -45,6 +45,10 @@ export const data = {
     {
       site: "Clientes",
       URL: "/client"
+    },
+    {
+      site: "Cerrar Sesión",
+      URL: "/"
     },
   ],
   cards: [

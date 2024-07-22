@@ -6,7 +6,7 @@ export default function FormMobiliary({ onClose }) {
     const nameRef = useRef('');
     const stockRef = useRef('');
     const stateRef = useRef('');
-    const availableRef = useRef('');
+    const idsalonRef = useRef('');
     const queryClient = useQueryClient();
 
     const mutation = useMutation({
@@ -36,7 +36,7 @@ export default function FormMobiliary({ onClose }) {
             name: nameRef.current.value,
             stock: stockRef.current.value,
             state: stateRef.current.value,
-            available_stock: stockRef.current.value,
+            salon_id_fk: idsalonRef.current.value,
             description: 'none',
             updated_by: 'Max',
             created_by: 'Max',
@@ -49,6 +49,8 @@ export default function FormMobiliary({ onClose }) {
             <form className='flex flex-col'>
                 <label htmlFor="name">Nombre</label>
                 <input type="text" ref={nameRef}className="border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"/>
+                <label htmlFor="salon">ID Salon</label>
+                <input type="text" ref={idsalonRef}className="border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"/>
                 <label htmlFor="stock">Cantidad</label>
                 <input type="number" ref={stockRef}className="border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"/>
                 <label htmlFor="state">Estado</label>

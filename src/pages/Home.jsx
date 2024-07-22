@@ -18,7 +18,7 @@ function Home() {
 
     return (
         <>
-            <Navbar links={data.navhome}/>
+            <Navbar links={data.navhome} img = {'/'}/>
             <HeroSection />
             <InfoSection />
             <CardsSection />
