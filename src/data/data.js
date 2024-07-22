@@ -36,7 +36,7 @@ export const data = {
     },
     {
       site: "Rented Mobiliary",
-      URL: "/rented-mobiliary"
+      URL: "/rentedmobiliary"
     },
     {
       site: "Salon",
@@ -46,66 +46,10 @@ export const data = {
       site: "Clientes",
       URL: "/client"
     },
-  ],
-  navuser: [
     {
-     site: "Home",
-     URL: "/"
+      site: "Cerrar Sesión",
+      URL: "/"
     },
-    {
-      site: "Insumos",
-      URL: "/Insumos"
-     },
-     {
-      site: "Mobiliario",
-      URL: "/Mobiliario"
-     },
-     {
-      site: "Mobiliario Rentado",
-      URL: "/RentedMobiliary"
-     },
-     {
-      site: "Clientes",
-      URL: "/Client"
-     },
-     {
-      site: "Salones",
-      URL: "/Salon",
-     },
-     {
-      site: "Empleados",
-      URL: "/Users",
-     }
-  ],
-  navuser: [
-    {
-     site: "Home",
-     URL: "/"
-    },
-    {
-      site: "Insumos",
-      URL: "/Insumos"
-     },
-     {
-      site: "Mobiliario",
-      URL: "/Mobiliario"
-     },
-     {
-      site: "Mobiliario Rentado",
-      URL: "/RentedMobiliary"
-     },
-     {
-      site: "Clientes",
-      URL: "/Client"
-     },
-     {
-      site: "Salones",
-      URL: "/Salon",
-     },
-     {
-      site: "Empleados",
-      URL: "/Users",
-     }
   ],
   cards: [
     {

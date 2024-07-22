@@ -20,7 +20,7 @@ function Cotizacion() {
 
   return (
     <>
-      <Navbar links={data.navhome} />
+      <Navbar links={data.navhome} img = {'/'}/>
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-2xl font-bold mb-4">Cotización</h1>
         <form className="flex flex-col space-y-4">

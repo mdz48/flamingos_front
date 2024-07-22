@@ -70,7 +70,7 @@ function Client() {
 
   return (
     <>
-      <Navbar links={data.navuser} />
+      <Navbar links={data.navuser}img = {'/home-empleados'} />
       <h1 className="text-2xl font-bold mb-4 p-8 text-center">Bienvenido a la Administración de Recursos</h1>
       <div className="flex flex-col md:grid md:grid-cols-3 w-[80%] mx-auto">
         {role === 1 && (

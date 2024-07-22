@@ -6,7 +6,7 @@ import { data } from '../data/data.js';
 function Contact() {
   return (
     <div>
-      <Navbar links={data.navhome}/>
+      <Navbar links={data.navhome}img = {'/'}/>
       <div className="flex justify-center items-center min-h-screen bg-gray-100">
         <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
           <h2 className="text-2xl font-bold mb-6 text-center">Contactanos</h2>

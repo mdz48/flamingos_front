@@ -34,7 +34,7 @@ function Login() {
         text: '¡Inicio de sesión exitoso!',
         icon: 'success',
       });
-      navigate('/client');
+      navigate('/home-empleados');
     },
     onError: (error) => {
       console.error('Error during login:', error);
@@ -66,7 +66,7 @@ function Login() {
 
   return (
     <>
-    <Navbar links={data.navhome} />
+    <Navbar links={data.navhome} img = {'/'}/>
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-3xl font-bold mb-6 text-center text-gray-700">Iniciar Sesión</h2>
