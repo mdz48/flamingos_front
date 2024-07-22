@@ -1,27 +1,15 @@
-export function getMonthDays(year, month, events) {
-    const date = new Date(year, month, 1);
-    const days = [];
-  
-    // Fill initial empty days
-    for (let i = 0; i < date.getDay(); i++) {
-      days.push({ date: null, info: null });
-    }
-  
-    // Fill the days of the month
-    while (date.getMonth() === month) {
-      const dayInfo = events[date.getDate()] || null;
-      days.push({ date: new Date(date), info: dayInfo });
-      date.setDate(date.getDate() + 1);
-    }
-  
-    // Fill remaining empty days to complete the last week
-    while (days.length % 7 !== 0) {
-      days.push({ date: null, info: null });
-    }
-  
-    return days;
-  }
-  
-  export function getWeekDays() {
-    return ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  }
+// utils/CalendarUtils.js
+export const getMonthDays = (year, month, events) => {
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const days = Array.from({ length: daysInMonth }, (_, index) => {
+    const day = index + 1;
+    const eventForDay = events.filter(event => event.day === day);
+    return { day, events: eventForDay };
+  });
+
+  return days;
+};
+
+export function getWeekDays() {
+  return ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+}

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import CalendarHeader from '../molecules/CalendarHeader';
 import CalendarWeek from '../molecules/CalendarWeek';
 import { getMonthDays } from '../../utils/CalendarUtils';
 import Button from '../atoms/Button';
-import { useQuery } from '@tanstack/react-query';
 
 function Calendar({ year, month }) {
   const [currentYear, setCurrentYear] = useState(year);
@@ -27,8 +27,14 @@ function Calendar({ year, month }) {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading data</div>;
 
-  const events = reservationData.map((item) => Object.values(item));
-  const days = getMonthDays(currentYear, currentMonth, events);
+  // Transformar y filtrar datos de reservaciones
+  const transformedData = transformReservationData(reservationData);
+  const filteredEvents = transformedData.filter(
+    (item) =>
+      item.year === currentYear && item.month === currentMonth
+  );
+
+  const days = getMonthDays(currentYear, currentMonth, filteredEvents);
   const weeks = [];
   let week = [];
 
@@ -67,7 +73,17 @@ function Calendar({ year, month }) {
   );
 }
 
-
-
+// Nueva función para transformar los datos
+const transformReservationData = (data) => {
+  return data.map((item) => {
+    const eventDate = new Date(item.event_date);
+    return {
+      ...item,
+      day: eventDate.getUTCDate(),
+      month: eventDate.getUTCMonth(),
+      year: eventDate.getUTCFullYear(),
+    };
+  });
+};
 
 export default Calendar;
