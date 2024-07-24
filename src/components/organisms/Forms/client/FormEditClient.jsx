@@ -1,17 +1,18 @@
 import { useRef } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Button from "../../../atoms/Button";
+import toast from "react-hot-toast";
 
 export default function FormClient({ onClose }) {
   const firstnameRef = useRef("");
   const lastnameRef = useRef("");
   const cellphoneRef = useRef("");
-  const queryClient = useQueryClient();
   const id_clientRef = useRef("");
+  const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: (newData) => {
-      return fetch(
+    mutationFn: async (newData) => {
+      const response = await fetch(
         `${import.meta.env.VITE_URL}/client/${id_clientRef.current.value}`,
         {
           method: "PUT",
@@ -22,27 +23,46 @@ export default function FormClient({ onClose }) {
           body: JSON.stringify(newData),
         }
       );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Error al actualizar el cliente');
+      }
+      return response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["client"]);
-      onClose();
+      toast.success("Registro actualizado exitosamente");
     },
     onError: (error) => {
-      console.error("Error posting data:", error);
-      alert("No se pudo hacer conexión");
+      console.error("Error updating data:", error);
+      toast.error(error.message || 'Ocurrió un error');
     },
   });
 
   const handleClick = (e) => {
     e.preventDefault();
-    const newData = {
-      firstname: firstnameRef.current.value,
-      lastname: lastnameRef.current.value,
-      cellphone: cellphoneRef.current.value,
-      updated_by: "Leo",
-      created_by: "E menso",
-    };
-    mutation.mutate(newData);
+    const value = localStorage.getItem('user');
+
+    if (value) {
+      try {
+        const userObject = JSON.parse(value);
+        const userName = userObject.firstname;
+        const newData = {
+          firstname: firstnameRef.current.value,
+          lastname: lastnameRef.current.value,
+          cellphone: cellphoneRef.current.value,
+          updated_by: userName,
+        };
+        mutation.mutate(newData);
+      } catch (error) {
+        console.error("Error parsing JSON:", error);
+        toast.error('Error al procesar datos del usuario');
+      }
+    } else {
+      console.log("No user found in localStorage");
+      toast.error('No se encontró el usuario en localStorage');
+    }
   };
 
   return (
