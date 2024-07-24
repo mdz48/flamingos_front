@@ -11,21 +11,22 @@ export default function FormUsers({ onClose }) {
     const queryClient = useQueryClient();
 
     const mutation = useMutation({
-        mutationFn: async (newData) => {
-            const response = await fetch(`${import.meta.env.VITE_URL}/user`, {
+        mutationFn: (newData) => {
+            return fetch(`${import.meta.env.VITE_URL}/user`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': '*',
                 },
                 body: JSON.stringify(newData),
+            }).then(response => {
+                if (!response.ok) {
+                    return response.json().then(errorData => {
+                        throw new Error(errorData.message || 'Error al guardar el usuario');
+                    });
+                }
+                return response.json();
             });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || 'Error al guardar el usuario');
-            }
-            return response.json();
         },
         onSuccess: () => {
             queryClient.invalidateQueries(['user']);

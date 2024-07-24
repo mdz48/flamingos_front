@@ -10,20 +10,22 @@ export default function FormSalon({ onClose }) {
     const queryClient = useQueryClient();
 
     const mutation = useMutation({
-        mutationFn: async (newData) => {
-            const response = await fetch(`${import.meta.env.VITE_URL}/salon`, {
+        mutationFn: (newData) => {
+            return fetch(`${import.meta.env.VITE_URL}/salon`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': '*',
                 },
                 body: JSON.stringify(newData),
+            }).then(response => {
+                if (!response.ok) {
+                    return response.json().then(errorData => {
+                        throw new Error(errorData.message || 'Error al guardar el salón');
+                    });
+                }
+                return response.json();
             });
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || 'Error al registrar el salón');
-            }
-            return response.json();
         },
         onSuccess: () => {
             queryClient.invalidateQueries(['salon']);
