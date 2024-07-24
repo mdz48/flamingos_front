@@ -11,8 +11,8 @@ export default function FormClient({ onClose }) {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: async (newData) => {
-      const response = await fetch(
+    mutationFn:  (newData) => {
+      return fetch(
         `${import.meta.env.VITE_URL}/client/${id_clientRef.current.value}`,
         {
           method: "PUT",
@@ -22,13 +22,14 @@ export default function FormClient({ onClose }) {
           },
           body: JSON.stringify(newData),
         }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Error al actualizar el cliente');
-      }
-      return response.json();
+      ).then(response => {
+        if (!response.ok) {
+            return response.json().then(errorData => {
+                throw new Error(errorData.message || 'Error al editar el cliente');
+            });
+        }
+        return response.json();
+    });
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["client"]);

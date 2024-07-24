@@ -8,20 +8,21 @@ export default function FormDeleteSalon({ onClose }) {
     const queryClient = useQueryClient();
 
     const mutation = useMutation({
-        mutationFn: async (salonId) => {
-            const response = await fetch(`${import.meta.env.VITE_URL}/salon/${salonId}`, {
+        mutationFn:  (salonId) => {
+            return fetch(`${import.meta.env.VITE_URL}/salon/${salonId}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': '*'
                 },
+            }).then(response => {
+                if (!response.ok) {
+                    return response.json().then(errorData => {
+                        throw new Error(errorData.message || 'Error al eliminar el salón');
+                    });
+                }
+                return response.json();
             });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || 'Error al eliminar el salón');
-            }
-            return response.json();
         },
         onSuccess: () => {
             queryClient.invalidateQueries(['salon']);
