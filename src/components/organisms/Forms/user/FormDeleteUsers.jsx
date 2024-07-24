@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Button from '../../../atoms/Button';
+import toast from 'react-hot-toast';
 
 export default function FormDeleteUsers({ onClose }) {
     const idRef = useRef('');
@@ -14,21 +15,34 @@ export default function FormDeleteUsers({ onClose }) {
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': '*',
                 },
+            }).then(response => {
+                if (!response.ok) {
+                    return response.json().then(errorData => {
+                        throw new Error(errorData.message || 'Error al eliminar el Usuario');
+                    });
+                }
+                return response.json();
             });
         },
         onSuccess: () => {
             queryClient.invalidateQueries(['user']);
+            toast.success('Usuario eliminado correctamente.');
             onClose();
         },
         onError: (error) => {
             console.error('Error deleting user:', error);
-            alert('No se pudo realizar la conexión');
+            toast.error('No se pudo eliminar el usuario.');
         },
     });
 
     const handleClick = (e) => {
         e.preventDefault();
-        mutation.mutate(idRef.current.value);
+        const id = idRef.current.value;
+        if (!id) {
+            toast.error('Por favor, ingresa un ID.');
+            return;
+        }
+        mutation.mutate(id);
     };
 
     return (

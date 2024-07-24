@@ -5,6 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 import Button from '../components/atoms/Button';
 import { data } from '../data/data';
+import toast from 'react-hot-toast';
 
 function Login() {
   const user_idRef = useRef(null);
@@ -29,20 +30,11 @@ function Login() {
     onSuccess: (data) => {
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user))
-      Swal.fire({
-        title: '¡Excelente!',
-        text: '¡Inicio de sesión exitoso!',
-        icon: 'success',
-      });
       navigate('/home-empleados');
     },
     onError: (error) => {
       console.error('Error during login:', error);
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: '¡Inicio de sesión fallido!',
-      });
+      toast.error('Credenciales Incorrectas')
     },
   });
 
@@ -52,11 +44,7 @@ function Login() {
     const password = passwordRef.current.value;
 
     if (!user_id.trim() || !password.trim()) {
-      Swal.fire({
-        icon: 'info',
-        title: 'Por favor',
-        text: '¡Rellena todos los campos!',
-      });
+      toast('Por favor, rellene todos los campos', { icon: '⚠️' });
       return;
     }
 
