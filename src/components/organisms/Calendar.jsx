@@ -73,7 +73,7 @@ function Calendar({ year, month }) {
   );
 }
 
-// Nueva función para transformar los datos
+
 const transformReservationData = (data) => {
   return data.map((item) => {
     const eventDate = new Date(item.event_date);
