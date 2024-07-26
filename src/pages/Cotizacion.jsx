@@ -47,11 +47,11 @@ function Cotizacion() {
           </div>
           <Button onClick={calcularCosto} text="Cotizar" className="self-start" />
         </form>
-        {costoTotal !== null && (
+        
           <div className="mt-4 p-4 bg-gray-100 rounded shadow">
             <p className="font-bold">Costo Total: ${costoTotal}</p>
           </div>
-        )}
+        
       </div>
       <Footer />
     </>

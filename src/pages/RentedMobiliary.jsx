@@ -5,8 +5,9 @@ import FormRentMobiliary from '../components/organisms/Forms/rentedmobiliary/For
 import FormEditRentedMobiliary from '../components/organisms/Forms/rentedmobiliary/FormEditRentedMobiliary';
 import FormDeleteRentedMobiliary from '../components/organisms/Forms/rentedmobiliary/FormDeleteRentedMobiliary';
 import Navbar from '../components/organisms/Navbar';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { data } from '../data/data';
+import toast from 'react-hot-toast';
 
 function RentedMobiliary() {
   const [content, setContent] = useState([]);
@@ -16,6 +17,7 @@ function RentedMobiliary() {
   const [role, setRole] = useState(null);
   const verticalMenuItems = ['Agregar', 'Editar', 'Borrar'];
   const tableHeaders = ['ID', 'Nombre', 'Descripción', 'Costo', 'Proveedor', 'Fecha de Entrada', 'Fecha de Salida'];
+  const queryClient = useQueryClient();
 
   const { data: rentedMobiliaryData, error, isLoading } = useQuery({
     queryKey: ['rentedMobiliary'],
@@ -65,6 +67,22 @@ function RentedMobiliary() {
     }
   };
 
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_URL}/rentedmobiliary/${id}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error("Ocurrió un error al eliminar");
+      } else {
+        toast.success('Mobiliario Eliminado')
+        queryClient.invalidateQueries('rentedMobiliary'); 
+      }
+    } catch (error) {
+      toast.error(`${error}`)
+    }
+  };
+
   if (isLoading) return <div>Cargando...</div>;
   if (error) return <div>Error al cargar los datos</div>;
 
@@ -93,8 +111,8 @@ function RentedMobiliary() {
             )}
           </div>
         )}
-        <div className={`md:col-span-2 w-full mx-auto overflow-x-auto h-[50vh] ${role !== 1 ? 'md:col-span-3' : ''}`}>
-          <Table headers={tableHeaders} rows={content} />
+        <div className={`md:col-span-2 w-full md:w-auto mx-auto  overflow-x-auto h-[50vh] ${role !== 1 ? 'md:col-span-3' : ''}`}>
+          <Table headers={tableHeaders} rows={content} onDelete={handleDelete}/>
         </div>
       </div>
     </>

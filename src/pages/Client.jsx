@@ -5,8 +5,9 @@ import FormClient from '../components/organisms/Forms/client/FormClient';
 import FormEditClient from '../components/organisms/Forms/client/FormEditClient';
 import FormDeleteClient from '../components/organisms/Forms/client/FormDeleteClient';
 import Navbar from '../components/organisms/Navbar';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { data } from '../data/data';
+import toast from 'react-hot-toast';
 
 function Client() {
   const [content, setContent] = useState([]);
@@ -14,8 +15,10 @@ function Client() {
   const [showSearch, setShowSearch] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [role, setRole] = useState(null);
+  const [selectedSupply, setSelectedSupply] = useState(null);
   const verticalMenuItems = ['Agregar', 'Editar', 'Borrar'];
   const tableHeaders = ['ID', 'Nombre', 'Apellido', 'Telefono'];
+  const queryClient = useQueryClient();
 
   const { data: clientsData, error, isLoading } = useQuery({
     queryKey: ['clients'],
@@ -65,6 +68,23 @@ function Client() {
     }
   };
 
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_URL}/client/${id}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error("Ocurrió un error al eliminar");
+      } else {
+        toast.success('Cliente Eliminado')
+        queryClient.invalidateQueries('clients'); 
+      }
+    } catch (error) {
+      console.error("Error deleting supply:", error);
+      toast.error(`${error}`)
+    }
+  };
+
   if (isLoading) return <div>Cargando...</div>;
   if (error) return <div>Error al cargar los datos</div>;
 
@@ -93,8 +113,8 @@ function Client() {
             )}
           </div>
         )}
-        <div className={`md:col-span-2 w-full mx-auto overflow-x-auto h-[50vh] ${role !== 1 ? 'md:col-span-3' : ''}`}>
-          <Table headers={tableHeaders} rows={content} />
+        <div className={`md:col-span-2 w-full md:w-auto mx-auto overflow-x-auto h-[50vh] ${role !== 1 ? 'md:col-span-3' : ''}`}>
+          <Table headers={tableHeaders} rows={content} onDelete={handleDelete}/>
         </div>
       </div>
     </>

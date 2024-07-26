@@ -7,6 +7,7 @@ import { data } from '../data/data';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import FormEditUsers from '../components/organisms/Forms/user/FormEditUsers';
 import FormDeleteUsers from '../components/organisms/Forms/user/FormDeleteUsers';
+import toast from 'react-hot-toast';
 
 function Users() {
   const [showSection, setShowSection] = useState(false);
@@ -41,6 +42,22 @@ function Users() {
     setShowSection(true);
   };
 
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_URL}/user/${id}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error("Failed to delete user");
+      } else {
+        toast.success('Usuario Eliminado')
+        queryClient.invalidateQueries('supplies'); 
+      }
+    } catch (error) {
+      toast.error(`${error}`)
+    }
+  };
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading data</div>;
 
@@ -63,8 +80,8 @@ function Users() {
             )}
           </div>
         )}
-        <div className={`md:col-span-2 w-full mx-auto overflow-x-auto h-[50vh] ${role !== 1 ? 'md:col-span-3' : ''}`}>
-          <Table headers={tableHeaders} rows={rows} className="shadow-md" />
+        <div className={`md:col-span-2 w-full md:w-auto mx-auto overflow-x-auto h-[50vh] ${role !== 1 ? 'md:col-span-3' : ''}`}>
+          <Table headers={tableHeaders} rows={rows} className="shadow-md"  onDelete={handleDelete}/>
         </div>
       </div>
     </>

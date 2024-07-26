@@ -7,6 +7,7 @@ import FormDeleteMobiliary from '../components/organisms/Forms/mobiliary/FormDel
 import Navbar from '../components/organisms/Navbar';
 import { data } from '../data/data';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
 
 function Mobiliario() {
   const [showSection, setShowSection] = useState(false);
@@ -41,6 +42,22 @@ function Mobiliario() {
     setShowSection(true);
   };
 
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_URL}/mobiliary/${id}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error("Ocurrió un error al eliminar");
+      } else {
+        toast.success('Mobiliario Eliminado');
+        queryClient.invalidateQueries('supplies'); 
+      }
+    } catch (error) {
+      toast.error(`${error}`)
+    }
+  };
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading data</div>;
 
@@ -64,7 +81,7 @@ function Mobiliario() {
           </div>
         )}
         <div className={`md:col-span-2 w-full md:w-auto mx-auto overflow-x-auto h-[50vh] ${role !== 1 ? 'md:col-span-3' : ''}`}>
-          <Table headers={tableHeaders} rows={rows} className="shadow-md" />
+          <Table headers={tableHeaders} rows={rows} className="shadow-md" onDelete={handleDelete} />
         </div>
       </div>
     </>

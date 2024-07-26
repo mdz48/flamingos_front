@@ -30,7 +30,7 @@ export default function AnotherForm({ onClose }) {
         onSuccess: () => {
             queryClient.invalidateQueries(['supplies']);
             toast.success('Suministro guardado exitosamente');
-            onClose();
+            // onClose();
         },
         onError: (error) => {
             console.error('Error posting data:', error);
