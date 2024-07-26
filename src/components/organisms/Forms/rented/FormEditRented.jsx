@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import ComboboxSalon from '../../../molecules/ComboboxSalon';
 import CheckboxPackage from '../../../molecules/CheckboxPackage';
@@ -6,7 +6,7 @@ import Button from '../../../atoms/Button';
 import FormClient from '../client/FormClient';
 import ComboboxClient from '../../../molecules/ComboboxClient';
 
-const FormRented = ({ onClose }) => {
+const FormEditRented = ({ onClose }) => {
     const [id, setId] = useState('');
     const [cliente, setCliente] = useState('');
     const [cantidadInvitados, setCantidadInvitados] = useState('');
@@ -17,7 +17,7 @@ const FormRented = ({ onClose }) => {
 
     const mutation = useMutation({
         mutationFn: (newData) => {
-            return fetch(`${import.meta.env.VITE_URL}/reservation/sumaries`, {
+            return fetch(`${import.meta.env.VITE_URL}/salon`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -71,6 +71,16 @@ const FormRented = ({ onClose }) => {
 
     return (
         <form className="relative p-4 max-w-md mx-auto bg-white shadow-md rounded-lg" onSubmit={handleSubmit}>
+            <div className="mt-4">
+                <label className="block text-gray-700">ID:</label>
+                <input
+                    type="text"
+                    value={id}
+                    onChange={(e) => setId(e.target.value)}
+                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+                />
+            </div>
+
             <ComboboxSalon />
 
             <div className="mt-4 flex space-x-4">
@@ -140,4 +150,4 @@ const FormRented = ({ onClose }) => {
     );
 };
 
-export default FormRented;
+export default FormEditRented;
