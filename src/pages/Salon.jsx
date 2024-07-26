@@ -15,6 +15,7 @@ function Salon() {
   const [role, setRole] = useState(null);
   const verticalMenuItems = ['Agregar', 'Editar', 'Borrar'];
   const tableHeaders = ['ID', 'Nombre', 'Capacidad', 'Descripción'];
+  const [selectedSalon, setSelectedSalon] = useState(null); 
   const queryClient = useQueryClient();
 
   const { data: salonData, error, isLoading } = useQuery({
@@ -30,7 +31,6 @@ function Salon() {
     const user = localStorage.getItem('user');
     if (user) {
       const parsedUser = JSON.parse(user);
-      console.log('User:', parsedUser);
       setRole(parsedUser.role);
     } else {
       console.log('No user found in localStorage');
@@ -39,6 +39,13 @@ function Salon() {
 
   const handleMenuClick = (item) => {
     setFormType(item);
+    setShowSection(true);
+  };
+
+  const handleEdit = (salon_id) => {
+    const salon = salonData.find(item => item.salon_id === salon_id);
+    setSelectedSalon(salon);
+    setFormType("Editar");
     setShowSection(true);
   };
 
@@ -74,14 +81,14 @@ function Salon() {
             {showSection && (
               <div>
                 {formType === 'Agregar' && <FormSalon onClose={() => setShowSection(false)} />}
-                {formType === 'Editar' && <FormEditSalon onClose={() => setShowSection(false)} />}
+                {formType === 'Editar' && <FormEditSalon salon={selectedSalon} onClose={() => setShowSection(false)} />}
                 {formType === 'Borrar' && <FormDeleteSalon onClose={() => setShowSection(false)} />}
               </div>
             )}
           </div>
         )}
         <div className={`md:col-span-2 w-full md:w-auto mx-auto overflow-x-auto h-[50vh] ${role !== 1 ? 'md:col-span-3' : ''}`}>
-          <Table headers={tableHeaders} rows={rows} className="shadow-md" onDelete={handleDelete} />
+          <Table headers={tableHeaders} rows={rows} className="shadow-md" onDelete={handleDelete} onEdit={handleEdit}/>
         </div>
       </div>
     </>

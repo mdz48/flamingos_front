@@ -19,7 +19,7 @@ export default function FormEditSupplies({ supply, onClose }) {
 
     const mutation = useMutation({
         mutationFn: (newData) => {
-            return fetch(`${import.meta.env.VITE_URL}/supplies/${supply.id}`, {
+            return fetch(`${import.meta.env.VITE_URL}/supplies/${supply.supplies_id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

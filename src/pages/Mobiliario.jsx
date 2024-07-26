@@ -12,6 +12,7 @@ import toast from 'react-hot-toast';
 function Mobiliario() {
   const [showSection, setShowSection] = useState(false);
   const [formType, setFormType] = useState(null);
+  const [selectedMobiliary, setSelectedMobiliary] = useState(null); 
   const [role, setRole] = useState(null);
   const verticalMenuItems = ['Agregar', 'Editar', 'Borrar'];
   const tableHeaders = ['ID', 'ID del Salon', 'Nombre', 'Cantidad', 'Estado', 'Descripción'];
@@ -42,6 +43,13 @@ function Mobiliario() {
     setShowSection(true);
   };
 
+  const handleEdit = (mobiliary_id) => {
+    const mobiliary = mobiliarioData.find(item => item.mobiliary_id === mobiliary_id);
+    setSelectedMobiliary(mobiliary);
+    setFormType("Editar");
+    setShowSection(true);
+  };
+
   const handleDelete = async (id) => {
     try {
       const response = await fetch(`${import.meta.env.VITE_URL}/mobiliary/${id}`, {
@@ -51,7 +59,7 @@ function Mobiliario() {
         throw new Error("Ocurrió un error al eliminar");
       } else {
         toast.success('Mobiliario Eliminado');
-        queryClient.invalidateQueries('supplies'); 
+        queryClient.invalidateQueries('mobiliary'); 
       }
     } catch (error) {
       toast.error(`${error}`)
@@ -74,14 +82,14 @@ function Mobiliario() {
             {showSection && (
               <div>
                 {formType === 'Agregar' && <FormMobiliary onClose={() => setShowSection(false)} />}
-                {formType === 'Editar' && <FormEditMobiliary onClose={() => setShowSection(false)} />}
+                {formType === 'Editar' && <FormEditMobiliary mobiliary={selectedMobiliary} onClose={() => setShowSection(false)} />}
                 {formType === 'Borrar' && <FormDeleteMobiliary onClose={() => setShowSection(false)} />}
               </div>
             )}
           </div>
         )}
         <div className={`md:col-span-2 w-full md:w-auto mx-auto overflow-x-auto h-[50vh] ${role !== 1 ? 'md:col-span-3' : ''}`}>
-          <Table headers={tableHeaders} rows={rows} className="shadow-md" onDelete={handleDelete} />
+          <Table headers={tableHeaders} rows={rows} className="shadow-md" onEdit={handleEdit} onDelete={handleDelete} />
         </div>
       </div>
     </>

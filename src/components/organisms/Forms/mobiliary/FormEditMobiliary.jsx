@@ -1,21 +1,31 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Button from '../../../atoms/Button';
 import toast from 'react-hot-toast';
 
-export default function EditFormMobiliary({ onClose }) {
+export default function EditFormMobiliary({ mobiliary, onClose }) {
     const idRef = useRef('');
     const idsalonRef = useRef('');
     const nameRef = useRef('');
     const stockRef = useRef('');
     const stateRef = useRef('');
-    const availableRef = useRef('');
     const descriptionRef = useRef('');
     const queryClient = useQueryClient();
 
+    useEffect(() => {
+        if (mobiliary) {
+            idRef.current.value = mobiliary.mobiliary_id;
+            idsalonRef.current.value = mobiliary.salon_id_fk
+            nameRef.current.value = mobiliary.name;
+            stockRef.current.value = mobiliary.stock;
+            stateRef.current.value = mobiliary.state;
+            descriptionRef.current.value = mobiliary.description;
+        }
+    }, [mobiliary]);
+
     const mutation = useMutation({
         mutationFn: (newData) => {
-            return fetch(`${import.meta.env.VITE_URL}/mobiliary/${idRef.current.value}`, {
+            return fetch(`${import.meta.env.VITE_URL}/mobiliary/${mobiliary.mobiliary_id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -54,8 +64,7 @@ export default function EditFormMobiliary({ onClose }) {
                     name: nameRef.current.value,
                     stock: stockRef.current.value,
                     state: stateRef.current.value,
-                    available_stock: availableRef.current.value,
-                    description: descriptionRef.current.value || 'none',
+                    description: descriptionRef.current.value,
                     updated_by: userName,
                 };
                 mutation.mutate(newData);
@@ -81,8 +90,6 @@ export default function EditFormMobiliary({ onClose }) {
                 <input type="text" ref={stockRef} className="border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"/>
                 <label htmlFor="state" className="mb-1">Estado</label>
                 <input type="text" ref={stateRef} className="border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"/>
-                <label htmlFor="available" className="mb-1">Disponibles</label>
-                <input type="text" ref={availableRef} className="border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"/>
                 <label htmlFor="description" className="mb-1">Descripción</label>
                 <input type="text" ref={descriptionRef} className="border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"/>
                 <div className="flex items-center justify-between mt-4">

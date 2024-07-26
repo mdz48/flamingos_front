@@ -13,6 +13,7 @@ function Insumos() {
   const [showSection, setShowSection] = useState(false);
   const [formType, setFormType] = useState(null);
   const [role, setRole] = useState(null);
+  const [selectedSupply, setSelectedSupply] = useState(null); 
   const verticalMenuItems = ["Agregar", "Editar", "Borrar"];
   const tableHeaders = ["ID", "Nombre", "Costo", "Descripción"];
   const queryClient = useQueryClient();
@@ -47,6 +48,13 @@ function Insumos() {
     setShowSection(true);
   };
 
+  const handleEdit = (supplies_id) => {
+    const supply = insumosData.find(item => item.supplies_id === supplies_id);
+    setSelectedSupply(supply);
+    setFormType("Editar");
+    setShowSection(true);
+  };
+
   const handleDelete = async (id) => {
     try {
       const response = await fetch(`${import.meta.env.VITE_URL}/supplies/${id}`, {
@@ -62,13 +70,6 @@ function Insumos() {
       console.error("Error deleting supply:", error);
       toast.error(`${error}`)
     }
-  };
-
-  const handleEdit = (id) => {
-    const supply = insumosData.find(item => item.id === id);
-    setSelectedSupply(supply);
-    setFormType("Editar");
-    setShowSection(true);
   };
 
   if (isLoading) return <div>Loading...</div>;
@@ -100,7 +101,7 @@ function Insumos() {
         </div>
       </div>
     </>
-  );z
+  );
 }
 
 export default Insumos;

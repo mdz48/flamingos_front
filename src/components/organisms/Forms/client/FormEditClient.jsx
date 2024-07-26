@@ -1,19 +1,26 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Button from "../../../atoms/Button";
 import toast from "react-hot-toast";
 
-export default function FormClient({ onClose }) {
+export default function FormClient({ onClose, client }) {
   const firstnameRef = useRef("");
   const lastnameRef = useRef("");
   const cellphoneRef = useRef("");
-  const id_clientRef = useRef("");
   const queryClient = useQueryClient();
+
+  useEffect(() => {
+    if (client) {
+        firstnameRef.current.value = client.firstname;
+        lastnameRef.current.value = client.lastname;
+        cellphoneRef.current.value = client.cellphone;
+    }
+}, [client]);
 
   const mutation = useMutation({
     mutationFn:  (newData) => {
       return fetch(
-        `${import.meta.env.VITE_URL}/client/${id_clientRef.current.value}`,
+        `${import.meta.env.VITE_URL}/client/${client.client_id}`,
         {
           method: "PUT",
           headers: {
@@ -34,6 +41,7 @@ export default function FormClient({ onClose }) {
     onSuccess: () => {
       queryClient.invalidateQueries(["client"]);
       toast.success("Registro actualizado exitosamente");
+      onClose();
     },
     onError: (error) => {
       console.error("Error updating data:", error);
@@ -69,15 +77,6 @@ export default function FormClient({ onClose }) {
   return (
     <div className="p-4 border border-gray-300 rounded shadow-md">
       <form className="flex flex-col">
-        <label htmlFor="id_client" className="mb-1">
-          ID del Cliente{" "}
-        </label>
-        <input
-          type="text"
-          ref={id_clientRef}
-          className="border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-        />
-
         <label htmlFor="firstname" className="mb-1">
           Nombre{" "}
         </label>

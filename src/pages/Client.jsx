@@ -10,12 +10,10 @@ import { data } from '../data/data';
 import toast from 'react-hot-toast';
 
 function Client() {
-  const [content, setContent] = useState([]);
   const [showSection, setShowSection] = useState(false);
-  const [showSearch, setShowSearch] = useState(false);
-  const [showDelete, setShowDelete] = useState(false);
+  const [formType, setFormType] = useState(null);
   const [role, setRole] = useState(null);
-  const [selectedSupply, setSelectedSupply] = useState(null);
+  const [selectedClient, setSelectedClient] = useState(null);
   const verticalMenuItems = ['Agregar', 'Editar', 'Borrar'];
   const tableHeaders = ['ID', 'Nombre', 'Apellido', 'Telefono'];
   const queryClient = useQueryClient();
@@ -39,33 +37,22 @@ function Client() {
     const user = localStorage.getItem('user');
     if (user) {
       const parsedUser = JSON.parse(user);
-      console.log('User:', parsedUser);
       setRole(parsedUser.role);
     } else {
       console.log('No user found in localStorage');
     }
   }, []);
 
-  useEffect(() => {
-    if (clientsData) {
-      const headers = Object.keys(clientsData[0] ?? {});
-      const rows = clientsData.map((item) => Object.values(item));
-      setContent(rows);
-    }
-  }, [clientsData]);
-
   const handleMenuClick = (item) => {
-    setShowSection(false);
-    setShowSearch(false);
-    setShowDelete(false);
+    setFormType(item);
+    setShowSection(true);
+  };
 
-    if (item === 'Agregar') {
-      setShowSection(true);
-    } else if (item === 'Editar') {
-      setShowSearch(true);
-    } else if (item === 'Borrar') {
-      setShowDelete(true);
-    }
+  const handleEdit = (client_id) => {
+    const client = clientsData.find(item => item.client_id === client_id);
+    setSelectedClient(client);
+    setFormType("Editar");
+    setShowSection(true);
   };
 
   const handleDelete = async (id) => {
@@ -76,45 +63,41 @@ function Client() {
       if (!response.ok) {
         throw new Error("Ocurrió un error al eliminar");
       } else {
-        toast.success('Cliente Eliminado')
+        toast.success('Cliente Eliminado');
         queryClient.invalidateQueries('clients'); 
       }
     } catch (error) {
-      console.error("Error deleting supply:", error);
-      toast.error(`${error}`)
+      console.error("Error deleting client:", error);
+      toast.error(`${error}`);
     }
   };
 
   if (isLoading) return <div>Cargando...</div>;
   if (error) return <div>Error al cargar los datos</div>;
 
+  const rows = clientsData.map((item) => Object.values(item));
+
   return (
     <>
-      <Navbar links={data.navuser}img = {'/home-empleados'} />
-      <h1 className="text-2xl font-bold mb-4 p-8 text-center">Bienvenido a la Administración de Recursos</h1>
-      <div className="flex flex-col md:grid md:grid-cols-3 w-[80%] mx-auto">
+      <Navbar links={data.navuser} img={'/home-empleados'} />
+      <h1 className="text-2xl font-bold mb-4 p-8 text-center">
+        Bienvenido a la Administración de Recursos
+      </h1>
+      <div className="md:grid md:grid-cols-3 w-[80%] mx-auto">
         {role === 1 && (
-          <div className="w-auto md:col-span-1 mb-4 md:mb-0">
+          <div className="w-auto md:col-span-1">
             <MenuContainer items={verticalMenuItems} onMenuClick={handleMenuClick} />
             {showSection && (
               <div>
-                <FormClient onClose={() => setShowSection(false)} />
-              </div>
-            )}
-            {showSearch && (
-              <div>
-                <FormEditClient onClose={() => setShowSearch(false)} />
-              </div>
-            )}
-            {showDelete && (
-              <div>
-                <FormDeleteClient onClose={() => setShowDelete(false)} />
+                {formType === "Agregar" && <FormClient onClose={() => setShowSection(false)} />}
+                {formType === "Editar" && <FormEditClient client={selectedClient} onClose={() => setShowSection(false)} />}
+                {formType === "Borrar" && <FormDeleteClient onClose={() => setShowSection(false)} />}
               </div>
             )}
           </div>
         )}
         <div className={`md:col-span-2 w-full md:w-auto mx-auto overflow-x-auto h-[50vh] ${role !== 1 ? 'md:col-span-3' : ''}`}>
-          <Table headers={tableHeaders} rows={content} onDelete={handleDelete}/>
+          <Table headers={tableHeaders} rows={rows} className="shadow-md" onEdit={handleEdit} onDelete={handleDelete} />
         </div>
       </div>
     </>
