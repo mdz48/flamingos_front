@@ -5,19 +5,20 @@ import CheckboxPackage from '../../../molecules/CheckboxPackage';
 import Button from '../../../atoms/Button';
 import FormClient from '../client/FormClient';
 import ComboboxClient from '../../../molecules/ComboboxClient';
+import toast from 'react-hot-toast';
 
 const FormRented = ({ onClose }) => {
-    const [id, setId] = useState('');
-    const [cliente, setCliente] = useState('');
+    const [salon, setSalon] = useState(null);
+    const [cliente, setCliente] = useState(null);
     const [cantidadInvitados, setCantidadInvitados] = useState('');
     const [tipoEvento, setTipoEvento] = useState('');
     const [fechaEvento, setFechaEvento] = useState('');
-    const [paquete, setPaquete] = useState('');
+    const [paquete, setPaquete] = useState(null);
     const queryClient = useQueryClient();
 
     const mutation = useMutation({
         mutationFn: (newData) => {
-            return fetch(`${import.meta.env.VITE_URL}/reservation/sumaries`, {
+            return fetch(`${import.meta.env.VITE_URL}/reservation`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -31,30 +32,37 @@ const FormRented = ({ onClose }) => {
         },
         onError: (error) => {
             console.error('Error posting data:', error);
-            alert('No se pudo hacer conexión');
+            toast.error(`${error}`)
         },
     });
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log(salon);
+        if (!salon || !cliente || !paquete) {
+            toast.error('Por favor, asegúrese de rellenar los campos');
+            return;
+        }
+
         const newData = {
-            id,
-            cliente,
-            cantidadInvitados,
-            tipoEvento,
-            fechaEvento,
-            paquete,
+            salon_id: salon.salon_id,
+            client_id_fk: cliente.client_id,
+            guest_amount: cantidadInvitados,
+            event_type: tipoEvento,
+            event_date: fechaEvento,
+            package_type_id_fk: paquete.package_id,
         };
         mutation.mutate(newData);
     };
 
     const handleCloseClick = () => {
-        setId('');
-        setCliente('');
+        setSalon(null);
+        setCliente(null);
         setCantidadInvitados('');
         setTipoEvento('');
         setFechaEvento('');
-        setPaquete('');
+        setPaquete(null);
+        onClose();
     };
 
     const handleClienteExistenteClick = () => {
@@ -65,13 +73,13 @@ const FormRented = ({ onClose }) => {
         setCliente('nuevoCliente');
     };
 
-    const handlePaqueteChange = (selectedValue) => {
-        setPaquete(selectedValue);
+    const handlePaqueteChange = (selectedPaquete) => {
+        setPaquete(selectedPaquete);
     };
 
     return (
         <form className="relative p-4 max-w-md mx-auto bg-white shadow-md rounded-lg" onSubmit={handleSubmit}>
-            <ComboboxSalon />
+            <ComboboxSalon onChange={setSalon} />
 
             <div className="mt-4 flex space-x-4">
                 <Button
@@ -88,13 +96,13 @@ const FormRented = ({ onClose }) => {
 
             {cliente === 'nuevoCliente' && (
                 <div className="mt-4">
-                    <FormClient onClose={() => setCliente('')} />
+                    <FormClient onClose={() => setCliente(null)} />
                 </div>
             )}
 
             {cliente === 'clienteExistente' && (
                 <div className="mt-4">
-                    <ComboboxClient />
+                    <ComboboxClient onChange={setCliente} />
                 </div>
             )}
 
@@ -134,7 +142,7 @@ const FormRented = ({ onClose }) => {
 
             <div className="mt-6 flex items-center justify-between">
                 <Button onClick={handleSubmit} text="Guardar" />
-                <Button onClick={onClose} text='Cerrar'/>
+                <Button onClick={handleCloseClick} text="Cerrar" />
             </div>
         </form>
     );

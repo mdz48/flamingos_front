@@ -1,12 +1,9 @@
-// src/pages/MobiliarioPage.jsx
-
 import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Combobox from '../atoms/Combobox';
 
-const ComboboxSalon = () => {
-  const [selectedMobiliario, setSelectedMobiliario] = useState(null);
-  const [role, setRole] = useState(null);
+const ComboboxSalon = ({ onChange }) => {
+  const [selectedSalon, setSelectedSalon] = useState(null);
 
   const { data: salonData, error, isLoading } = useQuery({
     queryKey: ['salon'],
@@ -17,19 +14,9 @@ const ComboboxSalon = () => {
     },
   });
 
-  useEffect(() => {
-    const user = localStorage.getItem('user');
-    if (user) {
-      const parsedUser = JSON.parse(user);
-      console.log('User:', parsedUser);
-     
-    } else {
-      console.log('No user found in localStorage');
-    }
-  }, []);
-
-  const handleMobiliarioChange = (selectedValue) => {
-    setSelectedMobiliario(selectedValue);
+  const handleSalonChange = (selectedSalon) => {
+    setSelectedSalon(selectedSalon);
+    onChange(selectedSalon); // Pasa el objeto completo del salón
   };
 
   if (isLoading) return <div>Loading...</div>;
@@ -42,12 +29,13 @@ const ComboboxSalon = () => {
         <Combobox 
           items={salonData} 
           labelKey="name" 
-          onChange={handleMobiliarioChange} 
+          onChange={handleSalonChange} 
         />
       )}
-      {selectedMobiliario && (
+      {selectedSalon && (
         <div className="mt-4">
-          <p>Selected Mobiliario: {selectedMobiliario}</p>
+          <p>Selected Salon: {selectedSalon.name}</p>
+          <p>Salon ID: {selectedSalon.salon_id}</p>
         </div>
       )}
     </div>

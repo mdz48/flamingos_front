@@ -40,6 +40,7 @@ const ComboboxClient = () => {
         <Combobox 
           items={clientData} 
           labelKey="firstname" 
+
           onChange={handleClientChange} 
         />
       )}
