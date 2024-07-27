@@ -14,6 +14,7 @@ import Cotizacion from './pages/Cotizacion';
 import HomeEmpleados from './pages/HomeEmpleados';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
+import Rented from './pages/Rented';
 
 const queryClient = new QueryClient();
 
@@ -35,6 +36,7 @@ function App() {
           <Route path="/rentedmobiliary" element={<RentedMobiliary />} />
           <Route path="/salon" element={<Salon />} />
           <Route path="/users" element={<Users />} />
+          <Route path="/rented" element={<Rented/>} />
         </Routes>
       </Router>
     </QueryClientProvider>

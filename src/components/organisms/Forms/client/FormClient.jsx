@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Button from '../../../atoms/Button';
 import toast from 'react-hot-toast';
 
-export default function FormClient({ onClose }) {
+export default function FormClient({ onClose, onChange }) {
     const firstnameRef = useRef('');
     const lastnameRef = useRef('');
     const cellphoneRef = useRef('');
@@ -11,7 +11,7 @@ export default function FormClient({ onClose }) {
 
     const mutation = useMutation({
         mutationFn: (newData) => {
-            return fetch(`${import.meta.env.VITE_URL}/client`, {
+            return fetch(`${import.meta.env.VITE_URL}/reservation`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -27,9 +27,12 @@ export default function FormClient({ onClose }) {
                 return response.json();
             });
         },
-        onSuccess: () => {
+        onSuccess: (data) => {
             queryClient.invalidateQueries(['client']);
-            toast.success("Registro Exitoso");
+            if (onChange) {
+                onChange(data)
+                toast.success('Cliente Registrado y Seleccionado')
+            } else toast.success("Registro Exitoso");
         },
         onError: (error) => {
             console.error('Error posting data:', error);
