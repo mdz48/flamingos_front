@@ -2,7 +2,7 @@ import React from 'react';
 import TableCell from '../atoms/TableCell';
 import TableActions from '../atoms/TableActions';
 
-const TableRow = ({ data, className, onEdit, onDelete }) => {
+const TableRow = ({ data, className, onEdit, onDelete, role }) => {
   return (
     <tr className={className}>
       {data.map((cell, index) => (
@@ -10,7 +10,9 @@ const TableRow = ({ data, className, onEdit, onDelete }) => {
           {cell}
         </TableCell>
       ))}
-      <TableActions onEdit={onEdit} onDelete={onDelete} />
+      {role == 1 && (
+        <TableActions onEdit={onEdit} onDelete={onDelete} />
+      )}
     </tr>
   );
 };
