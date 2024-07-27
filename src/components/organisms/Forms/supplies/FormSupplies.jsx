@@ -30,7 +30,7 @@ export default function AnotherForm({ onClose }) {
         onSuccess: () => {
             queryClient.invalidateQueries(['supplies']);
             toast.success('Suministro guardado exitosamente');
-            onClose();
+            // onClose();
         },
         onError: (error) => {
             console.error('Error posting data:', error);
@@ -79,7 +79,7 @@ export default function AnotherForm({ onClose }) {
                 <div>
                     <label htmlFor='cost' className='block mb-1'>Costo</label>
                     <input
-                        type='text'
+                        type='number'
                         ref={costRef}
                         className='border-2 w-full px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50'
                     />

@@ -1,9 +1,9 @@
-import React, { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Button from '../../../atoms/Button';
 import toast from 'react-hot-toast';
 
-export default function FormEditUsers({ onClose }) {
+export default function FormEditUsers({ user, onClose }) {
     const idRef = useRef('');
     const firstNameRef = useRef('');
     const lastNameRef = useRef('');
@@ -11,9 +11,18 @@ export default function FormEditUsers({ onClose }) {
     const passwordRef = useRef('');
     const queryClient = useQueryClient();
 
+    useEffect(() => {
+        if (user) {
+            idRef.current.value = user.user_id;
+            firstNameRef.current.value = user.firstname;
+            lastNameRef.current.value = user.lastname;
+            roleRef.current.value = user.role_user_id_fk;
+        }
+    }, [user]);
+
     const mutation = useMutation({
         mutationFn: (newData) => {
-            return fetch(`${import.meta.env.VITE_URL}/user/${idRef.current.value}`, {
+            return fetch(`${import.meta.env.VITE_URL}/user/${user.user_id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -30,8 +39,9 @@ export default function FormEditUsers({ onClose }) {
             });
         },
         onSuccess: () => {
-            queryClient.invalidateQueries(['user']);
+            queryClient.invalidateQueries(['users']);
             toast.success('Usuario actualizado exitosamente');
+            onClose();
         },
         onError: (error) => {
             console.error('Error updating data:', error);
@@ -73,6 +83,7 @@ export default function FormEditUsers({ onClose }) {
                     type="text"
                     ref={idRef}
                     className="border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                    disabled
                 />
                 <label htmlFor="firstname">Nombre</label>
                 <input

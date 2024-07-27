@@ -1,9 +1,9 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Button from '../../../atoms/Button';
 import toast from 'react-hot-toast';
 
-export default function FormEditRentedMobiliary({ onClose }) {
+export default function FormEditRentedMobiliary({ rentedMobiliary, onClose }) {
     const idRef = useRef('');
     const nameRef = useRef('');
     const costRef = useRef('');
@@ -12,6 +12,19 @@ export default function FormEditRentedMobiliary({ onClose }) {
     const entryDateRef = useRef('');
     const exitDateRef = useRef('');
     const queryClient = useQueryClient();
+
+    useEffect(() => {
+        if (rentedMobiliary) {
+            console.log(rentedMobiliary);
+            idRef.current.value = rentedMobiliary.rented_mobiliary_id;
+            nameRef.current.value = rentedMobiliary.name;
+            costRef.current.value = rentedMobiliary.rental_cost;
+            descriptionRef.current.value = rentedMobiliary.description;
+            providerRef.current.value = rentedMobiliary.rented_by;
+            entryDateRef.current.value = rentedMobiliary.rental_start_date.split('T')[0];
+            exitDateRef.current.value = rentedMobiliary.rental_end_date.split('T')[0];
+        }
+    }, [rentedMobiliary]);
 
     const mutation = useMutation({
         mutationFn: (newData) => {
@@ -88,6 +101,7 @@ export default function FormEditRentedMobiliary({ onClose }) {
                     type='text'
                     ref={idRef}
                     className='border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50'
+                    readOnly
                 />
                 <label htmlFor='name' className='mb-1'>Nombre</label>
                 <input

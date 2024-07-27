@@ -1,18 +1,25 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Button from '../../../atoms/Button';
 import toast from 'react-hot-toast';
 
-export default function FormEditSupplies({ onClose }) {
-    const idRef = useRef('');
+export default function FormEditSupplies({ supply, onClose }) {
     const nameRef = useRef('');
     const costRef = useRef('');
     const descriptionRef = useRef('');
     const queryClient = useQueryClient();
 
+    useEffect(() => {
+        if (supply) {
+            nameRef.current.value = supply.name;
+            costRef.current.value = supply.cost;
+            descriptionRef.current.value = supply.description;
+        }
+    }, [supply]);
+
     const mutation = useMutation({
         mutationFn: (newData) => {
-            return fetch(`${import.meta.env.VITE_URL}/supplies/${idRef.current.value}`, {
+            return fetch(`${import.meta.env.VITE_URL}/supplies/${supply.supplies_id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -49,7 +56,6 @@ export default function FormEditSupplies({ onClose }) {
                 const userName = userObject.firstname;
 
                 const newData = {
-                    id: idRef.current.value,
                     name: nameRef.current.value,
                     cost: costRef.current.value,
                     description: descriptionRef.current.value,
@@ -69,12 +75,6 @@ export default function FormEditSupplies({ onClose }) {
     return (
         <div className='p-4 border border-gray-300 rounded shadow-md'>
             <form className='flex flex-col'>
-                <label htmlFor='id' className='mb-1'>ID del Insumo</label>
-                <input
-                    type='text'
-                    ref={idRef}
-                    className='border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50'
-                />
                 <label htmlFor='name'>Nombre</label>
                 <input
                     type='text'
