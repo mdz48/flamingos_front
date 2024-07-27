@@ -16,15 +16,6 @@ const CheckboxSuplies = () => {
     },
   });
 
-  useEffect(() => {
-    const user = localStorage.getItem('user');
-    if (user) {
-      const parsedUser = JSON.parse(user);
-      console.log('User:', parsedUser);
-    } else {
-      console.log('No user found in localStorage');
-    }
-  }, []);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading insumos data</div>;

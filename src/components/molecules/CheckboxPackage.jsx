@@ -1,10 +1,8 @@
-
-
 import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Combobox from '../atoms/Combobox';
 
-const CheckboxPackage = () => {
+const CheckboxPackage = ({ onChange }) => {
   const [selectedPackageType, setSelectedPackageType] = useState(null);
   const [role, setRole] = useState(null);
 
@@ -17,19 +15,9 @@ const CheckboxPackage = () => {
     },
   });
 
-  useEffect(() => {
-    const user = localStorage.getItem('user');
-    if (user) {
-      const parsedUser = JSON.parse(user);
-      console.log('User:', parsedUser);
-      setRole(parsedUser.role);
-    } else {
-      console.log('No user found in localStorage');
-    }
-  }, []);
-
-  const handlePackageTypeChange = (selectedValue) => {
-    setSelectedPackageType(selectedValue);
+  const handlePackageTypeChange = (selectedPackageType) => {
+    setSelectedPackageType(selectedPackageType);
+    onChange(selectedPackageType); // Pasa el objeto completo
   };
 
   if (isLoading) return <div>Loading...</div>;
@@ -44,11 +32,6 @@ const CheckboxPackage = () => {
           labelKey="name" 
           onChange={handlePackageTypeChange} 
         />
-      )}
-      {selectedPackageType && (
-        <div className="mt-4">
-          <p>Selected Package Type: {selectedPackageType}</p>
-        </div>
       )}
     </div>
   );

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Combobox from '../atoms/Combobox';
 
-const ComboboxClient = () => {
+const ComboboxClient = ({ onChange }) => {
   const [selectedClient, setSelectedClient] = useState(null);
   const [role, setRole] = useState(null);
 
@@ -15,19 +15,9 @@ const ComboboxClient = () => {
     },
   });
 
-  useEffect(() => {
-    const user = localStorage.getItem('user');
-    if (user) {
-      const parsedUser = JSON.parse(user);
-      console.log('User:', parsedUser);
-      setRole(parsedUser.role);
-    } else {
-      console.log('No user found in localStorage');
-    }
-  }, []);
-
   const handleClientChange = (selectedValue) => {
     setSelectedClient(selectedValue);
+    onChange(selectedValue);
   };
 
   if (isLoading) return <div>Loading...</div>;
@@ -40,7 +30,6 @@ const ComboboxClient = () => {
         <Combobox 
           items={clientData} 
           labelKey="firstname" 
-
           onChange={handleClientChange} 
         />
       )}

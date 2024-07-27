@@ -32,12 +32,6 @@ const ComboboxSalon = ({ onChange }) => {
           onChange={handleSalonChange} 
         />
       )}
-      {selectedSalon && (
-        <div className="mt-4">
-          <p>Selected Salon: {selectedSalon.name}</p>
-          <p>Salon ID: {selectedSalon.salon_id}</p>
-        </div>
-      )}
     </div>
   );
 };
