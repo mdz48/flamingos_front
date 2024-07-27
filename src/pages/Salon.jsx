@@ -88,7 +88,7 @@ function Salon() {
           </div>
         )}
         <div className={`md:col-span-2 w-full md:w-auto mx-auto overflow-x-auto h-[50vh] ${role !== 1 ? 'md:col-span-3' : ''}`}>
-          <Table headers={tableHeaders} rows={rows} className="shadow-md" onDelete={handleDelete} onEdit={handleEdit}/>
+          <Table headers={tableHeaders} rows={rows} className="shadow-md" onDelete={handleDelete} onEdit={handleEdit} role={role}/>
         </div>
       </div>
     </>

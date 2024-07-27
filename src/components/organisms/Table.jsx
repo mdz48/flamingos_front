@@ -1,7 +1,7 @@
 import React from 'react';
 import TableRow from '../molecules/TableRow';
 
-const Table = ({ headers, rows, className, onEdit, onDelete }) => {
+const Table = ({ headers, rows, className, onEdit, onDelete, role }) => {
   return (
     <table className={`min-w-small max-h-3/4 bg-white shadow-md ${className}`}>
       <thead>
@@ -11,12 +11,15 @@ const Table = ({ headers, rows, className, onEdit, onDelete }) => {
               {header}
             </th>
           ))}
-          <th className="px-4 py-2 border-b-2 border-gray-300">Acciones</th>
+          {role == 1 && (
+            <th className="px-4 py-2 border-b-2 border-gray-300">Acciones</th>
+          )}
         </tr>
       </thead>
       <tbody>
         {rows.map((row, index) => (
           <TableRow
+            role = {role}
             key={index}
             data={row}
             onEdit={() => onEdit(row[0])} // assuming the first element in row is the id
