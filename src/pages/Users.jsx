@@ -21,7 +21,13 @@ function Users() {
   const { data: usersData, error, isLoading } = useQuery({
     queryKey: ['users'],
     queryFn: async () => {
-      const response = await fetch(`${import.meta.env.VITE_URL}/user/summaries`);
+      const response = await fetch(`${import.meta.env.VITE_URL}/user/summaries`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Access-Control-Allow-Origin': '*'
+        },
+      });
       if (!response.ok) throw new Error('Network response was not ok');
       return response.json();
     }
@@ -53,6 +59,11 @@ function Users() {
     try {
       const response = await fetch(`${import.meta.env.VITE_URL}/user/${id}`, {
         method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Access-Control-Allow-Origin': '*'
+        },
       });
       if (!response.ok) {
         throw new Error('Failed to delete user');

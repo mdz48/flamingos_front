@@ -17,8 +17,9 @@ export default function FormMobiliary({ onClose }) {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
                     'Access-Control-Allow-Origin': '*'
-                },
+                  },
                 body: JSON.stringify(newData),
             }).then(response => {
                 if (!response.ok) {

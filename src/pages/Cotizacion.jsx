@@ -1,4 +1,3 @@
-// src/pages/Cotizacion.jsx
 import React, { useState } from 'react';
 import Navbar from '../components/organisms/Navbar';
 import Footer from '../components/molecules/Footer';
@@ -19,9 +18,9 @@ function Cotizacion() {
   };
 
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Navbar links={data.navhome} img = {'/'}/>
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 flex-grow">
         <h1 className="text-2xl font-bold mb-4">Cotización</h1>
         <form className="flex flex-col space-y-4">
           <div className="flex flex-col">
@@ -38,7 +37,6 @@ function Cotizacion() {
               <option value="">Seleccione un paquete</option>
               <option value="flamingos">Flamingos - $259/persona</option>
               <option value="premium">Premium - $369/persona</option>
-              <option value="personalizado">Personalizado</option>
             </select>
           </div>
           <div className="flex flex-col">
@@ -48,13 +46,14 @@ function Cotizacion() {
           <Button onClick={calcularCosto} text="Cotizar" className="self-start" />
         </form>
         
+        {costoTotal !== 0 && (
           <div className="mt-4 p-4 bg-gray-100 rounded shadow">
             <p className="font-bold">Costo Total: ${costoTotal}</p>
           </div>
-        
+        )}
       </div>
       <Footer />
-    </>
+    </div>
   );
 }
 

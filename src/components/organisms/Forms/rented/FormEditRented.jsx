@@ -22,7 +22,13 @@ const FormEditRented = ({ onClose }) => {
     const fetchReservationData = async (id) => {
         setLoading(true);
         try {
-            const response = await fetch(`${import.meta.env.VITE_URL}/reservation/${id}`);
+            const response = await fetch(`${import.meta.env.VITE_URL}/reservation/${id}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    'Access-Control-Allow-Origin': '*'
+                  },
+            });
             if (!response.ok) {
                 throw new Error('Error fetching data');
             }
@@ -33,7 +39,6 @@ const FormEditRented = ({ onClose }) => {
             setPaquete({ package_type_id: data.package_type_id_fk });
             cantidadInvitadosRef.current.value = data.guest_amount || '';
             tipoEventoRef.current.value = data.event_type || '';
-            fechaEventoRef.current.value = data.event_date ? new Date(data.event_date).toISOString().split('T')[0] : '';
         } catch (error) {
             toast.error('No existe este ID de reservación');
             console.error('Error fetching reservation data:', error);
@@ -55,8 +60,9 @@ const FormEditRented = ({ onClose }) => {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
-                },
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    'Access-Control-Allow-Origin': '*'
+                  },
                 body: JSON.stringify(newData),
             }).then(response => {
                 if (!response.ok) {

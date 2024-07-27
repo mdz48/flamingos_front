@@ -24,8 +24,9 @@ export default function FormClient({ onClose, client }) {
         {
           method: "PUT",
           headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Access-Control-Allow-Origin': '*'
           },
           body: JSON.stringify(newData),
         }

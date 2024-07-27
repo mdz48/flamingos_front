@@ -26,7 +26,13 @@ function Insumos() {
     queryKey: ["supplies"],
     queryFn: async () => {
       const response = await fetch(
-        `${import.meta.env.VITE_URL}/supplies/summaries`
+        `${import.meta.env.VITE_URL}/supplies/summaries`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Access-Control-Allow-Origin': '*'
+          },
+        }
       );
       if (!response.ok) throw new Error("Network response was not ok");
       return response.json();
@@ -59,6 +65,11 @@ function Insumos() {
     try {
       const response = await fetch(`${import.meta.env.VITE_URL}/supplies/${id}`, {
         method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Access-Control-Allow-Origin': '*'
+        },
       });
       if (!response.ok) {
         throw new Error("Failed to delete supply");

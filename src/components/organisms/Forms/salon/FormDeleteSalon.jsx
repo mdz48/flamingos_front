@@ -13,8 +13,9 @@ export default function FormDeleteSalon({ onClose }) {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
                     'Access-Control-Allow-Origin': '*'
-                },
+                  },
             }).then(response => {
                 if (!response.ok) {
                     return response.json().then(errorData => {

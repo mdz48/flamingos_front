@@ -9,7 +9,13 @@ const CheckboxPackage = ({ onChange }) => {
   const { data: packageTypesData, error, isLoading } = useQuery({
     queryKey: ['packageTypes'],
     queryFn: async () => {
-      const response = await fetch(`${import.meta.env.VITE_URL}/packageTypes/summaries`);
+      const response = await fetch(`${import.meta.env.VITE_URL}/packageTypes/summaries`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Access-Control-Allow-Origin': '*'
+        },
+      });
       if (!response.ok) throw new Error('Network response was not ok');
       return response.json();
     },

@@ -10,7 +10,13 @@ const CheckboxMobiliary = () => {
   const { data: mobiliarioData, error, isLoading } = useQuery({
     queryKey: ['mobiliary'],
     queryFn: async () => {
-      const response = await fetch(`${import.meta.env.VITE_URL}/mobiliary/summaries`);
+      const response = await fetch(`${import.meta.env.VITE_URL}/mobiliary/summaries`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Access-Control-Allow-Origin': '*'
+        },
+      });
       if (!response.ok) throw new Error('Network response was not ok');
       return response.json();
     },

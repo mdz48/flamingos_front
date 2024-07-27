@@ -23,8 +23,9 @@ export default function FormEditSalon({ salon, onClose }) {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
-                },
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    'Access-Control-Allow-Origin': '*'
+                  },
                 body: JSON.stringify(updatedData),
             }).then(response => {
                 if (!response.ok) {

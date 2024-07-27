@@ -26,8 +26,9 @@ export default function FormEditUsers({ user, onClose }) {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
                     'Access-Control-Allow-Origin': '*'
-                },
+                  },
                 body: JSON.stringify(newData),
             }).then(response => {
                 if (!response.ok) {

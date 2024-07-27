@@ -13,8 +13,9 @@ export default function FormDeleteRentedMobiliary({ onClose }) {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
-                },
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    'Access-Control-Allow-Origin': '*'
+                  },
             }).then(response => {
                 if (!response.ok) {
                     return response.json().then(errorData => {

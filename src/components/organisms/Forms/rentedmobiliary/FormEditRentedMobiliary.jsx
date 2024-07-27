@@ -32,8 +32,9 @@ export default function FormEditRentedMobiliary({ rentedMobiliary, onClose }) {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
-                },
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    'Access-Control-Allow-Origin': '*'
+                  },
                 body: JSON.stringify(newData),
             }).then(response => {
                 if (!response.ok) {

@@ -10,7 +10,7 @@ function Footer() {
   };
 
   return (
-    <footer className="bg-orange-700 p-4 mt-8">
+    <footer className="bg-orange-700 p-4 mt-8 flex">
       <div className="container mx-auto flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0">
         <div className="flex flex-col lg:flex-row text-white space-y-4 lg:space-y-0 lg:space-x-8">
           <div className="text-center lg:text-left">
