@@ -17,6 +17,7 @@ import { Toaster } from 'react-hot-toast';
 import Rented from './pages/Rented';
 import { useState } from 'react';
 import { UserContext } from './context/userContext';
+import PackageTypes from './pages/Package';
 
 const queryClient = new QueryClient();
 
@@ -41,6 +42,7 @@ function App() {
             <Route path="/salon" element={<Salon />} />
             <Route path="/users" element={<Users />} />
             <Route path="/rented" element={<Rented/>} />
+            <Route path="/package" element={<PackageTypes/>} />
           </Routes>
         </UserContext.Provider>
       </Router>
