@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import { useQuery } from '@tanstack/react-query';
 import Button from '../atoms/Button';
 import Modal from 'react-modal';
 import './Calendar.css';
@@ -14,6 +14,10 @@ Modal.setAppElement('#root'); // Ajusta esto al ID del elemento raíz de tu apli
 function MyCalendar() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [salons, setSalons] = useState([]);
+  const [clients, setClients] = useState([]);
+  const [packages, setPackages] = useState([]);
+  const [detailsFetched, setDetailsFetched] = useState(false);
 
   const {
     data: reservationData,
@@ -36,16 +40,51 @@ function MyCalendar() {
     },
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  useEffect(() => {
+    const fetchDetails = async () => {
+      const fetchData = async (url) => {
+        const response = await fetch(url, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Access-Control-Allow-Origin': '*'
+          },
+        });
+        if (!response.ok) throw new Error("Network response was not ok");
+        return response.json();
+      };
+
+      const [salonsData, clientsData, packagesData] = await Promise.all([
+        fetchData(`${import.meta.env.VITE_URL}/salon`),
+        fetchData(`${import.meta.env.VITE_URL}/client`),
+        fetchData(`${import.meta.env.VITE_URL}/packagetypes`),
+      ]);
+
+      setSalons(salonsData);
+      setClients(clientsData);
+      setPackages(packagesData);
+      setDetailsFetched(true);
+    };
+
+    fetchDetails();
+  }, []);
+
+  if (isLoading || !detailsFetched) return <div>Loading...</div>;
   if (error) return <div>Error loading data</div>;
 
   // Transformar datos de reservaciones
-  const events = reservationData.map((item) => ({
-    title: `ID: ${item.reservation_id}, Salón: ${item.salon_id_fk}, Cliente: ${item.client_id_fk}, Paquete: ${item.package_type_id_fk}, Invitados: ${item.guest_amount}, Tipo: ${item.event_type}`,
-    start: new Date(item.event_date),
-    end: new Date(item.event_date),
-    ...item, // Añadir todos los datos del evento aquí para acceso en el modal
-  }));
+  const events = reservationData.map((item) => {
+    const eventDate = new Date(item.event_date);
+    return {
+      title: `ID: ${item.reservation_id}, Salón: ${salons.find(salon => salon.salon_id === item.salon_id_fk)?.name || 'Desconocido'}, Cliente: ${clients.find(client => client.client_id === item.client_id_fk)?.firstname || 'Desconocido'}, Paquete: ${packages.find(pkg => pkg.package_type_id === item.package_type_id_fk)?.name || 'Desconocido'}, Invitados: ${item.guest_amount}, Tipo: ${item.event_type}`,
+      start: eventDate,
+      end: eventDate,
+      ...item,
+      salon: salons.find(salon => salon.salon_id === item.salon_id_fk) || {},
+      client: clients.find(client => client.client_id === item.client_id_fk) || {},
+      package_type: packages.find(pkg => pkg.package_type_id === item.package_type_id_fk) || {},
+    };
+  });
 
   const handlePrevMonth = () => {
     const prevMonth = new Date(currentDate.setMonth(currentDate.getMonth() - 1));
@@ -74,6 +113,20 @@ function MyCalendar() {
       </div>
       <div className="overflow-x-auto">
         <Calendar
+          messages={{
+            allDay: "Todo el día",
+            previous: "Anterior",
+            next: "Siguiente",
+            today: "Hoy",
+            month: "Mes",
+            week: "Semana",
+            day: "Día",
+            agenda: "Agenda",
+            date: "Fecha",
+            time: "Hora",
+            event: "Evento",
+            noEventsInRange: "Sin eventos"
+          }}
           localizer={localizer}
           events={events}
           startAccessor="start"
@@ -100,9 +153,9 @@ function MyCalendar() {
           <div>
             <h2 className="text-2xl mb-4">Detalles del Evento</h2>
             <p><strong>ID:</strong> {selectedEvent.reservation_id}</p>
-            <p><strong>Salón:</strong> {selectedEvent.salon_id_fk}</p>
-            <p><strong>Cliente:</strong> {selectedEvent.client_id_fk}</p>
-            <p><strong>Paquete:</strong> {selectedEvent.package_type_id_fk}</p>
+            <p><strong>Salón:</strong> {selectedEvent.salon.name}</p>
+            <p><strong>Cliente:</strong> {selectedEvent.client.firstname}</p>
+            <p><strong>Paquete:</strong> {selectedEvent.package_type.name}</p>
             <p><strong>Invitados:</strong> {selectedEvent.guest_amount}</p>
             <p><strong>Tipo:</strong> {selectedEvent.event_type}</p>
             <Button onClick={closeModal} text="Cerrar" className="mt-4" />
