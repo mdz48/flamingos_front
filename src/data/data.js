@@ -27,6 +27,10 @@ export const data = {
       URL: "/Rented"
     },
     {
+      site: "Paquetes",
+      URL: "/package"
+    },
+    {
       site: "Mobiliario",
       URL: "/mobiliario"
     },
