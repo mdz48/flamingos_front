@@ -1,8 +1,16 @@
 import React from 'react';
 import Navbar from '../components/organisms/Navbar.jsx';
 import { data } from '../data/data.js';
+import { useContext } from 'react';
+import { UserContext } from '../context/userContext.js';
+import { Navigate } from 'react-router-dom';
 
 function HomeEmpleados() {
+
+  const value = useContext(UserContext);
+  if (!value.user.firstname) {
+    return <Navigate to='/login'/>
+  }
 
   return (
     <>

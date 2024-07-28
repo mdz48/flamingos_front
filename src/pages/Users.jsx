@@ -8,6 +8,9 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import FormEditUsers from '../components/organisms/Forms/user/FormEditUsers';
 import FormDeleteUsers from '../components/organisms/Forms/user/FormDeleteUsers';
 import toast from 'react-hot-toast';
+import { useContext } from 'react';
+import { UserContext } from '../context/userContext';
+import { Navigate } from 'react-router-dom';
 
 function Users() {
   const [showSection, setShowSection] = useState(false);
@@ -17,6 +20,10 @@ function Users() {
   const verticalMenuItems = ['Agregar', 'Editar', 'Borrar'];
   const tableHeaders = ['ID', 'Nombre', 'Apellido', 'Rol'];
   const queryClient = useQueryClient();
+  const value = useContext(UserContext);
+  if (!value.user.firstname) {
+    return <Navigate to='/login'/>
+  }
 
   const { data: usersData, error, isLoading } = useQuery({
     queryKey: ['users'],

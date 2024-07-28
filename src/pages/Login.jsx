@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useContext } from 'react';
 import Navbar from '../components/organisms/Navbar';
 import { Link, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
@@ -6,11 +6,13 @@ import Swal from 'sweetalert2';
 import Button from '../components/atoms/Button';
 import { data } from '../data/data';
 import toast from 'react-hot-toast';
+import { UserContext } from '../context/userContext';
 
 function Login() {
   const user_idRef = useRef(null);
   const passwordRef = useRef(null);
   const navigate = useNavigate();
+  const value = useContext(UserContext);
 
   const mutation = useMutation({
     mutationFn: async (loginData) => {
@@ -30,6 +32,8 @@ function Login() {
     onSuccess: (data) => {
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user))
+      value.setUser(data.user)
+      console.log(value);
       navigate('/home-empleados');
     },
     onError: (error) => {

@@ -8,6 +8,9 @@ import Navbar from '../components/organisms/Navbar';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { data } from '../data/data';
 import toast from 'react-hot-toast';
+import { useContext } from 'react';
+import { UserContext } from '../context/userContext';
+import { Navigate } from 'react-router-dom';
 
 function Client() {
   const [showSection, setShowSection] = useState(false);
@@ -77,6 +80,11 @@ function Client() {
       toast.error(`${error}`);
     }
   };
+
+  const value = useContext(UserContext);
+  if (!value.user.firstname) {
+    return <Navigate to='/login'/>
+  }
 
   if (isLoading) return <div>Cargando...</div>;
   if (error) return <div>Error al cargar los datos</div>;
