@@ -31,6 +31,10 @@ export const data = {
       URL: "/package"
     },
     {
+      site: "Paquetes",
+      URL: "/package"
+    },
+    {
       site: "Mobiliario",
       URL: "/mobiliario"
     },
