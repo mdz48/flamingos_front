@@ -15,7 +15,6 @@ export default function FormEditRentedMobiliary({ rentedMobiliary, onClose }) {
 
     useEffect(() => {
         if (rentedMobiliary) {
-            console.log(rentedMobiliary);
             idRef.current.value = rentedMobiliary.rented_mobiliary_id;
             nameRef.current.value = rentedMobiliary.name;
             costRef.current.value = rentedMobiliary.rental_cost;

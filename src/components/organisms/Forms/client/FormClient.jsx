@@ -11,7 +11,7 @@ export default function FormClient({ onClose, onChange }) {
 
     const mutation = useMutation({
         mutationFn: (newData) => {
-            return fetch(`${import.meta.env.VITE_URL}/reservation`, {
+            return fetch(`${import.meta.env.VITE_URL}/client`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -34,6 +34,7 @@ export default function FormClient({ onClose, onChange }) {
                 onChange(data)
                 toast.success('Cliente Registrado y Seleccionado')
             } else toast.success("Registro Exitoso");
+            onClose();
         },
         onError: (error) => {
             console.error('Error posting data:', error);

@@ -74,7 +74,7 @@ function MyCalendar() {
 
   // Transformar datos de reservaciones
   const events = reservationData.map((item) => {
-    const eventDate = new Date(item.event_date);
+    const eventDate = moment(item.event_date).startOf('day').toDate();
     return {
       title: `ID: ${item.reservation_id}, Salón: ${salons.find(salon => salon.salon_id === item.salon_id_fk)?.name || 'Desconocido'}, Cliente: ${clients.find(client => client.client_id === item.client_id_fk)?.firstname || 'Desconocido'}, Paquete: ${packages.find(pkg => pkg.package_type_id === item.package_type_id_fk)?.name || 'Desconocido'}, Invitados: ${item.guest_amount}, Tipo: ${item.event_type}`,
       start: eventDate,

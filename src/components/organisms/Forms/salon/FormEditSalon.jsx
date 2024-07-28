@@ -4,6 +4,7 @@ import Button from '../../../atoms/Button';
 import toast from "react-hot-toast";
 
 export default function FormEditSalon({ salon, onClose }) {
+    const idRef = useRef('');
     const nameRef = useRef('');
     const capacityRef = useRef('');
     const descriptionRef = useRef('');
@@ -11,6 +12,7 @@ export default function FormEditSalon({ salon, onClose }) {
 
     useEffect(() => {
         if (salon) {
+            idRef.current.value = salon.salon_id
             nameRef.current.value = salon.name;
             capacityRef.current.value = salon.capacity;
             descriptionRef.current.value = salon.description;
@@ -75,6 +77,8 @@ export default function FormEditSalon({ salon, onClose }) {
     return (
         <div className='p-4 border border-gray-300 rounded shadow-md'>
             <form className='flex flex-col'>
+                <label htmlFor="id" className="mb-1">ID del Salon</label>
+                <input type="text" ref={idRef} className="border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"/>
                 <label htmlFor='name' className='mb-1'>Nombre</label>
                 <input type='text' ref={nameRef} className='border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50' />
                 <label htmlFor='capacity' className='mb-1'>Capacidad</label>

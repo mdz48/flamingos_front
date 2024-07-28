@@ -44,7 +44,6 @@ function Mobiliario() {
     const user = localStorage.getItem('user');
     if (user) {
       const parsedUser = JSON.parse(user);
-      console.log('User:', parsedUser);
       setRole(parsedUser.role);
     } else {
       console.log('No user found in localStorage');

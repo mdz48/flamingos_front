@@ -1,11 +1,12 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Button from '../../../atoms/Button';
 import toast from 'react-hot-toast';
+import ComboboxSalon from '../../../molecules/ComboboxSalon';
 
 export default function EditFormMobiliary({ mobiliary, onClose }) {
     const idRef = useRef('');
-    const idsalonRef = useRef('');
+    const [salon, setSalon] = useState(null);
     const nameRef = useRef('');
     const stockRef = useRef('');
     const stateRef = useRef('');
@@ -15,7 +16,7 @@ export default function EditFormMobiliary({ mobiliary, onClose }) {
     useEffect(() => {
         if (mobiliary) {
             idRef.current.value = mobiliary.mobiliary_id;
-            idsalonRef.current.value = mobiliary.salon_id_fk
+            setSalon(mobiliary);
             nameRef.current.value = mobiliary.name;
             stockRef.current.value = mobiliary.stock;
             stateRef.current.value = mobiliary.state;
@@ -59,10 +60,12 @@ export default function EditFormMobiliary({ mobiliary, onClose }) {
         const value = localStorage.getItem('user');
         if (value) {
             try {
+                console.log(salon.salon_id);
                 const userObject = JSON.parse(value);
                 const userName = userObject.firstname;
                 const newData = {
                     name: nameRef.current.value,
+                    salon_id_fk: salon.salon_id,
                     stock: stockRef.current.value,
                     state: stateRef.current.value,
                     description: descriptionRef.current.value,
@@ -83,8 +86,7 @@ export default function EditFormMobiliary({ mobiliary, onClose }) {
             <form className='flex flex-col'>
                 <label htmlFor='id' className='mb-1'>ID del Mobiliario</label>
                 <input type='text' ref={idRef} className='border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50'/>
-                <label htmlFor="salon" className='mb-1'>ID Salón</label>
-                <input type="text" ref={idsalonRef} className="border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"/>
+                <ComboboxSalon onChange={setSalon}/>
                 <label htmlFor="name" className='mb-1'>Nombre</label>
                 <input type='text' ref={nameRef} className='border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50'/>
                 <label htmlFor="stock" className="mb-1">Cantidad</label>

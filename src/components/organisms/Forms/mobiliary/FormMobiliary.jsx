@@ -1,7 +1,8 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Button from '../../../atoms/Button';
 import toast from 'react-hot-toast';
+import ComboboxSalon from '../../../molecules/ComboboxSalon';
 
 export default function FormMobiliary({ onClose }) {
     const nameRef = useRef('');
@@ -10,6 +11,7 @@ export default function FormMobiliary({ onClose }) {
     const descriptionRef = useRef('');
     const idsalonRef = useRef('');
     const queryClient = useQueryClient();
+    const [salon, setSalon] = useState(null);
 
     const mutation = useMutation({
         mutationFn: (newData) => {
@@ -53,15 +55,14 @@ export default function FormMobiliary({ onClose }) {
                     name: nameRef.current.value,
                     stock: stockRef.current.value,
                     state: stateRef.current.value,
-                    description: descriptionRef.current.value || 'none',
-                    salon_id_fk: idsalonRef.current.value,
+                    description: descriptionRef.current.value,
+                    salon_id_fk: salon.salon_id,
                     updated_by: userName,
                     created_by: userName,
                 };
                 mutation.mutate(newData);
             } catch (error) {
-                console.error('Error parsing JSON:', error);
-                toast.error('Error al procesar los datos del usuario');
+                toast.error('Ocurrió un error al registrar el mobiliario')
             }
         } else {
             toast.error('No se encontró información del usuario en localStorage');
@@ -73,11 +74,10 @@ export default function FormMobiliary({ onClose }) {
             <form className='flex flex-col'>
                 <label htmlFor="name" className='mb-1'>Nombre</label>
                 <input type="text" ref={nameRef} className="border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" />
-                <label htmlFor="salon" className='mb-1'>ID Salón</label>
-                <input type="text" ref={idsalonRef} className="border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" />
+                <ComboboxSalon onChange={setSalon}/>
                 <label htmlFor="stock" className='mb-1'>Cantidad</label>
                 <input type="number" ref={stockRef} className="border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" />
-                <label htmlFor="state" className='mb-1'>Estado</label>
+                <label htmlFor="text" className='mb-1'>Estado</label>
                 <input type="text" ref={stateRef} className="border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" />
                 <label htmlFor="description" className='mb-1'>Descripción</label>
                 <input type="text" ref={descriptionRef} className="border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" />

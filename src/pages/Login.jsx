@@ -9,7 +9,7 @@ import toast from 'react-hot-toast';
 import { UserContext } from '../context/userContext';
 
 function Login() {
-  const user_idRef = useRef(null);
+  const mailRef = useRef(null);
   const passwordRef = useRef(null);
   const navigate = useNavigate();
   const value = useContext(UserContext);
@@ -33,7 +33,6 @@ function Login() {
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user))
       value.setUser(data.user)
-      console.log(value);
       navigate('/home-empleados');
     },
     onError: (error) => {
@@ -44,15 +43,15 @@ function Login() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    const user_id = user_idRef.current.value;
+    const mail = mailRef.current.value;
     const password = passwordRef.current.value;
 
-    if (!user_id.trim() || !password.trim()) {
+    if (!mail.trim() || !password.trim()) {
       toast('Por favor, rellene todos los campos', { icon: '⚠️' });
       return;
     }
 
-    const loginData = { user_id, password };
+    const loginData = { mail, password };
     mutation.mutate(loginData);
   };
 
@@ -64,14 +63,15 @@ function Login() {
         <h2 className="text-3xl font-bold mb-6 text-center text-gray-700">Iniciar Sesión</h2>
         <form className="flex flex-col" onSubmit={handleLogin}>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="user_id">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="mail">
               Identificación
             </label>
             <input
-              ref={user_idRef}
-              type="text"
-              id="user_id"
-              placeholder="Ingresa tu ID"
+              ref={mailRef}
+              type="mail"
+              id="mail"
+              name='mail'
+              placeholder="Ingresa tu correo"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>

@@ -4,6 +4,7 @@ import Button from "../../../atoms/Button";
 import toast from "react-hot-toast";
 
 export default function FormClient({ onClose, client }) {
+  const idRef = useRef('');
   const firstnameRef = useRef("");
   const lastnameRef = useRef("");
   const cellphoneRef = useRef("");
@@ -11,6 +12,7 @@ export default function FormClient({ onClose, client }) {
 
   useEffect(() => {
     if (client) {
+        idRef.current.value = client.client_id;
         firstnameRef.current.value = client.firstname;
         lastnameRef.current.value = client.lastname;
         cellphoneRef.current.value = client.cellphone;
@@ -78,6 +80,12 @@ export default function FormClient({ onClose, client }) {
   return (
     <div className="p-4 border border-gray-300 rounded shadow-md">
       <form className="flex flex-col">
+        <label htmlFor="id" className="mb-1">ID del Cliente</label>
+          <input
+              type="text"
+              ref={idRef}
+              className="border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+          />
         <label htmlFor="firstname" className="mb-1">
           Nombre{" "}
         </label>

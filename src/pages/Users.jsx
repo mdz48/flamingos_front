@@ -18,7 +18,7 @@ function Users() {
   const [role, setRole] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null); 
   const verticalMenuItems = ['Agregar', 'Editar', 'Borrar'];
-  const tableHeaders = ['ID', 'Nombre', 'Apellido', 'Rol'];
+  const tableHeaders = ['ID', 'Correo', 'Nombre', 'Apellido', 'Rol'];
   const queryClient = useQueryClient();
   const value = useContext(UserContext);
   if (!value.user.firstname) {
@@ -99,7 +99,7 @@ function Users() {
             {showSection && (
               <div>
                 {formType === 'Agregar' && <FormUsers onClose={() => setShowSection(false)} />}
-                {formType === 'Editar' && selectedUser && <FormEditUsers user={selectedUser} onClose={() => setShowSection(false)} />}
+                {formType === 'Editar' && <FormEditUsers user={selectedUser} onClose={() => setShowSection(false)} />}
                 {formType === 'Borrar' && <FormDeleteUsers onClose={() => setShowSection(false)} />}
               </div>
             )}
