@@ -1,12 +1,13 @@
 import React from 'react';
-import { FaFacebook, FaInstagram } from 'react-icons/fa';
+import { FaFacebook, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import { data } from '../../data/data';
 
 function Footer() {
   const { flamingos, chulavista, socialLinks } = data.footer;
   const iconMap = {
     FaFacebook: FaFacebook,
-    FaInstagram: FaInstagram
+    FaInstagram: FaInstagram,
+    FaWhatsapp: FaWhatsapp,
   };
 
   return (

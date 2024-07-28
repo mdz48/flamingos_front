@@ -169,12 +169,12 @@ export const data = {
     flamingos: {
       name: "Flamingos",
       address: "Plaza Poliforum; Calle Halcón #371 Col. Los Pájaros",
-      phone: "961 451 2438"
+      phone: "+52 961 123 4567"
     },
     chulavista: {
       name: "Chula Vista",
-      address: "Plaza Poliforum; Calle Halcón #371 Col. Los Pájaros",
-      phone: "961 217 6999"
+      address: "Prosperidad 19, Zona Sin Asignación de Nombre de Col 24, 29045 Tuxtla Gutiérrez, Chis.",
+      phone: "+52 961 451 2438"
     },
     socialLinks: [
       {
@@ -186,7 +186,13 @@ export const data = {
         platform: "Instagram",
         url: "https://www.instagram.com/salonflamingos/",
         icon: "FaInstagram"
-      }
+      }, 
+      {
+        plataform:"Whatsapp",
+        url: "https://api.whatsapp.com/send?phone=5219612176999&text=Enlace%3A%0Ahttps%3A%2F%2Ffb.me%2Fffma6Dchf%0A%0A%C2%A1Hola%21+Podr%C3%ADas+darme+m%C3%A1s+informaci%C3%B3n+de...&source_url=https%3A%2F%2Ffb.me%2Fffma6Dchf&icebreaker=%C2%A1Hola%21+Podr%C3%ADas+darme+m%C3%A1s+informaci%C3%B3n+de...&app=facebook&entry_point=post_cta&jid=5219612176999%40s.whatsapp.net&show_keyboard=1&show_ad_attribution=1&source=FB_Post&context=ARDxrgoBCRfVLFnYFNrkdC0qd44W6O99HzLzL2uxYMCIEO8EXquFUhd7B4wKWgC-kO3z2ceKCcwXRwcqm9OpCmTmkz3rkzFGoX-fmtWZ-cGD1dIPEFXcdBo9Fqhc3vaWICeRHyCFDBF_r-tbwY_LpR1TAEdJq4glcYh-3vayqHZk1onv5DD9A-BkfRPEYSMi0DiGYRqcMdwVKegtdAk3fOrgGPbGIoHjfkZcb-C5KJPfknW8zXCkCvURegBRnr0cqtzClqv_w-XtPuaCYtHJZ68t-4cvhfWzYspkpKB-nlQAymHTW1tFqoWxkdwBSqlrgqCOdXLUxGm2b6g&token=eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjEyNSJ9.eyJleHAiOjE3MjIyNzk4NjEsInBob25lIjoiNTIxOTYxMjE3Njk5OSIsInRleHQiOiJFbmxhY2U6XG5odHRwczpcL1wvZmIubWVcL2ZmbWE2RGNoZlxuXG5cdTAwYTFIb2xhISBQb2RyXHUwMGVkYXMgZGFybWUgbVx1MDBlMXMgaW5mb3JtYWNpXHUwMGYzbiBkZS4uLiIsInNvdXJjZV91cmwiOiJodHRwczpcL1wvZmIubWVcL2ZmbWE2RGNoZiIsImljZWJyZWFrZXIiOiJcdTAwYTFIb2xhISBQb2RyXHUwMGVkYXMgZGFybWUgbVx1MDBlMXMgaW5mb3JtYWNpXHUwMGYzbiBkZS4uLiIsImFwcCI6ImZhY2Vib29rIiwiZW50cnlfcG9pbnQiOiJwb3N0X2N0YSIsImppZCI6IjUyMTk2MTIxNzY5OTlcdTAwNDBzLndoYXRzYXBwLm5ldCIsInNob3dfa2V5Ym9hcmQiOjEsInNob3dfYWRfYXR0cmlidXRpb24iOjEsInNvdXJjZSI6IkZCX1Bvc3QifQ.SYfRYR-DBB5Xq1O2f1j6hu0gUuqma04O7Qdurjw1507eLMjTNOZQg_iTDxV_da48sBcCWJUZTIdpj_I4w2F0WQ",
+        icon: "FaWhatsapp"
+      },
+
     ]
   },
   preciosSalones: {
