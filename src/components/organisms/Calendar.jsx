@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import moment from 'moment';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { useQuery } from '@tanstack/react-query';
-import CalendarHeader from '../molecules/CalendarHeader';
-import CalendarWeek from '../molecules/CalendarWeek';
-import { getMonthDays } from '../../utils/CalendarUtils';
 import Button from '../atoms/Button';
+import Modal from 'react-modal';
+import './Calendar.css';
 
-function Calendar({ year, month }) {
-  const [currentYear, setCurrentYear] = useState(year);
-  const [currentMonth, setCurrentMonth] = useState(month);
+const localizer = momentLocalizer(moment);
+
+Modal.setAppElement('#root'); // Ajusta esto al ID del elemento raíz de tu aplicación
+
+function MyCalendar() {
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
   const {
     data: reservationData,
@@ -33,63 +39,78 @@ function Calendar({ year, month }) {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading data</div>;
 
-  // Transformar y filtrar datos de reservaciones
-  const transformedData = transformReservationData(reservationData);
-  const filteredEvents = transformedData.filter(
-    (item) =>
-      item.year === currentYear && item.month === currentMonth
-  );
-
-  const days = getMonthDays(currentYear, currentMonth, filteredEvents);
-  const weeks = [];
-  let week = [];
-
-  days.forEach((day, index) => {
-    week.push(day);
-    if ((index + 1) % 7 === 0 || index === days.length - 1) {
-      weeks.push(week);
-      week = [];
-    }
-  });
+  // Transformar datos de reservaciones
+  const events = reservationData.map((item) => ({
+    title: `ID: ${item.reservation_id}, Salón: ${item.salon_id_fk}, Cliente: ${item.client_id_fk}, Paquete: ${item.package_type_id_fk}, Invitados: ${item.guest_amount}, Tipo: ${item.event_type}`,
+    start: new Date(item.event_date),
+    end: new Date(item.event_date),
+    ...item, // Añadir todos los datos del evento aquí para acceso en el modal
+  }));
 
   const handlePrevMonth = () => {
-    setCurrentMonth(currentMonth === 0 ? 11 : currentMonth - 1);
-    setCurrentYear(currentMonth === 0 ? currentYear - 1 : currentYear);
+    const prevMonth = new Date(currentDate.setMonth(currentDate.getMonth() - 1));
+    setCurrentDate(prevMonth);
   };
 
   const handleNextMonth = () => {
-    setCurrentMonth(currentMonth === 11 ? 0 : currentMonth + 1);
-    setCurrentYear(currentMonth === 11 ? currentYear + 1 : currentYear);
+    const nextMonth = new Date(currentDate.setMonth(currentDate.getMonth() + 1));
+    setCurrentDate(nextMonth);
   };
 
-  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const handleSelectEvent = (event) => {
+    setSelectedEvent(event);
+  };
+
+  const closeModal = () => {
+    setSelectedEvent(null);
+  };
 
   return (
-    <div className="calendar">
+    <div className="p-4 md:p-8">
       <div className="flex justify-between items-center mb-4">
         <Button onClick={handlePrevMonth} text="Previous" className="mr-2" />
-        <div className="text-xl font-bold">{monthNames[currentMonth]} {currentYear}</div>
+        <div className="text-xl font-bold">{moment(currentDate).format('MMMM YYYY')}</div>
         <Button onClick={handleNextMonth} text="Next" className="ml-2" />
       </div>
-      <CalendarHeader />
-      {weeks.map((week, i) => (
-        <CalendarWeek key={i} week={week} />
-      ))}
+      <div className="overflow-x-auto">
+        <Calendar
+          localizer={localizer}
+          events={events}
+          startAccessor="start"
+          endAccessor="end"
+          style={{ height: 500 }}
+          date={currentDate}
+          onNavigate={date => setCurrentDate(date)}
+          eventPropGetter={() => ({
+            style: { whiteSpace: 'pre-wrap', overflowWrap: 'break-word' }
+          })}
+          onSelectEvent={handleSelectEvent}
+        />
+      </div>
+
+      {/* Modal para mostrar detalles del evento */}
+      <Modal
+        isOpen={!!selectedEvent}
+        onRequestClose={closeModal}
+        contentLabel="Detalles del Evento"
+        className="modal-content"
+        overlayClassName="modal-overlay"
+      >
+        {selectedEvent && (
+          <div>
+            <h2 className="text-2xl mb-4">Detalles del Evento</h2>
+            <p><strong>ID:</strong> {selectedEvent.reservation_id}</p>
+            <p><strong>Salón:</strong> {selectedEvent.salon_id_fk}</p>
+            <p><strong>Cliente:</strong> {selectedEvent.client_id_fk}</p>
+            <p><strong>Paquete:</strong> {selectedEvent.package_type_id_fk}</p>
+            <p><strong>Invitados:</strong> {selectedEvent.guest_amount}</p>
+            <p><strong>Tipo:</strong> {selectedEvent.event_type}</p>
+            <Button onClick={closeModal} text="Cerrar" className="mt-4" />
+          </div>
+        )}
+      </Modal>
     </div>
   );
 }
 
-
-const transformReservationData = (data) => {
-  return data.map((item) => {
-    const eventDate = new Date(item.event_date);
-    return {
-      ...item,
-      day: eventDate.getUTCDate(),
-      month: eventDate.getUTCMonth(),
-      year: eventDate.getUTCFullYear(),
-    };
-  });
-};
-
-export default Calendar;
+export default MyCalendar;

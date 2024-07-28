@@ -23,8 +23,8 @@ export const data = {
       URL: "/home-empleados"
     },
     {
-      site: "Rented",
-      URL: "/Rented"
+      site: "Reservaciones",
+      URL: "/rented"
     },
     {
       site: "Mobiliario",
