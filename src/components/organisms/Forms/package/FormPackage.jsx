@@ -40,7 +40,7 @@ const FormPackage = ({ onClose }) => {
         const cost = costRef.current.value;
         const description = descriptionRef.current.value;
        
-        if (!name || !cost || !description || supplies.length === 0) {
+        if (!name || !cost || !description) {
             toast.error('Por favor, asegúrese de rellenar los campos');
             return;
         }
