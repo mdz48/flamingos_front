@@ -78,40 +78,34 @@ const FormPackage = ({ onClose }) => {
     };
 
     return (
-        <form className="relative p-4 mx-auto bg-white shadow-md rounded-lg" onSubmit={handleSubmit}>
-            <div className="mt-4">
-                <label className="block text-gray-700">Nombre:</label>
-                <input
-                    type="text"
-                    ref={nameRef}
-                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-                />
-            </div>
+        <div className='p-4 border border-gray-300 rounded shadow-md'>
+            <form className="flex flex-col " onSubmit={handleSubmit}>
+                    <label className="block text-gray-700">Nombre:</label>
+                    <input
+                        type="text"
+                        ref={nameRef}
+                        className="border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                    />
 
-            <div className="mt-4">
-                <label className="block text-gray-700">Costo:</label>
-                <input
-                    type="number"
-                    ref={costRef}
-                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-                />
-            </div>
-            <div className="mt-4">
-                <label className="block text-gray-700">Descripcion:</label>
-                <input
-                    type="text"
-                    ref={descriptionRef}
-                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-                />
-            </div>
-            <div className="mt-4">
-                <CheckboxSupplies onChange={handleSuppliesChange} />
-            </div>
-            <div className="mt-6 flex items-center justify-between">
-                <Button onClick={handleSubmit} text="Guardar" />
-                <Button onClick={handleCloseClick} text="Cerrar" />
-            </div>
-        </form>
+                    <label className="block text-gray-700">Costo:</label>
+                    <input
+                        type="number"
+                        ref={costRef}
+                        className="border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                    />
+                    <label className="block text-gray-700">Descripcion:</label>
+                    <input
+                        type="text"
+                        ref={descriptionRef}
+                        className="border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                    />
+                    <CheckboxSupplies onChange={handleSuppliesChange} />
+                <div className="mt-6 flex items-center justify-between">
+                    <Button onClick={handleSubmit} text="Guardar" />
+                    <Button onClick={handleCloseClick} text="Cerrar" />
+                </div>
+            </form>
+        </div>
     );
 };
 
