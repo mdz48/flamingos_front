@@ -85,7 +85,7 @@ export default function EditFormMobiliary({ mobiliary, onClose }) {
         <div className='p-4 border border-gray-300 rounded shadow-md'>
             <form className='flex flex-col'>
                 <label htmlFor='id' className='mb-1'>ID del Mobiliario</label>
-                <input type='text' ref={idRef} className='border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50'/>
+                <input type='text' ref={idRef} readOnly className='border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50'/>
                 <ComboboxSalon onChange={setSalon}/>
                 <label htmlFor="name" className='mb-1'>Nombre</label>
                 <input type='text' ref={nameRef} className='border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50'/>

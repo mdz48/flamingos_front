@@ -24,6 +24,7 @@ export default function FormUsers({ onClose }) {
             }).then(response => {
                 if (!response.ok) {
                     return response.json().then(errorData => {
+                        console.log(errorData);
                         throw new Error(errorData.message || 'Error al guardar el usuario');
                     });
                 }

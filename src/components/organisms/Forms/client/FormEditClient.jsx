@@ -83,6 +83,7 @@ export default function FormClient({ onClose, client }) {
         <label htmlFor="id" className="mb-1">ID del Cliente</label>
           <input
               type="text"
+              readOnly
               ref={idRef}
               className="border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
           />

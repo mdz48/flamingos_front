@@ -82,6 +82,7 @@ export default function FormEditSupplies({ supply, onClose }) {
                 <input
                     type="text"
                     ref={idRef}
+                    readOnly
                     className="border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
                 />
                 <label htmlFor='name'>Nombre</label>
