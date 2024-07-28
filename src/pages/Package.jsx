@@ -61,7 +61,7 @@ function PackageTypes() {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_URL}/package_type/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_URL}/packagetypes/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
