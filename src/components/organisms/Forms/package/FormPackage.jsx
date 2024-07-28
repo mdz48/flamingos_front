@@ -5,9 +5,8 @@ import Button from '../../../atoms/Button';
 import toast from 'react-hot-toast';
 
 const FormPackage = ({ onClose }) => {
-    const [supplies, setSupplies] = useState(null);
+    const [supplies, setSupplies] = useState([]);
     const queryClient = useQueryClient();
-
     
     const nameRef = useRef('');
     const costRef = useRef('');
@@ -15,7 +14,7 @@ const FormPackage = ({ onClose }) => {
 
     const mutation = useMutation({
         mutationFn: (newData) => {
-            return fetch(`${import.meta.env.VITE_URL}/packageTypes`, {
+            return fetch(`${import.meta.env.VITE_URL}/packagetypes`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -27,11 +26,11 @@ const FormPackage = ({ onClose }) => {
         },
         onSuccess: () => {
             queryClient.invalidateQueries(['packageTypes']);
-            toast.success('Paquete guardado')
+            toast.success('Paquete guardado');
         },
         onError: (error) => {
             console.error('Error posting data:', error);
-            toast.error(`${error}`)
+            toast.error(`${error}`);
         },
     });
 
@@ -41,7 +40,7 @@ const FormPackage = ({ onClose }) => {
         const cost = costRef.current.value;
         const description = descriptionRef.current.value;
        
-        if (!name || !cost || !description || !supplies) {
+        if (!name || !cost || !description || supplies.length === 0) {
             toast.error('Por favor, asegúrese de rellenar los campos');
             return;
         }
@@ -52,10 +51,11 @@ const FormPackage = ({ onClose }) => {
                 const userObject = JSON.parse(value);
                 const userName = userObject.firstname;     
                 const newData = {
-                    name: nameRef.current.value,
-                    cost: costRef.current.value,
-                    description: descriptionRef.current.value,
-                    supplies_id_fk: supplies.supplies_id, //.map(supply => supply.id), // Add selected supplies
+                    name: name,
+                    cost: cost,
+                    description: description,
+                    precreated: 0,
+                    relationship: supplies.map(supply => supply.supplies_id), // Add selected supplies
                     created_by: userName,
                     updated_by: userName
                 };
@@ -69,10 +69,9 @@ const FormPackage = ({ onClose }) => {
     };
 
     const handleCloseClick = () => {
-        setSupplies(null)
+        setSupplies([]);
         onClose();
     };
-
 
     const handleSuppliesChange = (selectedSupplies) => {
         setSupplies(selectedSupplies);
@@ -80,7 +79,6 @@ const FormPackage = ({ onClose }) => {
 
     return (
         <form className="relative p-4 mx-auto bg-white shadow-md rounded-lg" onSubmit={handleSubmit}>
-           
             <div className="mt-4">
                 <label className="block text-gray-700">Nombre:</label>
                 <input

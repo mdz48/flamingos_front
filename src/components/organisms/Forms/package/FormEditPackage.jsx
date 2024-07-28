@@ -1,173 +1,120 @@
-import React, { useState, useRef } from 'react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import Button from '../../../atoms/Button';
-import CheckboxSupplies from '../../../molecules/CheckboxSuplies';
-import toast from 'react-hot-toast';
+import { useRef, useEffect, useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import Button from "../../../atoms/Button";
+import toast from "react-hot-toast";
+import CheckboxSupplies from "../../../molecules/CheckboxSuplies";
 
-const FormEditPackage = ({ onClose }) => {
-    const packageTypeIdRef = useRef('');
-    const nameRef = useRef('');
-    const costRef = useRef('');
-    const descriptionRef = useRef('');
-    const [supplies, setSupplies] = useState(null);
-    const queryClient = useQueryClient();
+export default function FormEditPackage({ onClose, packageType }) {
+  const idRef = useRef('');
+  const nameRef = useRef("");
+  const descriptionRef = useRef("");
+  const queryClient = useQueryClient();
+  const [selectedSupplies, setSelectedSupplies] = useState([]);
 
-    const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    if (packageType) {
+      idRef.current.value = packageType.package_type_id;
+      nameRef.current.value = packageType.name;
+      descriptionRef.current.value = packageType.description;
+    }
+  }, [packageType]);
 
-    const fetchReservationData = async (id) => {
-        setLoading(true);
-        try {
-            const response = await fetch(`${import.meta.env.VITE_URL}/packageTypes/${id}`, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                    'Access-Control-Allow-Origin': '*'
-                  },
-            });
-            if (!response.ok) {
-                throw new Error('Error fetching data');
-            }
-            const data = await response.json();
-            // Actualiza los campos con los datos obtenidos
-            setSupplies({supplies_id: data.supplies_id_fk})
-            nameRef.current.value = data.name || '';
-            costRef.current.value = data.cost || '';
-            descriptionRef.current.value = data.description || '';
-        } catch (error) {
-            toast.error('No existe este ID de reservación');
-            console.error('Error fetching reservation data:', error);
-        } finally {
-            setLoading(false);
+  const mutation = useMutation({
+    mutationFn: (newData) => {
+      return fetch(
+        `${import.meta.env.VITE_URL}/packagetypes/${packageType.package_type_id}`,
+        {
+          method: "PUT",
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Access-Control-Allow-Origin': '*'
+          },
+          body: JSON.stringify(newData),
         }
-    };
-
-    const handleBlur = () => {
-        const packageTypeId =packageTypeIdRef.current.value;
-        if (packageTypeId) {
-            fetchReservationData(packageTypeId);
+      ).then(response => {
+        if (!response.ok) {
+          return response.json().then(errorData => {
+            throw new Error(errorData.message || 'Error al editar el tipo de paquete');
+          });
         }
-    };
+        return response.json();
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["packageTypes"]);
+      toast.success("Registro actualizado exitosamente");
+      onClose();
+    },
+    onError: (error) => {
+      console.error("Error updating data:", error);
+      toast.error(error.message || 'Ocurrió un error');
+    },
+  });
 
-    const mutation = useMutation({
-        mutationFn: (newData) => {
-            return fetch(`${import.meta.env.VITE_URL}/packageTypes/${packageTypeIdRef.current.value}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                    'Access-Control-Allow-Origin': '*'
-                  },
-                body: JSON.stringify(newData),
-            }).then(response => {
-                if (!response.ok) {
-                    return response.json().then(errorData => {
-                        throw new Error(errorData.message || 'Error al guardar el paquete');
-                    });
-                }
-                return response.json();
-            });
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries(['packageTypes']);
-            toast.success('Paquete actualizado');
-        },
-        onError: (error) => {
-            console.error('Error posting data:', error);
-            toast.error(`${error}`);
-        },
-    });
+  const handleClick = (e) => {
+    e.preventDefault();
+    const value = localStorage.getItem('user');
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const packageTypeId = packageTypeIdRef.current.value;
-        const name = nameRef.current.value;
-        const cost = costRef.current.value;
-        const description = descriptionRef.current.value;
+    if (value) {
+      try {
+        const userObject = JSON.parse(value);
+        const userName = userObject.firstname;
+        const newData = {
+          name: nameRef.current.value,
+          description: descriptionRef.current.value,
+          updated_by: userName,
+          relationship: selectedSupplies.map(supply => supply.supplies_id), 
+        };
+        mutation.mutate(newData);
+      } catch (error) {
+        console.error("Error parsing JSON:", error);
+        toast.error('Error al procesar datos del usuario');
+      }
+    } else {
+      console.log("No user found in localStorage");
+      toast.error('No se encontró el usuario en localStorage');
+    }
+  };
 
-        if (!packageTypeId) {
-            toast.error('Por favor, ingrese un ID');
-            return;
-        }
+  const handleSuppliesChange = (updatedSupplies) => {
+    setSelectedSupplies(updatedSupplies);
+  };
 
-        const value = localStorage.getItem('user');
-        if (value) {
-            try {
-                const userObject = JSON.parse(value);
-                const userName = userObject.firstname;
-                const newData = {
-                    package_type_id: packageTypeId,
-                    name: name || null,
-                    cost: cost || null,
-                    description: description || null,
-                    supplies_id_fk: supplies ? supplies.supplies_id : null,
-                    updated_by: userName,
-                };
-                mutation.mutate(newData);
-            } catch (error) {
-                console.error("Error parsing JSON:", error);
-            }
-        } else {
-            console.log("No user found in localStorage");
-        }
-    };
-
-    const handleCloseClick = () => {
-        packageTypeIdRef.current.value = '';
-        setSupplies(null);
-        onClose();
-    };
-
-    const handleSuppliesChange = (selectedSupplies) => {
-        setSupplies(selectedSupplies);
-    };
-
-   
-
-    return (
-        <form className="relative p-4  mx-auto bg-white shadow-md rounded-lg" onSubmit={handleSubmit}>
-            <div className="mt-4">
-                <label className="block text-gray-700">ID del Paquete:</label>
-                <input
-                    type="text"
-                    ref={packageTypeIdRef}
-                    onBlur={handleBlur}
-                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-                />
-            </div>
-            <div className="mt-4">
-                <label className="block text-gray-700">Nombre:</label>
-                <input
-                    type="text"
-                    ref={nameRef}
-                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-                />
-            </div>
-
-            <div className="mt-4">
-                <label className="block text-gray-700">Costo:</label>
-                <input
-                    type="number"
-                    ref={costRef}
-                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-                />
-            </div>
-            <div className="mt-4">
-                <label className="block text-gray-700">Descripcion:</label>
-                <input
-                    type="text"
-                    ref={descriptionRef}
-                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-                />
-            </div>
-            <div className="mt-4">
-                <CheckboxSupplies onChange={handleSuppliesChange} />
-            </div>
-            <div className="mt-6 flex items-center justify-between">
-                <Button onClick={handleSubmit} text="Guardar" disabled={loading} />
-                <Button onClick={handleCloseClick} text="Cerrar" />
-            </div>
-        </form>
-    );
-};
-
-export default FormEditPackage;
+  return (
+    <div className="p-4 border border-gray-300 rounded shadow-md">
+      <form className="flex flex-col">
+        <label htmlFor="id" className="mb-1">ID del Tipo de Paquete</label>
+        <input
+          type="text"
+          readOnly
+          ref={idRef}
+          className="border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+        />
+        <label htmlFor="name" className="mb-1">
+          Nombre{" "}
+        </label>
+        <input
+          type="text"
+          ref={nameRef}
+          className="border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+        />
+        <label htmlFor="description" className="mb-1">
+          Descripción{" "}
+        </label>
+        <input
+          type="text"
+          ref={descriptionRef}
+          className="border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+        />
+        <div className="mt-4">
+          <CheckboxSupplies onChange={handleSuppliesChange} />
+        </div>
+        <div className="flex items-center justify-between mt-4">
+          <Button onClick={handleClick} text="Guardar" />
+          <Button onClick={onClose} text="Cerrar" />
+        </div>
+      </form>
+    </div>
+  );
+}

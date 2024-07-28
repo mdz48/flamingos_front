@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import Checkbox from '../atoms/Checkbox'; // Adjust the path according to your project structure
+import Checkbox from '../atoms/Checkbox'; 
 
 const CheckboxSupplies = ({ onChange }) => {
   const [selectedSupplies, setSelectedSupplies] = useState([]);
@@ -21,11 +21,11 @@ const CheckboxSupplies = ({ onChange }) => {
   });
 
   const handleCheckboxChange = (supply) => {
-    const isSelected = selectedSupplies.some(selected => selected.id === supply.id);
+    const isSelected = selectedSupplies.some(selected => selected.supplies_id === supply.supplies_id);
     let updatedSupplies;
 
     if (isSelected) {
-      updatedSupplies = selectedSupplies.filter(selected => selected.id !== supply.id);
+      updatedSupplies = selectedSupplies.filter(selected => selected.supplies_id !== supply.supplies_id);
     } else {
       updatedSupplies = [...selectedSupplies, supply];
     }
@@ -41,10 +41,10 @@ const CheckboxSupplies = ({ onChange }) => {
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">Supplies</h1>
       {suppliesData && suppliesData.map(supply => (
-        <div key={supply.id} className="mb-2">
+        <div key={supply.supplies_id} className="mb-2">
           <Checkbox
             label={supply.name}
-            checked={selectedSupplies.some(selected => selected.id === supply.id)}
+            checked={selectedSupplies.some(selected => selected.supplies_id === supply.supplies_id)}
             onChange={() => handleCheckboxChange(supply)}
           />
         </div>
