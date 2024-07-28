@@ -7,6 +7,7 @@ import FormEditRented from "../components/organisms/Forms/rented/FormEditRented"
 import FormDeleteRented from "../components/organisms/Forms/rented/FormDeleteRented";
 import MenuContainer from "../components/organisms/MenuContainer";
 import { UserContext } from "../context/userContext";
+import { Navigate } from "react-router-dom";
 
 function Rented() {
   const [showSection, setShowSection] = useState(false);
@@ -14,6 +15,11 @@ function Rented() {
   const [role, setRole] = useState(null);
   const [showDelete, setShowDelete] = useState(false);
   const verticalMenuItems = ['Agregar', 'Editar', 'Borrar'];
+  const value = useContext(UserContext);
+  if (!value.user.firstname) {
+    return <Navigate to='/login'/>
+  }
+
 
   useEffect(() => {
     const user = localStorage.getItem('user');
@@ -39,16 +45,11 @@ function Rented() {
     }
   };
 
-  const value = useContext(UserContext);
-  if (!value.user.firstname) {
-    // return <Navigate to='/login'/>
-  }
-
   return (
     <>
       <Navbar links={data.navuser} img='/home-empleados' />
       <h1 className="text-2xl font-bold mb-4 p-8 text-center">Bienvenido a la Administración de Recursos</h1>
-      <div className="md:grid md:grid-cols-3 w-[80%] mx-auto">
+      <div className="md:grid md:grid-cols-3 md:w-[80%] mx-auto">
         {role == 1 && (
           <div className="w-auto md:col-span-1 mb-4 md:mb-0">
             <MenuContainer items={verticalMenuItems} onMenuClick={handleMenuClick} />
@@ -70,7 +71,7 @@ function Rented() {
           </div>
         )}
         
-        <div className={`md:col-span-2 w-full mx-auto h-[50vh] overflow-x-auto ${role !== 1 ? 'md:col-span-3' : ''}`}>
+        <div className={` md:col-span-2 w-full mx-auto h-[50vh] overflow-x-auto ${role !== 1 ? 'md:col-span-3' : ''}`}>
           <Calendar year={2024} month={6} />
         </div>
       </div>

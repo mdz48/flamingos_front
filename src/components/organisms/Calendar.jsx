@@ -86,16 +86,6 @@ function MyCalendar() {
     };
   });
 
-  const handlePrevMonth = () => {
-    const prevMonth = new Date(currentDate.setMonth(currentDate.getMonth() - 1));
-    setCurrentDate(prevMonth);
-  };
-
-  const handleNextMonth = () => {
-    const nextMonth = new Date(currentDate.setMonth(currentDate.getMonth() + 1));
-    setCurrentDate(nextMonth);
-  };
-
   const handleSelectEvent = (event) => {
     setSelectedEvent(event);
   };
@@ -105,12 +95,7 @@ function MyCalendar() {
   };
 
   return (
-    <div className="p-4 md:p-8">
-      <div className="flex justify-between items-center mb-4">
-        <Button onClick={handlePrevMonth} text="Previous" className="mr-2" />
-        <div className="text-xl font-bold">{moment(currentDate).format('MMMM YYYY')}</div>
-        <Button onClick={handleNextMonth} text="Next" className="ml-2" />
-      </div>
+    <div className="md:p-8">
       <div className="overflow-x-auto">
         <Calendar
           messages={{
