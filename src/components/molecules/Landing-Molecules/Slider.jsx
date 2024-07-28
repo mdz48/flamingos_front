@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const images = [
   'Slider2.jpg',
@@ -31,7 +32,7 @@ function Slider() {
             <div className="text-center">
               <h1 className="text-4xl font-bold">TODOS TUS EVENTOS Y REUNIONES CON</h1>
               <h2 className="text-2xl">COFFEE BREAK INCLUIDO</h2>
-              <button className="mt-4 px-4 py-2 bg-yellow-600 text-white font-bold rounded">CONOCE MÁS</button>
+              <Link to='/cotizacion'><button className="mt-4 px-4 py-2 bg-yellow-600 text-white font-bold rounded">CONOCE MÁS</button></Link>
             </div>
           </div>
         </div>

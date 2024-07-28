@@ -22,7 +22,7 @@ function Home() {
             <HeroSection />
             <InfoSection />
             <CardsSection />
-            <Heading text="Nuestros Paquetes" />
+            <Heading/>
             <SalonesSection />
             <Footer />
         </>

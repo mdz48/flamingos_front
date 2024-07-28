@@ -13,10 +13,10 @@ function CardsSection() {
       </div>
 
       <div className="text-center py-8">
-        <h2 className="text-3xl font-bold">Nuestros Paquetes</h2>
+        <h2 className="text-3xl font-bold">Paquetes</h2>
       </div>
 
-      <div className="flex flex-wrap justify-center gap-4 py-8 bg-yellow-50">
+      <div className="flex flex-wrap justify-center gap-4 py-8">
         {data.packages.map((pkg, index) => (
           <PackageCard key={index} title={pkg.title} price={pkg.price} features={pkg.features} />
         ))}
