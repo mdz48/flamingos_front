@@ -7,6 +7,9 @@ import FormEditRented from "../components/organisms/Forms/rented/FormEditRented"
 import FormDeleteRented from "../components/organisms/Forms/rented/FormDeleteRented";
 import MenuContainer from "../components/organisms/MenuContainer";
 import { useState, useEffect } from 'react';
+import { useContext } from "react";
+import { UserContext } from "../context/userContext";
+import { Navigate } from "react-router-dom";
 
 
 
@@ -40,6 +43,11 @@ function Rented () {
       setShowDelete(true);
     }
   };
+
+  const value = useContext(UserContext);
+  if (!value.user.firstname) {
+    return <Navigate to='/login'/>
+  }
   return (
     <>
     <Navbar links={data.navuser} img='/home-empleados' />

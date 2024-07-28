@@ -8,6 +8,9 @@ import Navbar from '../components/organisms/Navbar';
 import { data } from '../data/data';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
+import { useContext } from 'react';
+import { UserContext } from '../context/userContext';
+import { Navigate } from 'react-router-dom';
 
 function Salon() {
   const [showSection, setShowSection] = useState(false);
@@ -17,6 +20,10 @@ function Salon() {
   const tableHeaders = ['ID', 'Nombre', 'Capacidad', 'Descripción'];
   const [selectedSalon, setSelectedSalon] = useState(null); 
   const queryClient = useQueryClient();
+  const value = useContext(UserContext);
+  if (!value.user.firstname) {
+    return <Navigate to='/login'/>
+  }
 
   const { data: salonData, error, isLoading } = useQuery({
     queryKey: ['salon'],

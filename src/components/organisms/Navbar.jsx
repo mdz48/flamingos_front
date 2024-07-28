@@ -14,10 +14,24 @@ function Navbar (props) {
             {menuOpen ? <FaTimes /> : <FaBars />}
           </button>
         </div>
-        <ul className={`lg:flex space-x-4 ${menuOpen ? 'block' : 'hidden'} lg:block`}>
+        <ul className="hidden lg:flex space-x-4">
           {props.links && props.links.map((link, index) => (
             <li key={index}>
-              <Link to={link.URL} className={"text-white"}>
+              <Link to={link.URL} className="text-white">
+                {link.site}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className={`fixed top-0 right-0 h-full w-64 bg-orange-700 z-50 transform ${menuOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out lg:hidden`}>
+        <button onClick={() => setMenuOpen(false)} className="text-white p-4">
+          <FaTimes />
+        </button>
+        <ul className="flex flex-col space-y-4 mt-8 ml-4">
+          {props.links && props.links.map((link, index) => (
+            <li key={index}>
+              <Link to={link.URL} className="text-white">
                 {link.site}
               </Link>
             </li>

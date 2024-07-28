@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Table from "../components/organisms/Table";
 import MenuContainer from "../components/organisms/MenuContainer";
 import { data } from "../data/data";
@@ -8,6 +8,8 @@ import FormSupplies from "../components/organisms/Forms/supplies/FormSupplies";
 import FormEditSupplies from "../components/organisms/Forms/supplies/FormEditSupplies";
 import FormDeleteSupplies from "../components/organisms/Forms/supplies/FormDeleteSupplies";
 import toast from "react-hot-toast";
+import { UserContext } from "../context/userContext";
+import { Navigate } from "react-router-dom";
 
 function Insumos() {
   const [showSection, setShowSection] = useState(false);
@@ -17,6 +19,11 @@ function Insumos() {
   const verticalMenuItems = ["Agregar", "Editar", "Borrar"];
   const tableHeaders = ["ID", "Nombre", "Costo", "Descripción"];
   const queryClient = useQueryClient();
+  const value = useContext(UserContext);
+  if (!value.user.firstname) {
+    return <Navigate to='/login'/>
+  }
+
 
   const {
     data: insumosData,

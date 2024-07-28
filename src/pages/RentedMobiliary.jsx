@@ -8,6 +8,9 @@ import Navbar from '../components/organisms/Navbar';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { data } from '../data/data';
 import toast from 'react-hot-toast';
+import { useContext } from 'react';
+import { UserContext } from '../context/userContext';
+import { Navigate } from 'react-router-dom';
 
 function RentedMobiliary() {
   const [showSection, setShowSection] = useState(false);
@@ -17,6 +20,10 @@ function RentedMobiliary() {
   const verticalMenuItems = ['Agregar', 'Editar', 'Borrar'];
   const tableHeaders = ['ID', 'Nombre', 'Descripción', 'Costo', 'Proveedor', 'Fecha de Entrada', 'Fecha de Salida'];
   const queryClient = useQueryClient();
+  const value = useContext(UserContext);
+  if (!value.user.firstname) {
+    return <Navigate to='/login'/>
+  }
 
   const { data: rentedMobiliaryData, error, isLoading } = useQuery({
     queryKey: ['rentedMobiliary'],
