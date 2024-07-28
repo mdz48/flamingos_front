@@ -44,7 +44,6 @@ function Mobiliario() {
     const user = localStorage.getItem('user');
     if (user) {
       const parsedUser = JSON.parse(user);
-      console.log('User:', parsedUser);
       setRole(parsedUser.role);
     } else {
       console.log('No user found in localStorage');
@@ -93,7 +92,7 @@ function Mobiliario() {
     <>
       <Navbar links={data.navuser} img={'/home-empleados'} />
       <h1 className="text-2xl font-bold mb-4 p-8 text-center">Bienvenido a la Administración de Recursos</h1>
-      <div className="md:grid md:grid-cols-3 w-[80%] mx-auto">
+      <div className="md:grid md:grid-cols-3 md:w-[80%] mx-auto">
         {role === 1 && (
           <div className="w-auto md:col-span-1">
             <MenuContainer items={verticalMenuItems} onMenuClick={handleMenuClick} />

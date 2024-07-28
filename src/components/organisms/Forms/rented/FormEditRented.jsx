@@ -33,7 +33,6 @@ const FormEditRented = ({ onClose }) => {
                 throw new Error('Error fetching data');
             }
             const data = await response.json();
-            // Actualiza los campos con los datos obtenidos
             setSalon({ salon_id: data.salon_id_fk });
             setCliente({ client_id: data.client_id_fk });
             setPaquete({ package_type_id: data.package_type_id_fk });
@@ -147,7 +146,7 @@ const FormEditRented = ({ onClose }) => {
                     type="text"
                     ref={reservationIdRef}
                     onBlur={handleBlur}
-                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+                    className='border-2 w-full px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50'
                 />
             </div>
 
@@ -187,7 +186,7 @@ const FormEditRented = ({ onClose }) => {
                 <input
                     type="number"
                     ref={cantidadInvitadosRef}
-                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+                    className='border-2 w-full px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50'
                 />
             </div>
 
@@ -196,7 +195,7 @@ const FormEditRented = ({ onClose }) => {
                 <input
                     type="text"
                     ref={tipoEventoRef}
-                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+                    className='border-2 w-full px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50'
                 />
             </div>
 
@@ -205,7 +204,7 @@ const FormEditRented = ({ onClose }) => {
                 <input
                     type="date"
                     ref={fechaEventoRef}
-                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+                    className='border-2 w-full px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50'
                 />
             </div>
 

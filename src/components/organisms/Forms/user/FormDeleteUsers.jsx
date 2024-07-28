@@ -32,7 +32,7 @@ export default function FormDeleteUsers({ onClose }) {
         },
         onError: (error) => {
             console.error('Error deleting user:', error);
-            toast.error('No se pudo eliminar el usuario.');
+            toast.error(error.message || `No se pudo eliminar al usuario`);
         },
     });
 

@@ -18,7 +18,7 @@ function Users() {
   const [role, setRole] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null); 
   const verticalMenuItems = ['Agregar', 'Editar', 'Borrar'];
-  const tableHeaders = ['ID', 'Nombre', 'Apellido', 'Rol'];
+  const tableHeaders = ['ID', 'Correo', 'Nombre', 'Apellido', 'Rol'];
   const queryClient = useQueryClient();
   const value = useContext(UserContext);
   if (!value.user.firstname) {
@@ -92,14 +92,14 @@ function Users() {
     <>
       <Navbar links={data.navuser} img='/home-empleados' />
       <h1 className="text-2xl font-bold mb-4 p-8 text-center">Bienvenido a la Administración de Usuarios</h1>
-      <div className="md:grid md:grid-cols-3 w-[80%] mx-auto">
+      <div className="md:grid md:grid-cols-3 md:w-[80%] mx-auto">
         {role === 1 && (
           <div className="w-auto md:col-span-1">
             <MenuContainer items={verticalMenuItems} onMenuClick={handleMenuClick} />
             {showSection && (
               <div>
                 {formType === 'Agregar' && <FormUsers onClose={() => setShowSection(false)} />}
-                {formType === 'Editar' && selectedUser && <FormEditUsers user={selectedUser} onClose={() => setShowSection(false)} />}
+                {formType === 'Editar' && <FormEditUsers user={selectedUser} onClose={() => setShowSection(false)} />}
                 {formType === 'Borrar' && <FormDeleteUsers onClose={() => setShowSection(false)} />}
               </div>
             )}

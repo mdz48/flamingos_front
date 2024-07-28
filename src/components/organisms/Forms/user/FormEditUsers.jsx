@@ -1,22 +1,24 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Button from '../../../atoms/Button';
 import toast from 'react-hot-toast';
 
 export default function FormEditUsers({ user, onClose }) {
     const idRef = useRef('');
+    const mailRef = useRef('');
     const firstNameRef = useRef('');
     const lastNameRef = useRef('');
-    const roleRef = useRef('');
+    const [role, setRole] = useState('');
     const passwordRef = useRef('');
     const queryClient = useQueryClient();
 
     useEffect(() => {
         if (user) {
             idRef.current.value = user.user_id;
+            mailRef.current.value = user.mail;
             firstNameRef.current.value = user.firstname;
             lastNameRef.current.value = user.lastname;
-            roleRef.current.value = user.role_user_id_fk;
+            setRole(user.role_user_id_fk)
         }
     }, [user]);
 
@@ -33,7 +35,7 @@ export default function FormEditUsers({ user, onClose }) {
             }).then(response => {
                 if (!response.ok) {
                     return response.json().then(errorData => {
-                        throw new Error(errorData.message || 'Error al editar el usuario');
+                        throw new Error(errorData.error || 'Error al editar el usuario');
                     });
                 }
                 return response.json();
@@ -59,9 +61,10 @@ export default function FormEditUsers({ user, onClose }) {
                 const userObject = JSON.parse(userValue);
                 const userName = userObject.firstname;
                 const newData = {
+                    mail: mailRef.current.value,
                     firstname: firstNameRef.current.value,
                     lastname: lastNameRef.current.value,
-                    role_user_id_fk: roleRef.current.value,
+                    role_user_id_fk: role,
                     password: passwordRef.current.value,
                     updated_by: userName,
                 };
@@ -81,11 +84,13 @@ export default function FormEditUsers({ user, onClose }) {
             <form className="flex flex-col">
                 <label htmlFor="id" className="mb-1">ID del Usuario</label>
                 <input
+                    readOnly
                     type="text"
                     ref={idRef}
                     className="border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-                    disabled
                 />
+                <label htmlFor='firstname' className='block mb-1'>Correo Electrónico</label>
+                <input type='mail' ref={mailRef} className='border-2 w-full px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50'/>
                 <label htmlFor="firstname">Nombre</label>
                 <input
                     type="text"
@@ -98,12 +103,12 @@ export default function FormEditUsers({ user, onClose }) {
                     ref={lastNameRef}
                     className="border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
                 />
-                <label htmlFor="role">Rol</label>
-                <input
-                    type="number"
-                    ref={roleRef}
-                    className="border-2 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-                />
+                <label htmlFor='role' className='block mb-1'>Rol</label>
+                <select id="role" value={role} onChange={(e) => setRole(e.target.value)} className="block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <option value="">-- Seleccione una opción --</option>
+                    <option value={1}>Administrador</option>
+                    <option value={2}>Empleado</option>
+                </select>
                 <label htmlFor="password">Contraseña</label>
                 <input
                     type="password"

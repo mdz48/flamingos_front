@@ -15,7 +15,7 @@ const Combobox = ({ items, labelKey, onChange }) => {
         }}
       >
         <option disabled selected value="">
-          -- Elije una opción --
+          -- Seleccione una opción --
         </option>
         {items.map((item, index) => (
           <option key={index} value={item[labelKey]}>
