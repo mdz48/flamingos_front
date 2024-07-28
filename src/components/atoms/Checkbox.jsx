@@ -1,15 +1,16 @@
 import React from 'react';
 
-const Checkbox = ({ items }) => {
+const Checkbox = ({ label, checked, onChange }) => {
   return (
-    <div className="flex flex-col space-y-2">
-      {items.map((item, index) => (
-        <label key={index} className="inline-flex items-center">
-          <input type="checkbox" className="form-checkbox text-indigo-600" />
-          <span className="ml-2">{item.name}</span>
-        </label>
-      ))}
-    </div>
+    <label className="inline-flex items-center">
+      <input
+        type="checkbox"
+        className="form-checkbox"
+        checked={checked}
+        onChange={onChange}
+      />
+      <span className="ml-2">{label}</span>
+    </label>
   );
 };
 
