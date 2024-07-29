@@ -9,7 +9,7 @@ import './Calendar.css';
 
 const localizer = momentLocalizer(moment);
 
-Modal.setAppElement('#root'); // Ajusta esto al ID del elemento raíz de tu aplicación
+Modal.setAppElement('#root');
 
 function MyCalendar() {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -72,7 +72,6 @@ function MyCalendar() {
   if (isLoading || !detailsFetched) return <div>Loading...</div>;
   if (error) return <div>Error loading data</div>;
 
-  // Transformar datos de reservaciones
   const events = reservationData.map((item) => {
     const eventDate = moment(item.event_date).startOf('day').toDate();
     return {
@@ -125,8 +124,6 @@ function MyCalendar() {
           onSelectEvent={handleSelectEvent}
         />
       </div>
-
-      {/* Modal para mostrar detalles del evento */}
       <Modal
         isOpen={!!selectedEvent}
         onRequestClose={closeModal}

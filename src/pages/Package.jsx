@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Table from "../components/organisms/Table";
 import MenuContainer from "../components/organisms/MenuContainer";
 import FormPackage from '../components/organisms/Forms/package/FormPackage';
@@ -6,9 +6,8 @@ import FormEditPackage from '../components/organisms/Forms/package/FormEditPacka
 import FormDeletePackage from '../components/organisms/Forms/package/FormDeletePackage';
 import Navbar from '../components/organisms/Navbar';
 import { data } from '../data/data';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
-import { useContext } from 'react';
 import { UserContext } from '../context/userContext';
 import { Navigate } from 'react-router-dom';
 
@@ -18,7 +17,7 @@ function PackageTypes() {
   const [role, setRole] = useState(null);
   const [selectedPackageType, setSelectedPackageType] = useState(null);
   const verticalMenuItems = ['Agregar', 'Editar', 'Borrar'];
-  const tableHeaders = ['ID', 'Nombre', 'Precio' ,  'Descripción'];
+  const tableHeaders = ['ID', 'Nombre', 'Precio', 'Descripción', 'Platillos'];
   const queryClient = useQueryClient();
 
   const { data: packageTypesData, error, isLoading } = useQuery({
@@ -73,7 +72,7 @@ function PackageTypes() {
         throw new Error("Ocurrió un error al eliminar");
       } else {
         toast.success('Tipo de paquete eliminado');
-        queryClient.invalidateQueries('packageTypes'); 
+        queryClient.invalidateQueries(['packageTypes']);
       }
     } catch (error) {
       console.error("Error deleting package type:", error);
@@ -83,13 +82,19 @@ function PackageTypes() {
 
   const value = useContext(UserContext);
   if (!value.user.firstname) {
-    return <Navigate to='/login'/>
+    return <Navigate to='/login' />;
   }
 
   if (isLoading) return <div>Cargando...</div>;
   if (error) return <div>Error al cargar los datos</div>;
 
-  const rows = packageTypesData.map((item) => Object.values(item));
+  const rows = packageTypesData.map((item) => [
+    item.package_type_id,
+    item.name,
+    item.cost,
+    item.description,
+    item.supplies.map(supply => supply.name).join(', ') || 'Sin platillos'
+  ]);
 
   return (
     <>
@@ -105,7 +110,7 @@ function PackageTypes() {
               <div>
                 {formType === "Agregar" && <FormPackage onClose={() => setShowSection(false)} />}
                 {formType === "Editar" && <FormEditPackage packageType={selectedPackageType} onClose={() => setShowSection(false)} />}
-                {formType === "Borrar" && <selectedPackageType onClose={() => setShowSection(false)} />}
+                {formType === "Borrar" && <FormDeletePackage onClose={() => setShowSection(false)} />}
               </div>
             )}
           </div>
