@@ -8,7 +8,7 @@ function Contact() {
     {
       name: "Salón Flamingos",
       address: "Halcón 371, Los Pájaros, 29096 Tuxtla Gutiérrez, Chis.",
-      phone: "+52 961 123 4567",
+      phone: "+52 961 217 6999",
       mapLink: "https://maps.app.goo.gl/JEfByBystCkskGVV6",
       imgSrc: "https://i.imgur.com/ADnNAfl.png"  
     },
